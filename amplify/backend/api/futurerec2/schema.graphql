@@ -1,18 +1,32 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-#type Class @model {
-#  id: ID!
-#  subject: String!
-#  teacher: String!
-#  student: [Student] @hasMany
-#}
+type Teacher @model @auth(rules:[{allow:owner}]){ 
+  id: ID!
+  #teacherID: String! - think about generating my own id so its not so long
+  name: String!
+  classes: [Class] @hasMany
+}
+
+type Class @model @auth(rules:[{allow:owner}]) {
+  id: ID!
+  subject: String!
+  teacherID: Teacher @belongsTo
+  students: [Student] @manyToMany(relationName:"StudentClassLink")
+}
 
 type Student @model @auth(rules:[{allow:owner}]){
   id: ID!
   name: String!
   classStanding: String!
-  grade: Int!
-  #class: Class @belongsTo
+  grades: [Grade] @hasMany
+  classes: [Class] @manyToMany(relationName:"StudentClassLink")
+}
+
+type Grade @model @auth(rules:[{allow:owner}]){
+  id: ID!
+  description: String!
+  score: Int!
+  date: AWSDateTime
+  student: Student @belongsTo
 }
