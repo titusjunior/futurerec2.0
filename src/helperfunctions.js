@@ -51,9 +51,9 @@ export async function addStudent(studentName, studentClassStanding) {
   }
 }
 
-export async function addGrade(gradeDescription, gradeScore) {
+export async function addGrade(studentId, gradeDescription, gradeScore) {
   try {
-    const gradeData = { description: gradeDescription, score: gradeScore };
+    const gradeData = { description: gradeDescription, score: gradeScore, studentGradesId: studentId };
     await client.graphql({
       query: mutations.createGrade,
       variables: { input: gradeData }
@@ -135,26 +135,49 @@ export async function getClass(classId) {
     });
     return response.data.getClass;
   } catch (error) {
-    console.error("Error fetching teacher:", error);
+    console.error("Error fetching class:", error);
     throw error;
   }
 }
 
-export async function getListOfStudentsForClass(classId) {
+
+export async function getStudentsForClass(classId) {
   try {
     const result = await client.graphql({
-      query: query.listStudents,
+      query: query.studentClassLinksByClassId,
       variables: {
-        filter: {
-          classes: {
-            contains: classId
-          }
-        }
+        classId: classId
       }
     });
-    return result.data.listStudents.items;
+    
+    // Extract the student IDs from the result
+    const studentClassLinks = result.data.studentClassLinksByClassId.items;
+    const studentIds = studentClassLinks.map(link => link.studentId);
+    
+    // Retrieve the details of the students using their IDs
+    const students = await Promise.all(studentIds.map(async studentId => {
+      const student = await getStudentDetails(studentId);
+      return student;
+    }));
+    
+    return students;
   } catch (error) {
-    console.error("Error fetching list of students for class:", error);
+    console.error("Error fetching students for class:", error);
+    throw error;
+  }
+}
+
+async function getStudentDetails(studentId) {
+  try {
+    const result = await client.graphql({
+      query: query.getStudent,
+      variables: {
+        id: studentId
+      }
+    });
+    return result.data.getStudent;
+  } catch (error) {
+    console.error("Error fetching student details:", error);
     throw error;
   }
 }
@@ -178,6 +201,64 @@ export async function getListOfGradesForStudent(studentId) {
     throw error;
   }
 }
+
+
+
+export async function getClassesForStudent(studentId) {
+  try {
+    const result = await client.graphql({
+      query: query.studentClassLinksByStudentId,
+      variables: {
+        studentId: studentId
+      }
+    });
+
+    // Extract the class IDs from the result
+    const studentClassLinks = result.data.studentClassLinksByStudentId.items;
+    const classIds = studentClassLinks.map(link => link.classId);
+
+    // Retrieve the details of the classes using their IDs
+    const classes = await Promise.all(classIds.map(async classId => {
+      const classInfo = await getClassDetails(classId);
+      return classInfo;
+    }));
+
+    return classes;
+  } catch (error) {
+    console.error("Error fetching classes for student:", error);
+    throw error;
+  }
+}
+
+async function getClassDetails(classId) {
+  try {
+    const result = await client.graphql({
+      query: query.getClass,
+      variables: {
+        id: classId
+      }
+    });
+    return result.data.getClass;
+  } catch (error) {
+    console.error("Error fetching class details:", error);
+    throw error;
+  }
+}
+
+
+
+
+export const updateGrade = async (gradeId, score) => {
+  try {
+    const updatedGrade = { id: gradeId, score };
+    await API.graphql(graphqlOperation(updateGradeMutation, { input: updatedGrade }));
+    return updatedGrade;
+  } catch (error) {
+    console.error('Error updating grade:', error);
+    throw error;
+  }
+};
+
 
 
 //#endregion 

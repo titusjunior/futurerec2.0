@@ -1,7 +1,7 @@
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as helper from './helperfunctions';
 
 import config from './aws-exports';
@@ -14,18 +14,19 @@ function App({ signOut, user }) {
   const [newTeacherName, setNewTeacherName] = useState('');
   const [classes, setClasses] = useState([]);
   const [selectedTeacher, setSelectedTeacher] = useState(null);
-  const [newClassSubject, setNewClassSubject] = useState('')
-  const [displayClasses, setDisplayClasses] = useState(false); // State variable to determine whether to display classes or teachers
+  const [newClassSubject, setNewClassSubject] = useState('');
+  const [displayClasses, setDisplayClasses] = useState(false);
   const [selectedClass, setSelectedClass] = useState(null);
-  const [students, setStudents] = useState([])
+  const [students, setStudents] = useState([]);
+  const [newStudentName, setNewStudentName] = useState('');
+  const [newStudentClassStanding, setNewStudentClassStanding] = useState('');
+
 
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
         const teacherList = await helper.getListOfTeachers();
-
-        if (teacherList && teacherList.items) { // Check if teacherList and teacherList.items are not null or undefined
-          console.log("teachers sorted")
+        if (teacherList && teacherList.items) {
           const sortedTeachers = teacherList.items.sort((a, b) => a.name.localeCompare(b.name));
           setTeachers(sortedTeachers);
         }
@@ -42,18 +43,49 @@ function App({ signOut, user }) {
       const teacher = await helper.getTeacher(teacherId);
       setSelectedTeacher(teacher);
       const classList = await helper.getListOfClassesForTeacher(teacherId);
-      setClasses(classList)
-      /*if (classList && classList.items) { // Check if teacherList and teacherList.items are not null or undefined
-        console.log("WE ARE HERE!!!")
-        const sortedClasses = classList.items.sort((a, b) => a.subject.localeCompare(b.subject));
-        setClasses(sortedClasses);
-        console.log("classes:", sortedClasses);
-      }*/
-      setDisplayClasses(true); // Set to true to display classes
-      console.log("Teacher data:", teacher);
+      setClasses(classList);
+      setDisplayClasses(true);
     } catch (error) {
       console.error("Error fetching teacher data:", error);
     }
+  };
+
+  const handleAddTeacher = async () => {
+    try {
+      const newTeacher = await helper.createTeacher(newTeacherName);
+      console.log("New teacher created:", newTeacher);
+      setTeachers(prevTeachers => [...prevTeachers, newTeacher]);
+      setNewTeacherName('');
+    } catch (error) {
+      console.error("Error adding new teacher:", error);
+    }
+  };
+
+  const handleBackToTeachersClick = () => {
+    setSelectedTeacher(null);
+    setClasses([]);
+    setDisplayClasses(false);
+  };
+
+  const handleClassClick = async (classId) => {
+    try {
+      const classInfo = await helper.getClass(classId);
+      setSelectedClass(classInfo);
+      setStudents([]); // Clear the list of students when a class is clicked
+      const studentList = await helper.getStudentsForClass(classId);
+      setStudents(studentList);
+      console.log("Classes: ",classes);
+      console.log("Class ID: ",classId);
+      console.log("students: ",studentList);
+      console.log("Class: ", selectedClass);
+    } catch (error) {
+      console.error("Error handling class click:", error);
+    }
+  };
+
+  const handleBackToClassesClick = () => {
+    setSelectedClass(null);
+    setStudents([]); // Clear the list of students when going back to the list of classes
   };
 
   const handleAddClass = async () => {
@@ -66,45 +98,34 @@ function App({ signOut, user }) {
     }
   };
 
-  const handleAddTeacher = async () => {
+  const handleAddStudent = async () => {
     try {
-      const newTeacher = await helper.createTeacher(newTeacherName);
-      console.log("New teacher created:", newTeacher);
-      setTeachers(prevTeachers => [...prevTeachers, newTeacher]);
-      setNewTeacherName(''); // Clear the input field after adding the teacher
+      const newStudent = await helper.addStudent(newStudentName, newStudentClassStanding);
+      setStudents(prevStudents => [...prevStudents, newStudent]);
+      await helper.associateStudentWithClass(selectedClass.id, newStudent.id);
+      setNewStudentName('');
+      setNewStudentClassStanding('');
     } catch (error) {
-      console.error("Error adding new teacher:", error);
+      console.error("Error adding new student:", error);
     }
   };
 
-  const handleBackButtonClick = () => {
-    setSelectedTeacher(null); // Clear the selected teacher
-    setClasses([]); // Clear the list of classes
-    setDisplayClasses(false); // Set to false to display teachers
-  };
-
-  const handleClassClick = async (classId) => {
-    try {
-      const classInfo = await helper.getClass(classId);
-      setSelectedClass(classInfo);
-      console.log("Class clicked with ID:", selectedClass);
-    } catch (error) {
-      console.error("Error handling class click:", error);
-    }
-  };
-
+  const handleaddGrade = async() =>{
+  }
 
   return (
     <>
       <h1>Hello {user.username}</h1>
-      {!displayClasses && ( // If displayClasses is false, show the list of teachers
+      {!displayClasses && (
         <>
           <div>
             <h2>Current Teachers:</h2>
             {teachers.map(teacher => (
-              <button key={teacher.id} onClick={() => handleTeacherClick(teacher.id)}>
-                {teacher.name}
-              </button>
+              <div key={teacher.id}>
+                <button onClick={() => handleTeacherClick(teacher.id)}>
+                  {teacher && teacher.name} {/* Added null check for teacher */}
+                </button>
+              </div>
             ))}
           </div>
           <div>
@@ -118,16 +139,18 @@ function App({ signOut, user }) {
           </div>
         </>
       )}
-      {displayClasses && ( // If displayClasses is true, show the list of classes
+      {selectedTeacher && displayClasses && (
         <>
-          <h2>Classes for {selectedTeacher.name}:</h2>
-          <button onClick={handleBackButtonClick}>Back to Teachers</button> {/* Add back button */}
+          <h2>Classes for {selectedTeacher && selectedTeacher.name}:</h2> {/* Added null check for selectedTeacher */}
+          <button onClick={handleBackToTeachersClick}>Back to Teachers</button>
           <div>
             {classes.map(classItem => (
-            <button key={classItem.id} onClick={() => handleClassClick(classItem.id)}>
-              {classItem.subject}
-            </button>
-           ))}
+              <div key={classItem.id}>
+                <button onClick={() => handleClassClick(classItem.id)}>
+                  {classItem && classItem.subject} {/* Added null check for classItem */}
+                </button>
+              </div>
+            ))}
           </div>
           <div>
             <input 
@@ -140,11 +163,49 @@ function App({ signOut, user }) {
           </div>
         </>
       )}
+      {selectedClass && (
+  <>
+    <h2>Students in {selectedClass && selectedClass.subject}:</h2>
+    <button onClick={handleBackToClassesClick}>Back to Classes</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Student name</th>
+          <th>Class standing</th>
+        </tr>
+      </thead>
+      <tbody>
+        {students.map(student => (
+          <tr key={student.id}>
+            <td>{student && student.name}</td>
+            <td>{student && student.classStanding}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <div>
+      <input 
+        type="text" 
+        placeholder="Enter student name" 
+        value={newStudentName} 
+        onChange={(e) => setNewStudentName(e.target.value)} 
+      />
+      <input 
+        type="text" 
+        placeholder="Enter student class standing" 
+        value={newStudentClassStanding} 
+        onChange={(e) => setNewStudentClassStanding(e.target.value)} 
+      />
+      <button onClick={handleAddStudent}>Add Student</button>
+    </div>
+  </>
+)}
+
       <button onClick={signOut}>Sign out</button>
     </>
   );
+  
+  
 }
-
-
 
 export default withAuthenticator(App);
