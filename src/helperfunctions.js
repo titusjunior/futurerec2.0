@@ -248,16 +248,7 @@ async function getClassDetails(classId) {
 
 
 
-export const updateGrade = async (gradeId, score) => {
-  try {
-    const updatedGrade = { id: gradeId, score };
-    await API.graphql(graphqlOperation(updateGradeMutation, { input: updatedGrade }));
-    return updatedGrade;
-  } catch (error) {
-    console.error('Error updating grade:', error);
-    throw error;
-  }
-};
+
 
 
 
