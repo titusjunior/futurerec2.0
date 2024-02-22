@@ -6,6 +6,7 @@ import * as helper from './helperfunctions';
 
 import config from './aws-exports';
 
+
 Amplify.configure(config);
 
 function App({ signOut, user }) {
@@ -110,11 +111,13 @@ function App({ signOut, user }) {
     }
   };
 
-  const handleaddGrade = async() =>{
-  }
-
+ 
   return (
+    
+
     <>
+    <div>
+    
       <h1>Hello {user.username}</h1>
       {!displayClasses && (
         <>
@@ -202,6 +205,7 @@ function App({ signOut, user }) {
 )}
 
       <button onClick={signOut}>Sign out</button>
+      </div>
     </>
   );
   
