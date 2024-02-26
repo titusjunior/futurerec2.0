@@ -79,6 +79,22 @@ export async function associateStudentWithClass(classIdInfo, studentIdInfo) {
     }
   }
 
+  export async function updateGrade(gradeId, newDescription, newScore) {
+    try {
+      const gradeData = { id: gradeId, description: newDescription, score: newScore };
+      await client.graphql({
+        query: mutations.updateGrade,
+        variables: { input: gradeData }
+      });
+      console.log("Grade updated successfully");
+    } catch (error) {
+      console.error("Error updating grade:", error);
+      throw error;
+    }
+  }
+  
+
+
 //#endregion
 
 //#region Searches
@@ -93,7 +109,6 @@ export async function getListOfTeachers() {
     throw error;
   }
 }
-
 
 export async function getTeacher(teacherId) {
   try {
@@ -140,7 +155,6 @@ export async function getClass(classId) {
   }
 }
 
-
 export async function getStudentsForClass(classId) {
   try {
     const result = await client.graphql({
@@ -167,7 +181,7 @@ export async function getStudentsForClass(classId) {
   }
 }
 
-async function getStudentDetails(studentId) {
+export async function getStudentDetails(studentId) {
   try {
     const result = await client.graphql({
       query: query.getStudent,
@@ -201,8 +215,6 @@ export async function getListOfGradesForStudent(studentId) {
     throw error;
   }
 }
-
-
 
 export async function getClassesForStudent(studentId) {
   try {
@@ -245,11 +257,32 @@ async function getClassDetails(classId) {
   }
 }
 
+export async function getUniqueGradeDescriptionsForClass(students) {
+  try {
+    // Array to store all grade descriptions
+    let allGradeDescriptions = [];
 
+    // Iterate through each student
+    for (const student of students) {
+      // Fetch grades for the student
+      const grades = await getListOfGradesForStudent(student.id);
 
+      // Extract grade descriptions and add them to the array
+      const gradeDescriptions = grades.map(grade => grade.description);
+      allGradeDescriptions = [...allGradeDescriptions, ...gradeDescriptions];
+    }
 
+    // Remove duplicates using Set and convert back to array
+    const uniqueGradeDescriptions = [...new Set(allGradeDescriptions)];
 
+    uniqueGradeDescriptions.sort();
 
+    return uniqueGradeDescriptions;
+  } catch (error) {
+    console.error("Error fetching unique grade descriptions for class:", error);
+    throw error;
+  }
+}
 
 
 //#endregion 

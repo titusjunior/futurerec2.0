@@ -4,20 +4,20 @@ body{
   padding:0;
 }
 .main{
-  /*background-image: url('background-image-url.jpg'); /* Replace 'background-image-url.jpg' with the URL or path to your background image */
-  background-color: green;
-  background-size: cover;
-  /*background-repeat: no-repeat;*/
+  margin:0;
+  padding:0;
+  background-color: rgb(209, 57, 164);
   background-position: center;
-  /*font-family: Arial, sans-serif; /* Optional: Set a default font-family */
   width:100%;
   height: 109vh;
 }
 
 .App {
-  text-align: center;
-  
+  height: 100vh; 
+  width: 100vw;
+  overflow: auto; 
 }
+
 
 .App-logo {
   height: 40vmin;
@@ -57,4 +57,53 @@ body{
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.short-input {
+  width: 50px; /* Adjust the width as needed */
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  height: 30px;
+  margin-bottom: 3px;
+  border-radius: 5px; 
+}
+
+.grade-button{
+  width: 60px;
+  background-color: transparent;
+}
+
+input {
+  width: 150px;
+}
+
+
+table {
+  border-collapse: collapse;
+  width: 100%; /* Set table width to 100% */
+}
+
+table, th, td {
+  border: 1px solid black; /* Border for table, th, and td */
+}
+
+th, td {
+  padding: 6px; /* Padding for cells */
+  text-align: center; /* Align text to the left */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Alternate row background color */
+}
+
+th:last-child {
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  text-align: left;
 }
