@@ -19,8 +19,7 @@ function App({ signOut, user }) {
   const [classes, setClasses] = useState([]);
   
   const [selectedClass, setSelectedClass] = useState(null);
-  const [newClassSubject, setNewClassSubject] = useState('');
-  
+    
   const [students, setStudents] = useState([]);
   const [newStudentName, setNewStudentName] = useState('');
   const [newStudentClassStanding, setNewStudentClassStanding] = useState('');
@@ -31,60 +30,9 @@ function App({ signOut, user }) {
   const [newGradeScore, setNewGradeScore] = useState('');
 
 
-
-
-
-  const handleBackToTeachersClick = () => {
-    setSelectedTeacher(null);
-    setClasses([]);
-    setDisplayClasses(false);
-  };
-
-  const handleClassClick = async (classId) => {
-    try {
-      const classInfo = await helper.getClass(classId);
-      setSelectedClass(classInfo);
-      setStudents([]); // Clear the list of students when a class is clicked
-      const studentList = await helper.getStudentsForClass(classId);
-      setStudents(studentList);
-
-      setAllGradeDescriptions([]);//Clear the list of grade descriptions
-      const gradeDescriptions = await helper.getUniqueGradeDescriptionsForClass(studentList);
-      setAllGradeDescriptions(gradeDescriptions); 
-
-       // Fetch and set grades for each student
-    const studentsWithGrades = await Promise.all(
-      studentList.map(async (student) => {
-        const grades = await helper.getListOfGradesForStudent(student.id);
-        return { ...student, grades };
-      })
-    );
-    setStudents(studentsWithGrades);
-      
-      console.log("Grade Descriptions: ",allGradeDescriptions);
-      console.log("Classes: ", classes);
-      console.log("Class ID: ", classId);
-      console.log("students: ", studentsWithGrades);
-      console.log("Class: ", classInfo);
-    } catch (error) {
-      console.error("Error handling class click:", error);
-    }
-  };
-  
-
   const handleBackToClassesClick = () => {
     setSelectedClass(null);
     setStudents([]); // Clear the list of students when going back to the list of classes
-  };
-
-  const handleAddClass = async () => {
-    try {
-      const newClass = await helper.addClass(newClassSubject, selectedTeacher.id);
-      setClasses(prevClasses => [...prevClasses, newClass]);
-      setNewClassSubject('');
-    } catch (error) {
-      console.error("Error adding new class:", error);
-    }
   };
 
   const handleAddStudent = async () => {

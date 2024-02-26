@@ -5,18 +5,8 @@ import "../App.css";
 
 function ClassComponent({setDisplayClasses, setSelectedTeacher, selectedTeacher, setSelectedClass, setStudents, allGradeDescriptions, setAllGradeDescriptions, classes, setClasses}){
 
- // const [selectedTeacher, setSelectedTeacher] = useState(null);
- // const [selectedClass, setSelectedClass] = useState(null);
- // const [students, setStudents] = useState([]);
- // const [allGradeDescriptions,setAllGradeDescriptions] = useState([]);
-    
- // const [classes, setClasses] = useState([]);
   const [newClassSubject, setNewClassSubject] = useState('');
   
-
-
-
-
   const handleClassClick = async (classId) => {
     try {
       const classInfo = await helper.getClass(classId);
@@ -30,16 +20,14 @@ function ClassComponent({setDisplayClasses, setSelectedTeacher, selectedTeacher,
       setAllGradeDescriptions(gradeDescriptions); 
 
        // Fetch and set grades for each student
-    const studentsWithGrades = await Promise.all(
+      const studentsWithGrades = await Promise.all(
       studentList.map(async (student) => {
         const grades = await helper.getListOfGradesForStudent(student.id);
         return { ...student, grades };
       })
-    );
-    setStudents(studentsWithGrades);
+      );
+      setStudents(studentsWithGrades);
 
-    console.log("We are here");
-      
       console.log("Grade Descriptions: ",allGradeDescriptions);
       console.log("Classes: ", classes);
       console.log("Class ID: ", classId);
