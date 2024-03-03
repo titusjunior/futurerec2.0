@@ -50,6 +50,10 @@ export const getClass = /* GraphQL */ `
         owner
         __typename
       }
+      grades {
+        nextToken
+        __typename
+      }
       students {
         nextToken
         __typename
@@ -132,6 +136,15 @@ export const getGrade = /* GraphQL */ `
       description
       score
       date
+      class {
+        id
+        subject
+        createdAt
+        updatedAt
+        teacherClassesId
+        owner
+        __typename
+      }
       student {
         id
         name
@@ -143,6 +156,7 @@ export const getGrade = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      classGradesId
       studentGradesId
       owner
       __typename
@@ -163,6 +177,7 @@ export const listGrades = /* GraphQL */ `
         date
         createdAt
         updatedAt
+        classGradesId
         studentGradesId
         owner
         __typename

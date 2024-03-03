@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as helper from '../helperfunctions';
+import * as helper from './helperfunctions';
 import "../App.css";
 
 function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, classes }) {
@@ -37,6 +37,12 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, c
 
   const handleAddTeacher = async () => {
     try {
+      //Prevent User from entering a blank Teacher Name
+      if (newTeacherName.trim() === '') {
+        console.log("Please enter a valid Teacher Name.");
+        return;
+      }
+
       const newTeacher = await helper.createTeacher(newTeacherName);
       console.log("New teacher created:", newTeacher);
       setTeachers(prevTeachers => [...prevTeachers, newTeacher]);
@@ -52,7 +58,7 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, c
         <h2>Current Teachers:</h2>
         {teachers.map(teacher => (
           <div key={teacher.id}>
-            <button onClick={() => handleTeacherClick(teacher.id)}>
+            <button className='student-button' onClick={() => handleTeacherClick(teacher.id)}>
               {teacher && teacher.name}
             </button>
           </div>
@@ -64,7 +70,7 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, c
             value={newTeacherName}
             onChange={(e) => setNewTeacherName(e.target.value)}
           />
-          <button onClick={handleAddTeacher}>Add New Teacher</button>
+          <button className='student-button' onClick={handleAddTeacher}>Add New Teacher</button>
         </div>
       </div>
     </>

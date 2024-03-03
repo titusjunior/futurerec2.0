@@ -52,7 +52,7 @@ function App({signOut, user}) {
             changeContent('Home');
         });
        
-       // fetchUserData();
+        fetchUserData();
       }, []);
 
   /*  async function handleSignOut() {

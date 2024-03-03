@@ -74,6 +74,10 @@ export const onCreateClass = /* GraphQL */ `
         owner
         __typename
       }
+      grades {
+        nextToken
+        __typename
+      }
       students {
         nextToken
         __typename
@@ -102,6 +106,10 @@ export const onUpdateClass = /* GraphQL */ `
         owner
         __typename
       }
+      grades {
+        nextToken
+        __typename
+      }
       students {
         nextToken
         __typename
@@ -128,6 +136,10 @@ export const onDeleteClass = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        __typename
+      }
+      grades {
+        nextToken
         __typename
       }
       students {
@@ -224,6 +236,15 @@ export const onCreateGrade = /* GraphQL */ `
       description
       score
       date
+      class {
+        id
+        subject
+        createdAt
+        updatedAt
+        teacherClassesId
+        owner
+        __typename
+      }
       student {
         id
         name
@@ -235,6 +256,7 @@ export const onCreateGrade = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      classGradesId
       studentGradesId
       owner
       __typename
@@ -251,6 +273,15 @@ export const onUpdateGrade = /* GraphQL */ `
       description
       score
       date
+      class {
+        id
+        subject
+        createdAt
+        updatedAt
+        teacherClassesId
+        owner
+        __typename
+      }
       student {
         id
         name
@@ -262,6 +293,7 @@ export const onUpdateGrade = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      classGradesId
       studentGradesId
       owner
       __typename
@@ -278,6 +310,15 @@ export const onDeleteGrade = /* GraphQL */ `
       description
       score
       date
+      class {
+        id
+        subject
+        createdAt
+        updatedAt
+        teacherClassesId
+        owner
+        __typename
+      }
       student {
         id
         name
@@ -289,6 +330,7 @@ export const onDeleteGrade = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      classGradesId
       studentGradesId
       owner
       __typename

@@ -12,6 +12,7 @@ type Class @model @auth(rules:[{allow:owner}]) {
   id: ID!
   subject: String!
   teacherID: Teacher @belongsTo
+  grades: [Grade] @hasMany
   students: [Student] @manyToMany(relationName:"StudentClassLink")
 }
 
@@ -28,5 +29,6 @@ type Grade @model @auth(rules:[{allow:owner}]){
   description: String!
   score: Int!
   date: AWSDateTime
+  class: Class @belongsTo
   student: Student @belongsTo
 }
