@@ -20,9 +20,6 @@ import logoutImg from "./logout.jpg";
 Amplify.configure(config);
 
 
-
-
-
 function App({signOut, user}) {
     //const [full_name, setFullName] = useState("");
     const [selectedTeacher, setSelectedTeacher] = useState(null);
@@ -223,6 +220,10 @@ function App({signOut, user}) {
               )}
             </>
           )}
+          {selectedPage === 'Tutoring' && (<h1>Tutoring</h1>)}
+          {selectedPage === 'Majors' && <h1>Majors</h1>}
+          {selectedPage === 'Careers' && <h1>Careers</h1>}
+          {selectedPage === 'Settings' && <h1>Settings</h1>}
           {/* Render other pages similarly */} 
     </div>
   </div>
