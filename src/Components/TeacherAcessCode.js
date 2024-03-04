@@ -19,8 +19,7 @@ function TeacherAcess({selectedPage}) {
   return (
     <>
         <div>
-            {selectedPage === 'Home' && (  
-            <div className="body">   
+            {selectedPage === 'Home' && (   
                 <div className="home">
                     <h1>Welcome to FutureRec!</h1>
                     <br></br>
@@ -30,7 +29,6 @@ function TeacherAcess({selectedPage}) {
                     <br></br>
                     <p>At FutureRec, education is more than just grades—it's about fostering a supportive community and empowering students to thrive. Join us on this journey of learning, growth, and endless possibilities. Welcome to a brighter academic future.</p>
                 </div>  
-            </div>
             )}
             {selectedPage === 'Grades' && (
                 <>{displayTeachers && (
