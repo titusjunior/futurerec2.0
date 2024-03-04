@@ -286,13 +286,13 @@ button img {
   padding: 1rem;  
   overflow-y: auto; 
   overflow-x: auto;
-  display: grid;
 }
 
-.home{
-  grid-row: 1;
-  grid-column: 1;
+.main-content .home {
   background-image: url("home_img.jpg");
   opacity: 0.3;
   background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100%; /* Ensure the image takes up all available space */
 }
