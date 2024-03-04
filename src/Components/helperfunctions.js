@@ -219,15 +219,12 @@ export async function getListOfGradesForStudent(classId, studentId) {
         }
       }
     });
-    console.log("Grades fetched for ", studentId, " in class ", classId);
     return result.data.listGrades.items;
   } catch (error) {
-    console.log("Grades not fetched for ", studentId, " in class ", classId);
     console.error("Error fetching list of grades for student:", error);
     throw error;
   }
 }
-
 
 export async function getClassesForStudent(studentId) {
   try {
@@ -275,12 +272,7 @@ export async function getUniqueGradeDescriptionsForClass(classId, students) {
     // Array to store all grade descriptions
     let allGradeDescriptions = [];
 
-
-    console.log("Helper Function: Fetching Grades for:", students);
-
-    // Iterate through each student
     for (const student of students) {
-      // Fetch grades for the student
       const grades = await getListOfGradesForStudent(classId, student.id);
 
       // Extract grade descriptions and add them to the array
@@ -288,25 +280,15 @@ export async function getUniqueGradeDescriptionsForClass(classId, students) {
       allGradeDescriptions = [...allGradeDescriptions, ...gradeDescriptions];
     }
 
-    //console.log("Helper Function: All grade description: ", allGradeDescriptions);
-
     // Remove duplicates using Set and convert back to array
     const uniqueGradeDescriptions = [...new Set(allGradeDescriptions)];
 
     uniqueGradeDescriptions.sort();
-
-    //console.log("Helper Function: Unique,sorted grade description: ", uniqueGradeDescriptions);
-
-    //console.log("students in unique: ", students);
     return uniqueGradeDescriptions;
   } catch (error) {
     console.error("Error fetching unique grade descriptions for class:", error);
     throw error;
   }
 }
-
-
-
-
 //#endregion 
  

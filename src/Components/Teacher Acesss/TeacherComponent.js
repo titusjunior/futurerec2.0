@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import * as helper from './helperfunctions';
-import "../App.css";
+import * as helper from '../helperfunctions';
+import "../../App.css";
 
-function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, classes }) {
+function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, setDisplayTeachers}) {
   const [teachers, setTeachers] = useState([]);
   const [newTeacherName, setNewTeacherName] = useState('');
 
@@ -29,6 +29,7 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, c
       const classList = await helper.getListOfClassesForTeacher(teacherId);
       setClasses(classList);
       setDisplayClasses(true);
+      setDisplayTeachers(false);
       console.log("teacher clicked",teacher);
     } catch (error) {
       console.error("Error fetching teacher data:", error);
@@ -58,7 +59,7 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, c
         <h2>Current Teachers:</h2>
         {teachers.map(teacher => (
           <div key={teacher.id}>
-            <button className='student-button' onClick={() => handleTeacherClick(teacher.id)}>
+            <button onClick={() => handleTeacherClick(teacher.id)}>
               {teacher && teacher.name}
             </button>
           </div>

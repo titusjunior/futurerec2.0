@@ -4,38 +4,17 @@ import "./App.css";
 import '@aws-amplify/ui-react/styles.css';
 import React, { useEffect, useState } from 'react';
 
-import TeacherComponent from './Components/TeacherComponent';
-import ClassComponent from './Components/ClassCompnent';
-import StudentComponent from './Components/Student&GradeComponent';
+import profileImg from "./profile.jpg";
+import logoutImg from "./logout.jpg";
+import TeacherSelected from './Components/TeacherAcessCode'
 
 import config from './aws-exports';
 
-
-import profileImg from "./profile.jpg";
-import logoutImg from "./logout.jpg";
-//import { signOut } from 'aws-amplify/auth';
-//import { getCurrentUser } from 'aws-amplify/auth';
-//import { fetchUserAttributes } from 'aws-amplify/auth';
-
 Amplify.configure(config);
 
-
 function App({signOut, user}) {
-    //const [full_name, setFullName] = useState("");
-    const [selectedTeacher, setSelectedTeacher] = useState(null);
-    const [displayClasses, setDisplayClasses] = useState(false);
-    const [classes, setClasses] = useState([]);
-    
-    const [selectedClass, setSelectedClass] = useState(null);
-      
-    const [students, setStudents] = useState([]);
-    
-    const [allGradeDescriptions,setAllGradeDescriptions] = useState([]);
-
     const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
-  
-    
-    
+
       useEffect(() => {
         // JavaScript code to toggle sidebar and set initial content
         let btn = document.querySelector('#btn');
@@ -48,66 +27,15 @@ function App({signOut, user}) {
         document.addEventListener('DOMContentLoaded', function () {
             changeContent('Home');
         });
-       
-       // fetchUserData();
       }, []);
-
-  /*  async function handleSignOut() {
-    try {
-        await signOut();
-    } catch (error) {
-        console.log('error signing out: ', error);
-    }
-    }*/
 
     async function changeContent(pageName){
     try {
-        //var content = await fetchContentForPage(pageName);
-        //document.getElementById('contentContainer').innerHTML = content;
-        //get the page based on the clicked link
         setSelectedPage(pageName);
     } catch (error) {
         console.error('Error changing content: ', error);
     }
     }
-
-    async function fetchContentForPage(pageName){
-    try {
-        switch(pageName){
-        case 'Home':
-            return '<h1>Home</h1>';
-        case 'Grades':
-            return '<h1>Grades</h1>';
-        case 'Tutoring':
-            return '<h1>Tutoring</h1>';
-        case 'FutureRec':
-            return '<h1>FutureRec</h1>';
-        case 'Majors':
-            return '<h1>Majors</h1>';
-        case 'Careers':
-            return '<h1>Careers</h1>';
-        case 'Settings':
-            return '<h1>Settings</h1>';
-        case 'Logout':
-            return '<h1>Logout</h1>';
-        default:
-            return '<h1>Home</h1>';
-        }
-    } catch (error) {
-        console.error('Error fetching content for page: ', error);
-        return '<h1>Error loading content</h1>';
-    }
-    }
-
-/*
-  async function fetchUserData() {
-    try {
-      const userInfo = await fetchUserAttributes(getCurrentUser()); // Get authenticated user info
-      setFullName(userInfo.name + " " + userInfo.family_name);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  }*/
 
   return (
   <>
@@ -184,47 +112,9 @@ function App({signOut, user}) {
   </div>
   <div className="main-content">
     <div className="container" id="contentContainer">
-       {/* Conditional rendering based on selected page */}
-       {selectedPage === 'Home' && <h1>Home</h1>}
-          {selectedPage === 'Grades' && (
-            <>
-              <TeacherComponent 
-                setSelectedTeacher={setSelectedTeacher} 
-                setClasses={setClasses} 
-                setDisplayClasses={setDisplayClasses} 
-                classes={classes}
-               />
-              {selectedTeacher && displayClasses && (
-                <ClassComponent 
-                setDisplayClasses={setDisplayClasses}
-                setSelectedTeacher={setSelectedTeacher}
-                selectedTeacher = {selectedTeacher}
-                setSelectedClass = {setSelectedClass}
-                selectedClass={selectedClass}
-                setStudents = {setStudents}
-                allGradeDescriptions = {allGradeDescriptions}
-                setAllGradeDescriptions = {setAllGradeDescriptions}
-                classes={classes}
-                setClasses={setClasses}
-                />
-              )}
-              {selectedClass && (
-               <StudentComponent
-               selectedClass = {selectedClass}
-               setSelectedClass = {setSelectedClass}
-               students = {students}
-               setStudents = {setStudents}
-               allGradeDescriptions = {allGradeDescriptions}
-               setAllGradeDescriptions = {setAllGradeDescriptions}
-               />
-              )}
-            </>
-          )}
-          {selectedPage === 'Tutoring' && (<h1>Tutoring</h1>)}
-          {selectedPage === 'Majors' && <h1>Majors</h1>}
-          {selectedPage === 'Careers' && <h1>Careers</h1>}
-          {selectedPage === 'Settings' && <h1>Settings</h1>}
-          {/* Render other pages similarly */} 
+       <TeacherSelected
+       selectedPage = {selectedPage}
+       />
     </div>
   </div>
 </>
