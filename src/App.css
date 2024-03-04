@@ -287,3 +287,8 @@ button img {
   overflow-y: auto; 
   overflow-x: auto;
 }
+
+.home{
+  background-image: url("home_img.jpg");
+  opacity: 0.3;
+}

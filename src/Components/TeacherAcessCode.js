@@ -21,9 +21,7 @@ function TeacherAcess({selectedPage}) {
         <div>
             {selectedPage === 'Home' && (
                 <div className="home">
-                    <h1>Home</h1>
-                    <br></br>
-                    <p>Welcome to FutureRec!</p>
+                    <h1>Welcome to FutureRec!</h1>
                     <br></br>
                     <p>Unlock your full potential with our range of features designed to support your educational journey. Whether you're seeking top grades, personalized tutoring assistance, insightful recommendations, or simply looking to explore various school resources, you'll find everything you need right here.</p>
                     <br></br>
