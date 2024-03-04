@@ -288,15 +288,19 @@ button img {
   overflow-x: auto;
 }
 
-.main-content .home-background {
+.main-content .home {
   background-image: url("home_img.jpg");
   background-size: cover; 
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100%; /* Ensure the image takes up all available space */
+  opacity: 0.3;
+  z-index: -1;
 }
 
 .home p{
   color: black;
   opacity: 1;
+  background-color: white;
+  z-index: 1;
 }
