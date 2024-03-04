@@ -296,3 +296,8 @@ button img {
   background-repeat: no-repeat;
   min-height: 100%; /* Ensure the image takes up all available space */
 }
+
+.home p{
+  color: black;
+  opacity: 1;
+}
