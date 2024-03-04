@@ -19,7 +19,16 @@ function TeacherAcess({selectedPage}) {
   return (
     <>
         <div>
-            {selectedPage === 'Home' && <h1>Home</h1>}
+            {selectedPage === 'Home' && (
+            
+            <h1>Home</h1>)}
+
+
+
+
+
+
+            
             {selectedPage === 'Grades' && (
                 <>{displayTeachers && (
                 <TeacherComponent 
