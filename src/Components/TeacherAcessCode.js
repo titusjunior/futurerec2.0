@@ -28,8 +28,8 @@ function TeacherAcess({selectedPage}) {
                     <p>Empower yourself with our grade tracking system, allowing you to monitor your progress effortlessly and stay on top of your academic goals. Need a helping hand? Our dedicated team of tutoring assistants is ready to provide tailored support and guidance, ensuring you grasp even the most challenging concepts with confidence.</p>
                     <br></br>
                     <p>At FutureRec, education is more than just grades—it's about fostering a supportive community and empowering students to thrive. Join us on this journey of learning, growth, and endless possibilities. Welcome to a brighter academic future.</p>
-                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                 </div>  
             )}
             {selectedPage === 'Grades' && (
