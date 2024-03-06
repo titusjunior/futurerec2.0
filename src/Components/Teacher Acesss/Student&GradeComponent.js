@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
 import "../../App.css";
+import Career from  "../Student Acess/CareersDeterminer"
 
 function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass, setSelectedClass, students, setStudents, allGradeDescriptions, setAllGradeDescriptions }) {
     
@@ -29,6 +30,7 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
         console.error("Error fetching available students:", error);
       }
     };
+
 
     fetchAvailableStudents();
   }, [selectedClass]);
@@ -165,6 +167,12 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
 
   return(
     <>
+
+    {/*For Testing Purposes */}
+    <Career/>
+
+    {/*For Testing Purposes */}
+
       <h2>Students in {selectedClass && selectedClass.subject}:</h2>
         <button className='student-button' onClick={handleBackToClassesClick}>Back to Classes</button>
         <table>

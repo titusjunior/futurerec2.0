@@ -79,7 +79,35 @@ export async function associateStudentWithClass(classIdInfo, studentIdInfo) {
     }
   }
 
-  export async function updateGrade(gradeId, newDescription, newScore) {
+export async function associateStudentWithMajor(majorInfo, studentInfo) {
+  try {
+    const studentMajorData = { studentId: studentInfo, majorId: majorInfo };
+    await client.graphql({
+      query: mutations.createStudentMajorLink,
+      variables: { input: studentMajorData } 
+    });
+    console.log("Student associated with major successfully");
+  } catch (error) {
+    console.error("Error associating student with major:", error);
+    throw error;
+  }
+}
+
+export async function associateStudentWithCareer(CareerInfo, studentInfo) {
+  try {
+    const studentCareerData = { studentId: studentInfo, careerId: CareerInfo };
+    await client.graphql({
+      query: mutations.createStudentCareerLink,
+      variables: { input: studentCareerData } 
+    });
+    console.log("Student associated with major successfully");
+  } catch (error) {
+    console.error("Error associating student with major:", error);
+    throw error;
+  }
+}
+
+export async function updateGrade(gradeId, newDescription, newScore) {
     try {
       const gradeData = { id: gradeId, description: newDescription, score: newScore };
       await client.graphql({
@@ -93,8 +121,6 @@ export async function associateStudentWithClass(classIdInfo, studentIdInfo) {
     }
   }
   
-
-
 //#endregion
 
 //#region Searches
@@ -290,5 +316,85 @@ export async function getUniqueGradeDescriptionsForClass(classId, students) {
     throw error;
   }
 }
+
+export async function getListOfAllCareers() {
+  try {
+    const result = await client.graphql({
+      query: query.listCareers
+    });
+    return result.data.listCareers.items;
+  } catch (error) {
+    console.error("Error fetching list of Students:", error);
+    throw error;
+  }
+}
+
+export async function getCareersForStudent(studentId) {
+  try {
+    const result = await client.graphql({
+      query: query.studentCareerLinksByStudentId,
+      variables: {
+        studentId: studentId
+      }
+    });
+
+    // Extract the career IDs from the result
+    const studentCareerLinks = result.data.studentCareerLinksByStudentId.items;
+    const careerIds = studentCareerLinks.map(link => link.careerId);
+
+    // Retrieve the details of the careers using their IDs
+    const careers = await Promise.all(careerIds.map(async careerId => {
+      const careerInfo = await getClassDetails(careerId);
+      return careerInfo;
+    }));
+
+    return careers;
+  } catch (error) {
+    console.error("Error fetching careers for student:", error);
+    //throw error;
+  }
+}
+
 //#endregion 
  
+
+//#region career and majors
+
+
+
+
+
+
+//calculate class average for a student
+async function CalculateAverageGrade(studentId, classId) {
+  try{
+    const grades = await getListOfGradesForStudent(classId, studentId);
+    if (grades.length ===0) return 0;
+    const totalScore = grades.reduce( (total, grade) => total + grade.score, 0); 
+    const average = totalScore/ grades.length;
+    return Math.round(average*100)/100; //round to two decimal places
+  }catch (error){
+    console.log("Error Calculating the average: ", error)
+  }
+
+}
+
+
+export async function getstudentClassAverages(studentId) {
+  try {
+    const classes = await getClassesForStudent(studentId);
+
+    const classAverages = await Promise.all( classes.map(async classInfo =>{
+      const avgGrade = await CalculateAverageGrade(studentId, classInfo.id);
+      return {classInfo, avgGrade};
+    }));
+
+    return classAverages;
+  } catch (error) {
+    
+  }
+}
+
+
+
+//#endregion

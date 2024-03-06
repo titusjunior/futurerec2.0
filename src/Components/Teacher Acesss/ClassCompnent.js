@@ -31,6 +31,9 @@ function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudent
 
       setDisplayStudents(true);
       setDisplayClasses(false);
+
+      console.log("std: ", studentsWithGrades);
+
     } catch (error) {
       console.error("Error handling class click:", error);
     }

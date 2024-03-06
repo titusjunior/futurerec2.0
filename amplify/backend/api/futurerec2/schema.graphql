@@ -1,14 +1,13 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 
-type Teacher @model @auth(rules:[{allow:owner}]){ 
+type Teacher @model @auth(rules: [{ allow: owner }]){ 
   id: ID!
-  #teacherID: String! - think about generating my own id so its not so long
   name: String!
   classes: [Class] @hasMany
 }
 
-type Class @model @auth(rules:[{allow:owner}]) {
+type Class @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   subject: String!
   teacherID: Teacher @belongsTo
@@ -16,19 +15,51 @@ type Class @model @auth(rules:[{allow:owner}]) {
   students: [Student] @manyToMany(relationName:"StudentClassLink")
 }
 
-type Student @model @auth(rules:[{allow:owner}]){
+type Student @model @auth(rules: [{ allow: owner }]){
   id: ID!
   name: String!
   classStanding: String!
   grades: [Grade] @hasMany
   classes: [Class] @manyToMany(relationName:"StudentClassLink")
+  major: [Major] @manyToMany(relationName:"StudentMajorLink")
+  career:[Career] @manyToMany(relationName:"StudentCareerLink")
 }
 
-type Grade @model @auth(rules:[{allow:owner}]){
+type Grade @model @auth(rules: [{ allow: owner }]){
   id: ID!
   description: String!
   score: Int!
+  weight: Float!
   date: AWSDateTime
   class: Class @belongsTo
   student: Student @belongsTo
 }
+
+type Major @model @auth(rules: [{ allow: owner }]){
+  id: ID!
+  name: String!
+  students: [Student] @manyToMany(relationName:"StudentMajorLink")
+  majorRequirement: [MajorRequirement]@hasMany
+}
+
+type MajorRequirement @model @auth(rules: [{allow: owner }]){
+  id: ID!
+  classRequirement: String!
+  minimumGradeRequirement: Float!
+  major: Major @belongsTo
+}
+
+type Career @model @auth(rules: [{ allow: owner }]){
+  id: ID!
+  name: String!
+  students: [Student] @manyToMany(relationName:"StudentCareerLink")
+  careerRequirement: [CareerRequirement] @hasMany
+}
+
+type CareerRequirement @model @auth(rules: [{ allow: owner }]){
+  id: ID!
+  classRequirement: String!
+  minimumGradeRequirement: Float!
+  career: Career @belongsTo
+} 
+
