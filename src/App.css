@@ -287,3 +287,21 @@ button img {
   overflow-y: auto; 
   overflow-x: auto;
 }
+
+.main-content .home {
+  background-image: url("home_img.jpg");
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100%; /* Ensure the image takes up all available space */
+  text-align: center;
+}
+
+.home p{
+  color: black;
+  background-color: white;
+}
+
+.home h1{
+  background-color: white;
+}
