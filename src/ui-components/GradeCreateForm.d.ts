@@ -24,11 +24,13 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type GradeCreateFormInputValues = {
     description?: string;
     score?: number;
+    weight?: number;
     date?: string;
 };
 export declare type GradeCreateFormValidationValues = {
     description?: ValidationFunction<string>;
     score?: ValidationFunction<number>;
+    weight?: ValidationFunction<number>;
     date?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -36,6 +38,7 @@ export declare type GradeCreateFormOverridesProps = {
     GradeCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     description?: PrimitiveOverrideProps<TextFieldProps>;
     score?: PrimitiveOverrideProps<TextFieldProps>;
+    weight?: PrimitiveOverrideProps<TextFieldProps>;
     date?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type GradeCreateFormProps = React.PropsWithChildren<{
