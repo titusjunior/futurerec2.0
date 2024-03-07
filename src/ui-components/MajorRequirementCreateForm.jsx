@@ -9,9 +9,9 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { createGrade } from "../graphql/mutations";
+import { createMajorRequirement } from "../graphql/mutations";
 const client = generateClient();
-export default function GradeCreateForm(props) {
+export default function MajorRequirementCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -23,30 +23,24 @@ export default function GradeCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    description: "",
-    score: "",
-    weight: "",
-    date: "",
+    classRequirement: "",
+    minimumGradeRequirement: "",
   };
-  const [description, setDescription] = React.useState(
-    initialValues.description
+  const [classRequirement, setClassRequirement] = React.useState(
+    initialValues.classRequirement
   );
-  const [score, setScore] = React.useState(initialValues.score);
-  const [weight, setWeight] = React.useState(initialValues.weight);
-  const [date, setDate] = React.useState(initialValues.date);
+  const [minimumGradeRequirement, setMinimumGradeRequirement] = React.useState(
+    initialValues.minimumGradeRequirement
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setDescription(initialValues.description);
-    setScore(initialValues.score);
-    setWeight(initialValues.weight);
-    setDate(initialValues.date);
+    setClassRequirement(initialValues.classRequirement);
+    setMinimumGradeRequirement(initialValues.minimumGradeRequirement);
     setErrors({});
   };
   const validations = {
-    description: [{ type: "Required" }],
-    score: [{ type: "Required" }],
-    weight: [{ type: "Required" }],
-    date: [],
+    classRequirement: [{ type: "Required" }],
+    minimumGradeRequirement: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -65,23 +59,6 @@ export default function GradeCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
-  const convertToLocal = (date) => {
-    const df = new Intl.DateTimeFormat("default", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      calendar: "iso8601",
-      numberingSystem: "latn",
-      hourCycle: "h23",
-    });
-    const parts = df.formatToParts(date).reduce((acc, part) => {
-      acc[part.type] = part.value;
-      return acc;
-    }, {});
-    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
-  };
   return (
     <Grid
       as="form"
@@ -91,10 +68,8 @@ export default function GradeCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          description,
-          score,
-          weight,
-          date,
+          classRequirement,
+          minimumGradeRequirement,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -125,7 +100,7 @@ export default function GradeCreateForm(props) {
             }
           });
           await client.graphql({
-            query: createGrade.replaceAll("__typename", ""),
+            query: createMajorRequirement.replaceAll("__typename", ""),
             variables: {
               input: {
                 ...modelFields,
@@ -145,126 +120,64 @@ export default function GradeCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "GradeCreateForm")}
+      {...getOverrideProps(overrides, "MajorRequirementCreateForm")}
       {...rest}
     >
       <TextField
-        label="Description"
+        label="Class requirement"
         isRequired={true}
         isReadOnly={false}
-        value={description}
+        value={classRequirement}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              description: value,
-              score,
-              weight,
-              date,
+              classRequirement: value,
+              minimumGradeRequirement,
             };
             const result = onChange(modelFields);
-            value = result?.description ?? value;
+            value = result?.classRequirement ?? value;
           }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
+          if (errors.classRequirement?.hasError) {
+            runValidationTasks("classRequirement", value);
           }
-          setDescription(value);
+          setClassRequirement(value);
         }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
+        onBlur={() => runValidationTasks("classRequirement", classRequirement)}
+        errorMessage={errors.classRequirement?.errorMessage}
+        hasError={errors.classRequirement?.hasError}
+        {...getOverrideProps(overrides, "classRequirement")}
       ></TextField>
       <TextField
-        label="Score"
+        label="Minimum grade requirement"
         isRequired={true}
         isReadOnly={false}
         type="number"
         step="any"
-        value={score}
-        onChange={(e) => {
-          let value = isNaN(parseInt(e.target.value))
-            ? e.target.value
-            : parseInt(e.target.value);
-          if (onChange) {
-            const modelFields = {
-              description,
-              score: value,
-              weight,
-              date,
-            };
-            const result = onChange(modelFields);
-            value = result?.score ?? value;
-          }
-          if (errors.score?.hasError) {
-            runValidationTasks("score", value);
-          }
-          setScore(value);
-        }}
-        onBlur={() => runValidationTasks("score", score)}
-        errorMessage={errors.score?.errorMessage}
-        hasError={errors.score?.hasError}
-        {...getOverrideProps(overrides, "score")}
-      ></TextField>
-      <TextField
-        label="Weight"
-        isRequired={true}
-        isReadOnly={false}
-        type="number"
-        step="any"
-        value={weight}
+        value={minimumGradeRequirement}
         onChange={(e) => {
           let value = isNaN(parseFloat(e.target.value))
             ? e.target.value
             : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
-              description,
-              score,
-              weight: value,
-              date,
+              classRequirement,
+              minimumGradeRequirement: value,
             };
             const result = onChange(modelFields);
-            value = result?.weight ?? value;
+            value = result?.minimumGradeRequirement ?? value;
           }
-          if (errors.weight?.hasError) {
-            runValidationTasks("weight", value);
+          if (errors.minimumGradeRequirement?.hasError) {
+            runValidationTasks("minimumGradeRequirement", value);
           }
-          setWeight(value);
+          setMinimumGradeRequirement(value);
         }}
-        onBlur={() => runValidationTasks("weight", weight)}
-        errorMessage={errors.weight?.errorMessage}
-        hasError={errors.weight?.hasError}
-        {...getOverrideProps(overrides, "weight")}
-      ></TextField>
-      <TextField
-        label="Date"
-        isRequired={false}
-        isReadOnly={false}
-        type="datetime-local"
-        value={date && convertToLocal(new Date(date))}
-        onChange={(e) => {
-          let value =
-            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
-          if (onChange) {
-            const modelFields = {
-              description,
-              score,
-              weight,
-              date: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.date ?? value;
-          }
-          if (errors.date?.hasError) {
-            runValidationTasks("date", value);
-          }
-          setDate(value);
-        }}
-        onBlur={() => runValidationTasks("date", date)}
-        errorMessage={errors.date?.errorMessage}
-        hasError={errors.date?.hasError}
-        {...getOverrideProps(overrides, "date")}
+        onBlur={() =>
+          runValidationTasks("minimumGradeRequirement", minimumGradeRequirement)
+        }
+        errorMessage={errors.minimumGradeRequirement?.errorMessage}
+        hasError={errors.minimumGradeRequirement?.hasError}
+        {...getOverrideProps(overrides, "minimumGradeRequirement")}
       ></TextField>
       <Flex
         justifyContent="space-between"

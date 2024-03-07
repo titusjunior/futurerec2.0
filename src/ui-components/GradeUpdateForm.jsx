@@ -27,12 +27,14 @@ export default function GradeUpdateForm(props) {
   const initialValues = {
     description: "",
     score: "",
+    weight: "",
     date: "",
   };
   const [description, setDescription] = React.useState(
     initialValues.description
   );
   const [score, setScore] = React.useState(initialValues.score);
+  const [weight, setWeight] = React.useState(initialValues.weight);
   const [date, setDate] = React.useState(initialValues.date);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -41,6 +43,7 @@ export default function GradeUpdateForm(props) {
       : initialValues;
     setDescription(cleanValues.description);
     setScore(cleanValues.score);
+    setWeight(cleanValues.weight);
     setDate(cleanValues.date);
     setErrors({});
   };
@@ -63,6 +66,7 @@ export default function GradeUpdateForm(props) {
   const validations = {
     description: [{ type: "Required" }],
     score: [{ type: "Required" }],
+    weight: [{ type: "Required" }],
     date: [],
   };
   const runValidationTasks = async (
@@ -110,6 +114,7 @@ export default function GradeUpdateForm(props) {
         let modelFields = {
           description,
           score,
+          weight,
           date: date ?? null,
         };
         const validationResponses = await Promise.all(
@@ -173,6 +178,7 @@ export default function GradeUpdateForm(props) {
             const modelFields = {
               description: value,
               score,
+              weight,
               date,
             };
             const result = onChange(modelFields);
@@ -203,6 +209,7 @@ export default function GradeUpdateForm(props) {
             const modelFields = {
               description,
               score: value,
+              weight,
               date,
             };
             const result = onChange(modelFields);
@@ -219,6 +226,37 @@ export default function GradeUpdateForm(props) {
         {...getOverrideProps(overrides, "score")}
       ></TextField>
       <TextField
+        label="Weight"
+        isRequired={true}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={weight}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              description,
+              score,
+              weight: value,
+              date,
+            };
+            const result = onChange(modelFields);
+            value = result?.weight ?? value;
+          }
+          if (errors.weight?.hasError) {
+            runValidationTasks("weight", value);
+          }
+          setWeight(value);
+        }}
+        onBlur={() => runValidationTasks("weight", weight)}
+        errorMessage={errors.weight?.errorMessage}
+        hasError={errors.weight?.hasError}
+        {...getOverrideProps(overrides, "weight")}
+      ></TextField>
+      <TextField
         label="Date"
         isRequired={false}
         isReadOnly={false}
@@ -231,6 +269,7 @@ export default function GradeUpdateForm(props) {
             const modelFields = {
               description,
               score,
+              weight,
               date: value,
             };
             const result = onChange(modelFields);
