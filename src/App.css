@@ -305,3 +305,21 @@ button img {
 .home h1{
   background-color: white;
 }
+
+.grade-weight-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.grade-description {
+  margin: 5px;
+}
+
+.grade-description span {
+  margin-right: 5px; 
+}
+
+.error-message {
+  color: red;
+  font-style: italic;
+}

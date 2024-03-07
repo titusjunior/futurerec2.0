@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
 import "../../App.css";
 
-function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudents, setSelectedTeacher, selectedTeacher, setSelectedClass, selectedClass, setStudents, allGradeDescriptions, setAllGradeDescriptions, classes, setClasses}){
+function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudents, setSelectedTeacher, selectedTeacher, setSelectedClass, selectedClass, setStudents, allGradeDescriptionsAndWeights, setAllGradeDescriptionsAndWeights, classes, setClasses}){
   const [newClassSubject, setNewClassSubject] = useState('');
   
   const handleClassClick = async (classId) => {
@@ -17,9 +17,12 @@ function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudent
       setStudents([]); // Clear the list of students when a class is clicked
       const studentList = await helper.getStudentsForClass(classId);
       setStudents(studentList);
-      setAllGradeDescriptions([]);//Clear the list of grade descriptions
-      const gradeDescriptions = await helper.getUniqueGradeDescriptionsForClass(classId, studentList);
-      setAllGradeDescriptions(gradeDescriptions); 
+      setAllGradeDescriptionsAndWeights([]);//Clear the list of grade descriptions
+      let gradeDescriptionsAndWeights = [];
+      if (studentList.length > 0) {
+        gradeDescriptionsAndWeights = await helper.getUniqueGradeDescriptionsAndWeightForClass(classId, studentList[0].id);
+      }      
+      setAllGradeDescriptionsAndWeights(gradeDescriptionsAndWeights);    
 
        // Fetch and set grades for each student
       const studentsWithGrades = await Promise.all(
@@ -31,8 +34,6 @@ function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudent
 
       setDisplayStudents(true);
       setDisplayClasses(false);
-
-      console.log("std: ", studentsWithGrades);
 
     } catch (error) {
       console.error("Error handling class click:", error);

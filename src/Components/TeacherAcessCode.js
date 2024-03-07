@@ -11,7 +11,7 @@ function TeacherAcess({selectedPage}) {
     const [classes, setClasses] = useState([]);
     const [selectedClass, setSelectedClass] = useState(null);
     const [students, setStudents] = useState([]);
-    const [allGradeDescriptions,setAllGradeDescriptions] = useState([]);
+    const [allGradeDescriptionsAndWeights,setAllGradeDescriptionsAndWeights] = useState([]);
     const [displayTeachers, setDisplayTeachers] = useState(true);
     const [displayClasses, setDisplayClasses] = useState(false);
     const [displayStudents, setDisplayStudents] = useState(false);
@@ -50,8 +50,8 @@ function TeacherAcess({selectedPage}) {
                     setSelectedClass = {setSelectedClass}
                     selectedClass={selectedClass}
                     setStudents = {setStudents}
-                    allGradeDescriptions = {allGradeDescriptions}
-                    setAllGradeDescriptions = {setAllGradeDescriptions}
+                    allGradeDescriptionsAndWeights = {allGradeDescriptionsAndWeights}
+                    setAllGradeDescriptionsAndWeights = {setAllGradeDescriptionsAndWeights}
                     classes={classes}
                     setClasses={setClasses}
                     />
@@ -64,8 +64,8 @@ function TeacherAcess({selectedPage}) {
                 setSelectedClass = {setSelectedClass}
                 students = {students}
                 setStudents = {setStudents}
-                allGradeDescriptions = {allGradeDescriptions}
-                setAllGradeDescriptions = {setAllGradeDescriptions}
+                allGradeDescriptionsAndWeights = {allGradeDescriptionsAndWeights}
+                setAllGradeDescriptionsAndWeights = {setAllGradeDescriptionsAndWeights}
                 />
                 )}
                 </>

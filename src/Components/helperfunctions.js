@@ -51,14 +51,13 @@ export async function addStudent(studentName, studentClassStanding) {
   }
 }
 
-export async function addGrade(classID, studentId, gradeDescription, gradeScore) {
+export async function addGrade(classID, studentId, gradeDescription, gradeScore, gradeWeight) {
   try {
-    const gradeData = { description: gradeDescription, score: gradeScore, studentGradesId: studentId, classGradesId: classID };
+    const gradeData = { description: gradeDescription, score: gradeScore, weight: gradeWeight, studentGradesId: studentId, classGradesId: classID };
     await client.graphql({
       query: mutations.createGrade,
       variables: { input: gradeData }
     });
-    console.log("Grade added successfully");
   } catch (error) {
     console.error("Error adding grade:", error);
     throw error;
@@ -107,14 +106,13 @@ export async function associateStudentWithCareer(CareerInfo, studentInfo) {
   }
 }
 
-export async function updateGrade(gradeId, newDescription, newScore) {
+export async function updateGrade(gradeId, newDescription, newScore, newWeight) {
     try {
-      const gradeData = { id: gradeId, description: newDescription, score: newScore };
+      const gradeData = { id: gradeId, description: newDescription, score: newScore, weight: newWeight};
       await client.graphql({
         query: mutations.updateGrade,
         variables: { input: gradeData }
       });
-      console.log("Grade updated successfully");
     } catch (error) {
       console.error("Error updating grade:", error);
       throw error;
@@ -293,24 +291,18 @@ async function getClassDetails(classId) {
   }
 }
 
-export async function getUniqueGradeDescriptionsForClass(classId, students) {
+//since all students in the same class should have the same Assignments we only need one student's info
+export async function getUniqueGradeDescriptionsAndWeightForClass(classId, studentId) {
   try {
-    // Array to store all grade descriptions
-    let allGradeDescriptions = [];
+    const grades = await getListOfGradesForStudent(classId, studentId);
+    const descriptionsAndWeights = grades.map(grade => ({
+      description: grade.description,
+      weight: grade.weight
+  }));
 
-    for (const student of students) {
-      const grades = await getListOfGradesForStudent(classId, student.id);
-
-      // Extract grade descriptions and add them to the array
-      const gradeDescriptions = grades.map(grade => grade.description);
-      allGradeDescriptions = [...allGradeDescriptions, ...gradeDescriptions];
-    }
-
-    // Remove duplicates using Set and convert back to array
-    const uniqueGradeDescriptions = [...new Set(allGradeDescriptions)];
-
-    uniqueGradeDescriptions.sort();
-    return uniqueGradeDescriptions;
+  // Sort the array by the description property
+  descriptionsAndWeights.sort((a, b) => a.description.localeCompare(b.description));
+    return descriptionsAndWeights;
   } catch (error) {
     console.error("Error fetching unique grade descriptions for class:", error);
     throw error;
@@ -360,19 +352,20 @@ export async function getCareersForStudent(studentId) {
 
 //#region career and majors
 
-
-
-
-
-
 //calculate class average for a student
-async function CalculateAverageGrade(studentId, classId) {
+export async function CalculateAverageGrade(studentId, classId) {
   try{
     const grades = await getListOfGradesForStudent(classId, studentId);
-    if (grades.length ===0) return 0;
-    const totalScore = grades.reduce( (total, grade) => total + grade.score, 0); 
-    const average = totalScore/ grades.length;
-    return Math.round(average*100)/100; //round to two decimal places
+    let sumProduct = 0;
+    let sumWeight = 0;
+
+    grades.forEach(grade => {
+      sumProduct += grade.score * grade.weight;
+      sumWeight += grade.weight;
+    });
+
+    const weightedAverage = sumWeight !== 0 ? sumProduct / sumWeight : 0;
+    return Math.round(weightedAverage * 100)/100;//round to two decimal places
   }catch (error){
     console.log("Error Calculating the average: ", error)
   }
