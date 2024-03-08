@@ -5,6 +5,8 @@ import TeacherComponent from './Teacher Acesss/TeacherComponent';
 import ClassComponent from './Teacher Acesss/ClassCompnent';
 import StudentComponent from './Teacher Acesss/Student&GradeComponent';
 
+import PopulateCareerDB from './Admin/PopulateCareersDB';
+
 function TeacherAcess({selectedPage}) {
 
     const [selectedTeacher, setSelectedTeacher] = useState(null);
@@ -72,7 +74,9 @@ function TeacherAcess({selectedPage}) {
             )}
             {selectedPage === 'Tutoring' && (<h1>Tutoring</h1>)}
             {selectedPage === 'Majors' && <h1>Majors</h1>}
-            {selectedPage === 'Careers' && <h1>Careers</h1>}
+            {selectedPage === 'Careers' && (
+                <PopulateCareerDB></PopulateCareerDB>
+            )}
             {selectedPage === 'Settings' && <h1>Settings</h1>} 
     </div>
 </>

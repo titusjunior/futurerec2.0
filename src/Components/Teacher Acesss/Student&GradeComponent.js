@@ -43,7 +43,6 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
     fetchAvailableStudents();
   }, [selectedClass]);
         
-
   const handleSelectChange = (event) => {
     const value = event.target.value;
     setSelectedStudentId(value);
