@@ -5,6 +5,7 @@ import "../../App.css";
 function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, setDisplayTeachers}) {
   const [teachers, setTeachers] = useState([]);
   const [newTeacherName, setNewTeacherName] = useState('');
+  const [teacherErrorMessage, setTeacherErrorMessage] = useState('');
 
   useEffect(() => {
     const fetchTeachers = async () => {
@@ -40,9 +41,11 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, s
     try {
       //Prevent User from entering a blank Teacher Name
       if (newTeacherName.trim() === '') {
-        console.log("Please enter a valid Teacher Name.");
+        setTeacherErrorMessage("Cannot add a blank teacher name");
+        console.log("Cannot add a blank teacher name");
         return;
       }
+      setTeacherErrorMessage('');
 
       const newTeacher = await helper.createTeacher(newTeacherName);
       console.log("New teacher created:", newTeacher);
@@ -72,6 +75,7 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, s
             onChange={(e) => setNewTeacherName(e.target.value)}
           />
           <button className='student-button' onClick={handleAddTeacher}>Add New Teacher</button>
+          {teacherErrorMessage && <p className="error-message">{teacherErrorMessage}</p>}
         </div>
       </div>
     </>

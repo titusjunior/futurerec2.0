@@ -4,6 +4,7 @@ import "../../App.css";
 
 function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudents, setSelectedTeacher, selectedTeacher, setSelectedClass, selectedClass, setStudents, allGradeDescriptionsAndWeights, setAllGradeDescriptionsAndWeights, classes, setClasses}){
   const [newClassSubject, setNewClassSubject] = useState('');
+  const [classErrorMessage, setClassErrorMessage] = useState('');
   
   const handleClassClick = async (classId) => {
     if (selectedClass && selectedClass.id === classId) {
@@ -44,9 +45,11 @@ function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudent
     try {
       //Prevent User from entering a blank class
       if (newClassSubject.trim() === '') {
+        setClassErrorMessage("Cannot add a blank subject");
         console.log("Please enter a valid Class Name.");
         return;
       }
+      setClassErrorMessage('');
       const newClass = await helper.addClass(newClassSubject, selectedTeacher.id);
       setClasses(prevClasses => [...prevClasses, newClass]);
       setNewClassSubject('');
@@ -83,6 +86,7 @@ function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudent
           onChange={(e) => setNewClassSubject(e.target.value)}
         />
         <button className='student-button' onClick={handleAddClass}>Add Class</button>
+        {classErrorMessage && <p className="error-message">{classErrorMessage}</p>}
       </div>
     </>
   );

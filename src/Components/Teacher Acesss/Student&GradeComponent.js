@@ -18,7 +18,9 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
 
   const [studentsAndClassAverages, setStudentAndClassAverages] = useState([]);
 
-  const [weightErrorMessage, setWeightErrorMessage] = useState('');
+  const [SaveWeightErrorMessage, setSaveWeightErrorMessage] = useState('');
+  const [addDescriptionErrorMessage, setAddDescriptionErrorMessage] = useState('');
+  const [addStudentErrorMessage, setAddStudentErrorMessage] = useState('');
 
   const ClassStandings = ["Freshman", "Sophmore", "Junior", "Senior"];
 
@@ -58,13 +60,22 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
   };
   
   const handleAddStudent = async () => {
-    try {
+    try { 
       //Prevent User from entering a blank Student
-      if (!selectedStudentId && (newStudentName.trim() === '' || newStudentClassStanding.trim() === '')) {
-        console.log("Please enter a valid Student.");
+      if(!selectedStudentId && newStudentName.trim() === '' && newStudentClassStanding.trim() === ''){
+        setAddStudentErrorMessage("Cannot add a blank Entry.Ensure either an existing student is selcted or enter a valid student name and class standing");
+        console.log("Cannot Add a blank entries");
+        return;
+      }else if (!selectedStudentId && (newStudentName.trim() === '')) {
+        setAddStudentErrorMessage("Cannot add a blank student name.Ensure either an existing student is selcted or enter a valid student name");
+        console.log("Cannot Add a blank student");
+        return;
+      }else if (!selectedStudentId && ( newStudentClassStanding.trim() === '')){
+        setAddStudentErrorMessage("PLease select a valid class Standing.Ensure either an existing student or a class Standing is selected");
+        console.log("Cannot Add a blank classStanding");
         return;
       }
-
+      setAddStudentErrorMessage('');
 
       if (selectedStudentId) {
         await helper.associateStudentWithClass(selectedClass.id, selectedStudentId);
@@ -105,7 +116,7 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
 
   const handleSaveGradeWeights = async () => {
     //ensure total grade weight doen't exceed 100
-    if (weightErrorMessage.trim() !== ''){
+    if (SaveWeightErrorMessage.trim() !== ''){
       return;
     }
 
@@ -142,9 +153,9 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
       console.log("grade detail ofc: ",allGradeDescriptionsAndWeights);
       const totalweight = allGradeDescriptionsAndWeights.reduce((total, gradedetail)=> total + parseFloat(gradedetail.weight), 0);
       if (totalweight > 100){
-        setWeightErrorMessage(`Total weight exceeds 100, by ${totalweight - 100}. Please adjust weight to be less than or equal to 100`);
+        setSaveWeightErrorMessage(`Total weight exceeds 100, by ${totalweight - 100}. Please adjust weight to be less than or equal to 100`);
       }else{
-        setWeightErrorMessage('');
+        setSaveWeightErrorMessage('');
       }
     }
   };
@@ -156,18 +167,19 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
   const handleAddGradeDescription = async () => {
     try {
       
-      //Prevent User from entering a blank description
+      //Prevent User from entering a blank description or duplicate entries
       if (newGradeDescription.trim() === '') {
+        setAddDescriptionErrorMessage("Cannot add Blank Entry.");
         console.log("Please enter a valid grade description.");
         return;
-      }
-      
-      // Check if the new grade description already exists
-      if (allGradeDescriptionsAndWeights.some(descriptionDetail => descriptionDetail.description.toLowerCase() === newGradeDescription.toLowerCase())) {
-        console.log("Grade description already exists.");
+      } else if (allGradeDescriptionsAndWeights.some(descriptionDetail => descriptionDetail.description.toLowerCase() === newGradeDescription.toLowerCase())) {
+        setAddDescriptionErrorMessage("Description Already exist");
         setNewGradeDescription('');
+        console.log("Grade description already exists.");
         return;
       }
+
+      setAddDescriptionErrorMessage('');
 
      // Update the local state first
      setAllGradeDescriptionsAndWeights(prevGradeDescriptions => [
@@ -289,6 +301,7 @@ const CalculateStudentsAverage = async () => {
                 ))}
                 <th>Total Average</th>
                 <th>
+                  {addDescriptionErrorMessage && <p className="error-message">{addDescriptionErrorMessage}</p>}
                   <input
                   type="text"
                   placeholder="Assignment description"
@@ -362,6 +375,7 @@ const CalculateStudentsAverage = async () => {
               </>
             )}
             <button className='student-button' onClick={handleAddStudent}>Add Student</button>
+            {addStudentErrorMessage && <p className="error-message">{addStudentErrorMessage}</p>}
           </div>
         </>
         )}
@@ -383,7 +397,7 @@ const CalculateStudentsAverage = async () => {
               ))}
             </div>
             <button className='student-button' onClick={handleSaveGradeWeights}>Done</button>
-            {weightErrorMessage && <p className="error-message">{weightErrorMessage}</p>}
+            {SaveWeightErrorMessage && <p className="error-message">{SaveWeightErrorMessage}</p>}
           </>
 )}
 
