@@ -307,18 +307,6 @@ export async function getUniqueGradeDescriptionsAndWeightForClass(classId, stude
   }
 }
 
-export async function getListOfAllCareers() {
-  try {
-    const result = await client.graphql({
-      query: query.listCareers
-    });
-    return result.data.listCareers.items;
-  } catch (error) {
-    console.error("Error fetching list of Students:", error);
-    throw error;
-  }
-}
-
 export async function getListOfAllMajors() {
   try {
     const result = await client.graphql({
@@ -331,31 +319,7 @@ export async function getListOfAllMajors() {
   }
 }
 
-export async function getCareersForStudent(studentId) {
-  try {
-    const result = await client.graphql({
-      query: query.studentCareerLinksByStudentId,
-      variables: {
-        studentId: studentId
-      }
-    });
 
-    // Extract the career IDs from the result
-    const studentCareerLinks = result.data.studentCareerLinksByStudentId.items;
-    const careerIds = studentCareerLinks.map(link => link.careerId);
-
-    // Retrieve the details of the careers using their IDs
-    const careers = await Promise.all(careerIds.map(async careerId => {
-      const careerInfo = await getClassDetails(careerId);
-      return careerInfo;
-    }));
-
-    return careers;
-  } catch (error) {
-    console.error("Error fetching careers for student:", error);
-    //throw error;
-  }
-}
 
 export async function getMajorsForStudent(studentId) {
   try {
