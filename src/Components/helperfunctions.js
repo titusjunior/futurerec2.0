@@ -321,6 +321,18 @@ export async function getListOfAllCareers() {
   }
 }
 
+export async function getListOfAllMajors() {
+  try {
+    const result = await client.graphql({
+      query: query.listMajors
+    });
+    return result.data.listMajors.items;
+  } catch (error) {
+    console.error("Error fetching list of Students:", error);
+    throw error;
+  }
+}
+
 export async function getCareersForStudent(studentId) {
   try {
     const result = await client.graphql({
@@ -347,6 +359,31 @@ export async function getCareersForStudent(studentId) {
   }
 }
 
+export async function getMajorsForStudent(studentId) {
+  try {
+    const result = await client.graphql({
+      query: query.studentMajorLinksByStudentId,
+      variables: {
+        studentId: studentId
+      }
+    });
+
+    // Extract the career IDs from the result
+    const studentMajorLinks = result.data.studentMajorLinksByStudentId.items;
+    const majorIds = studentMajorLinks.map(link => link.majorId);
+
+    // Retrieve the details of the careers using their IDs
+    const majors = await Promise.all(majorIds.map(async majorId => {
+      const majorInfo = await getClassDetails(majorId);
+      return majorInfo;
+    }));
+
+    return majors;
+  } catch (error) {
+    console.error("Error fetching majors for student:", error);
+    //throw error;
+  }
+}
 //#endregion 
  
 
