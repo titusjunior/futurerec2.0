@@ -6,6 +6,7 @@ import ClassComponent from './Teacher Acesss/ClassCompnent';
 import StudentComponent from './Teacher Acesss/Student&GradeComponent';
 
 import PopulateCareerDB from './Admin/PopulateCareersDB';
+import PopulateMajorDB from './Admin/PopulateMajorsDB';
 
 function TeacherAcess({selectedPage}) {
 
@@ -73,7 +74,9 @@ function TeacherAcess({selectedPage}) {
                 </>
             )}
             {selectedPage === 'Tutoring' && (<h1>Tutoring</h1>)}
-            {selectedPage === 'Majors' && <h1>Majors</h1>}
+            {selectedPage === 'Majors' && (
+                <PopulateMajorDB></PopulateMajorDB>
+            )}
             {selectedPage === 'Careers' && (
                 <PopulateCareerDB></PopulateCareerDB>
             )}
