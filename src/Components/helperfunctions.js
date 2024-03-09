@@ -78,19 +78,7 @@ const client = generateClient();
       }
     }
 
-  export async function associateStudentWithMajor(majorInfo, studentInfo) {
-    try {
-      const studentMajorData = { studentId: studentInfo, majorId: majorInfo };
-      await client.graphql({
-        query: mutations.createStudentMajorLink,
-        variables: { input: studentMajorData } 
-      });
-      console.log("Student associated with major successfully");
-    } catch (error) {
-      console.error("Error associating student with major:", error);
-      throw error;
-    }
-  }
+  
   
   export async function updateGrade(gradeId, newDescription, newScore, newWeight) {
     try {
@@ -307,45 +295,6 @@ export async function getUniqueGradeDescriptionsAndWeightForClass(classId, stude
   }
 }
 
-export async function getListOfAllMajors() {
-  try {
-    const result = await client.graphql({
-      query: query.listMajors
-    });
-    return result.data.listMajors.items;
-  } catch (error) {
-    console.error("Error fetching list of Students:", error);
-    throw error;
-  }
-}
-
-
-
-export async function getMajorsForStudent(studentId) {
-  try {
-    const result = await client.graphql({
-      query: query.studentMajorLinksByStudentId,
-      variables: {
-        studentId: studentId
-      }
-    });
-
-    // Extract the career IDs from the result
-    const studentMajorLinks = result.data.studentMajorLinksByStudentId.items;
-    const majorIds = studentMajorLinks.map(link => link.majorId);
-
-    // Retrieve the details of the careers using their IDs
-    const majors = await Promise.all(majorIds.map(async majorId => {
-      const majorInfo = await getClassDetails(majorId);
-      return majorInfo;
-    }));
-
-    return majors;
-  } catch (error) {
-    console.error("Error fetching majors for student:", error);
-    //throw error;
-  }
-}
 //#endregion 
  
 
@@ -520,5 +469,123 @@ export async function associateStudentWithCareer(CareerInfo, studentInfo) {
   }
 }
 
+
+//#endregion
+
+//#region MajorDB stuff
+export async function createMajor(majorName) {
+  try {
+    const majorData = {name: majorName};
+    const response = await client.graphql({
+      query: mutations.createMajor,
+      variables: {input: majorData}
+    });
+    console.log("Major created successfully");
+    return response.data.createMajor;
+  } catch (error) {
+    console.error("Error adding major:", error);
+    throw error;
+  }
+}
+
+export async function getMajor(majorId){
+  try{
+    const MajorDetails = await client.graphql({
+      query: query.getMajor,
+      variables: {id: majorId}
+    });
+    return MajorDetails.data.getMajor;
+  } catch (error) {
+    console.error("Error adding Major:", error);
+    throw error;
+  }
+}
+
+export async function getListOfAllMajors() {
+  try {
+    const result = await client.graphql({
+      query: query.listMajors
+    });
+    return result.data.listMajors.items;
+  } catch (error) {
+    console.error("Error fetching list of Students:", error);
+    throw error;
+  }
+}
+
+export async function getMajorsForStudent(studentId) {
+  try {
+    const result = await client.graphql({
+      query: query.studentMajorLinksByStudentId,
+      variables: {
+        studentId: studentId
+      }
+    });
+
+    // Extract the career IDs from the result
+    const studentMajorLinks = result.data.studentMajorLinksByStudentId.items;
+    const majorIds = studentMajorLinks.map(link => link.majorId);
+
+    // Retrieve the details of the careers using their IDs
+    const majors = await Promise.all(majorIds.map(async majorId => {
+      const majorInfo = await getClassDetails(majorId);
+      return majorInfo;
+    }));
+
+    return majors;
+  } catch (error) {
+    console.error("Error fetching majors for student:", error);
+    //throw error;
+  }
+}
+
+export async function createMajorRequirement(majorId, className, minGrade){
+  try{
+    const majorReqData = {classRequirement: className, minimumGradeRequirement: minGrade, majorMajorRequirementId: majorId};
+    console.log("Major Requirement addative", majorReqData);
+    const response = await client.graphql({
+      query: mutations.createMajorRequirement,
+      variables: {input: majorReqData}
+    });
+    console.log("Major created successfully");
+    return response.data.createMajorRequirement;
+  } catch(error) {
+    console.error("Error adding Major Requirement:", error);
+    throw error;
+  }
+}
+
+export async function getListOfMajorRequirementsForMajor(majorId) {
+  try {
+    const listRequirements = await client.graphql({
+      query: query.listMajorRequirements,
+      variables: {
+        filter:{
+          majorMajorRequirementId: {
+            eq: majorId
+          }
+        }
+      }
+    });
+    return listRequirements.data.listMajorRequirements.items;
+  } catch (error) {
+    console.error("Error adding grade:", error);
+    throw error;
+  }
+}
+
+export async function associateStudentWithMajor(majorInfo, studentInfo) {
+  try {
+    const studentMajorData = { studentId: studentInfo, majorId: majorInfo };
+    await client.graphql({
+      query: mutations.createStudentMajorLink,
+      variables: { input: studentMajorData } 
+    });
+    console.log("Student associated with major successfully");
+  } catch (error) {
+    console.error("Error associating student with major:", error);
+    throw error;
+  }
+}
 
 //#endregion
