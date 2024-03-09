@@ -14,7 +14,7 @@ import config from './aws-exports';
 Amplify.configure(config);
 
 function App({signOut, user}) {
-  const [userIsTeacher, setUserIsTeacher] = useState(false);
+  const [userIsTeacher, setUserIsTeacher] = useState(true);
     const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
 
       useEffect(() => {
