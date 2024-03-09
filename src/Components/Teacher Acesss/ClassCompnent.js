@@ -67,8 +67,8 @@ function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudent
 
   return(
     <>
-      <h2>Classes for {selectedTeacher && selectedTeacher.name}:</h2> {/* Added null check for selectedTeacher */}
-      <button className='student-button' onClick={handleBackToTeachersClick}>Back to Teachers</button>
+      <button className='back-button' onClick={handleBackToTeachersClick}>&#8592;Back to Teachers</button>
+      <h2 style={{ marginTop: '20px' }}>Current Classes for {selectedTeacher && selectedTeacher.name}:</h2> {/* Added null check for selectedTeacher */}
       <div>
         {classes.map(classItem => (
           <div key={classItem.id}>

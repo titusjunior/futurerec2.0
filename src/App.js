@@ -7,12 +7,14 @@ import React, { useEffect, useState } from 'react';
 import profileImg from "./profile.jpg";
 import logoutImg from "./logout.jpg";
 import TeacherSelected from './Components/TeacherAcessCode'
+import StudentSelected from './Components/Student Acess/StudentAcessCode'
 
 import config from './aws-exports';
 
 Amplify.configure(config);
 
 function App({signOut, user}) {
+  const [userIsTeacher, setUserIsTeacher] = useState(false);
     const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
 
       useEffect(() => {
@@ -112,9 +114,14 @@ function App({signOut, user}) {
   </div>
   <div className="main-content">
     <div className="container" id="contentContainer">
-       <TeacherSelected
+      {userIsTeacher && (
+        <TeacherSelected
+        selectedPage = {selectedPage}
+        />
+      )}{!userIsTeacher && (
+       <StudentSelected
        selectedPage = {selectedPage}
-       />
+       />)}
     </div>
   </div>
 </>

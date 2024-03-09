@@ -68,6 +68,7 @@ body{
   min-width: 150px ;
   height: 30px;
   margin-bottom: 3px;
+  padding: 5px;
   border-radius: 5px;
   background-color: #24755a; 
 }
@@ -95,30 +96,33 @@ input {
 
 
 table {
-  /*max-height: 300px;*/
   border-collapse: collapse;
-  width: 100%; /* Set table width to 100% */
+ /* width: 100%; /* Set table width to 100% */
+  width:auto;
 }
 
 table, th, td {
   border: 1px solid black; /* Border for table, th, and td */
 }
 
+th{
+  background-color: #09583e;
+}
+
 th, td {
-  min-width: 100px;
-  padding: 6px; /* Padding for cells */
-  text-align: center; /* Align text to the left */
+  min-width: 150px;
+  padding: 10px; /* Padding for cells */
+  text-align: center; /* Align text to the centre*/
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2; /* Alternate row background color */
+  background-color: #c8cbcaff; /* Alternate row background color */
 }
 
 th:last-child {
   border-left: none;
   border-top: none;
   border-bottom: none;
-  text-align: left;
 }
 
 *{
@@ -336,4 +340,24 @@ button img {
 .error-message {
   color: red;
   font-style: italic;
+}
+
+.back-button {
+  background-color: #44c723;
+  color: #333;
+  padding: 5px;
+  border: 1.5px solid #030303;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+}
+
+.back-button:hover {
+  background-color: #44c723bf;
+}
+
+.back-button:active {
+  background-color: #d0d0d0;
 }

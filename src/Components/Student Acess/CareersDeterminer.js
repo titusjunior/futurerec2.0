@@ -3,10 +3,7 @@ import * as helper from '../helperfunctions';
 
 
 
-function DetermineCareerPath(){
-
-    const studentID = "366eb7e6-079f-49ab-bec8-f008140dc327";
-    
+function DetermineCareerPath({studentID}){    
     const [allCareers, setAllCareers] = useState([]);
     const [studentClassAverages, setStudentClassAverages] = useState([]);
     const [PossibleCareerPaths, setPossibleCareerPaths] = useState([]);

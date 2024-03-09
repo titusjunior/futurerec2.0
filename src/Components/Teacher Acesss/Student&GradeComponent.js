@@ -277,10 +277,10 @@ const CalculateStudentsAverage = async () => {
 
   return(
     <>
-      <h2>Students in {selectedClass && selectedClass.subject}:</h2>
       {!displayGradeWeightScreen && (
         <>
-          <button className='student-button' onClick={handleBackToClassesClick}>Back to Classes</button>
+      <button className='back-button' onClick={handleBackToClassesClick}>&#8592;Back to Classes</button>
+      <h2 style={{ marginTop: '20px' }}>Students in {selectedClass && selectedClass.subject}:</h2>
           <table>
             <thead>
               <tr>
@@ -300,12 +300,12 @@ const CalculateStudentsAverage = async () => {
                   onChange={(e) => setNewGradeDescription(e.target.value)}
                   />
                   <button className='student-button' onClick={handleAddGradeDescription}>Add Description</button>
-                  <div><button className='student-button' onClick={handleEditGradeWeightedScale}>Edit Weighted Scale</button></div>
                 </th>
               </tr>
             </thead>
             <tbody>
-              {students.map(student => (
+              <>
+              {students.map((student, index) => (
                 <tr key={student.id}>
                   <td>{student && student.name}</td>
                   <td>{student && student.classStanding}</td>
@@ -332,9 +332,13 @@ const CalculateStudentsAverage = async () => {
                   <td>
                     {studentsAndClassAverages.find(average => average.studentId === student.id)?.average ?? '-'}
                   </td>
-
+                  
+                  {index === 0 && <td rowSpan={students.length} style={{ verticalAlign: 'top' }} > 
+                    <button className='student-button' onClick={handleEditGradeWeightedScale}>Edit Weighted Scale</button>
+                  </td>}
                 </tr>
               ))}
+              </>
             </tbody>
           </table>
               
