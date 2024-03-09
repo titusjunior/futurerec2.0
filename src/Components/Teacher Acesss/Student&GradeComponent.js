@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
 import "../../App.css";
-import Career from  "../Student Acess/CareersDeterminer"
 
 function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass, setSelectedClass, students, setStudents, allGradeDescriptionsAndWeights, setAllGradeDescriptionsAndWeights }) {
     
@@ -262,6 +261,7 @@ const CalculateStudentsAverage = async () => {
     // Initialize an array to store student averages
     setStudentAndClassAverages([]);
     const averages = [];
+    console.log("Students: ", students);
     students.forEach(async (student) => {
       // Calculate the average grade for each student
       const studentAverage = await helper.CalculateAverageGrade(student.id, selectedClass.id);
@@ -269,22 +269,14 @@ const CalculateStudentsAverage = async () => {
       averages.push({ studentId: student.id, average: studentAverage });
     });
     setStudentAndClassAverages(averages);
-   // console.log("averages: ", studentsAndClassAverages);
+   console.log("averages: ", averages);
   } catch (error) {
     console.log("Error Calculating Students Averages: ", error);
   }
 };
 
-
   return(
     <>
-
-    {/*For Testing Purposes */}
-    {/*<Career/>*/}
-
-    {/*For Testing Purposes */}
-
-
       <h2>Students in {selectedClass && selectedClass.subject}:</h2>
       {!displayGradeWeightScreen && (
         <>
@@ -395,7 +387,7 @@ const CalculateStudentsAverage = async () => {
                 </div>
               ))}
             </div>
-            <button className='student-button' onClick={handleSaveGradeWeights}>Done</button>
+            <button className='save-button' onClick={handleSaveGradeWeights}>Done</button>
             {SaveWeightErrorMessage && <p className="error-message">{SaveWeightErrorMessage}</p>}
           </>
 )}

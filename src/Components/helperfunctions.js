@@ -377,13 +377,20 @@ export async function getstudentClassAverages(studentId) {
     const classes = await getClassesForStudent(studentId);
 
     const classAverages = await Promise.all( classes.map(async classInfo =>{
+  //    console.log("new student");
+  //   console.log("class info:", classInfo);
+  //    console.log("class ID:", classInfo.id);
+      console.log("student Id:", studentId);
       const avgGrade = await CalculateAverageGrade(studentId, classInfo.id);
-      return {classInfo, avgGrade};
+      const subject = classInfo.subject;       
+  //    console.log("class subject:", subject);
+  //    console.log("class average:", avgGrade);
+      return {subject, avgGrade};
     }));
 
     return classAverages;
   } catch (error) {
-    
+    console.log(`Error getting class averages for${studentId}: ${error}`)
   }
 }
 

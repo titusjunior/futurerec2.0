@@ -163,14 +163,15 @@ function PopulateCareerDB (){
             {displayRequirements && (
                 <>
                     <h2>Set Requirements for {selectedcareer.name}:</h2>
-                    <h3>Current Requirements</h3>
+                    <br /> {/*Adds Space betwwe the two*/}
+                    <h3 style={{ textDecoration: 'underline' }}>Current Requirements:</h3>
                     {careerRequirements.map(requirements => (
-                    <div key={requirements.id}>
-                        <span>Class: {requirements.classRequirement}</span>
-                        <span>Minimum Grade: {requirements.minimumGradeRequirement}</span>
+                    <div key={requirements.id} style={{ marginTop: '5px'}}>
+                        <p><strong>Class:</strong> {requirements.classRequirement}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;- Minimum Grade: {requirements.minimumGradeRequirement}</p>
                     </div>
                     ))}
-
+                    <br /> {/*Adds Space betwwe the two*/}
                     <div>
                         <span>New Class Requirement: </span>
                         <select value={newClassRequirement} 
@@ -192,8 +193,9 @@ function PopulateCareerDB (){
                         /> 
                     </div>   
 
-                    <button className='student-button' onClick={handleAddNewReqirement}>Add New Requirement</button>  
-                    <div><button className='student-button' onClick={handleSaveReqirement}>Done</button></div>               
+                    <button className='student-button' onClick={handleAddNewReqirement}>Add New Requirement</button> 
+                    <br /> {/*Adds Space betwwe the two*/} 
+                    <div><button className='save-button' onClick={handleSaveReqirement}>Done</button></div>               
                 </>
             )}
         </>

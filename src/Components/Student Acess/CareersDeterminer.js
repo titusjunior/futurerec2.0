@@ -3,93 +3,96 @@ import * as helper from '../helperfunctions';
 
 
 
-function DetermineCareerPath({studentID}){
+function DetermineCareerPath(){
 
-    //have a helper function that sets all the class grade and 
+    const studentID = "366eb7e6-079f-49ab-bec8-f008140dc327";
     
-    const [allCareerPaths, setAllCareerPaths] = useState([]);
+    const [allCareers, setAllCareers] = useState([]);
     const [studentClassAverages, setStudentClassAverages] = useState([]);
-    const StudentCareerPaths = [];
-
-    //could think about storing these in the database(min grade, required subjects, associated with their grade)
-    const careerPaths = [
-        { 
-            name: "Software Engineer", 
-            classRequirements: [
-                { subject: "Math", minGrade: 85 },
-                { subject: "Computer Science", minGrade: 85 }
-            ]
-        },
-        { 
-            name: "Doctor", 
-            classRequirements: [
-                { subject: "Biology", minGrade: 90 },
-                { subject: "Chemistry", minGrade: 90 }
-            ]
-        },
-        { 
-            name: "Mechanical Engineer", 
-            classRequirements: [
-                { subject: "Math", minGrade: 80 },
-                { subject: "Physics", minGrade: 80 }
-            ]
-        },
-        // Add more career paths as needed
-    ];
-
+    const [PossibleCareerPaths, setPossibleCareerPaths] = useState([]);
 
     useEffect(() => {
-        const fetchAllCareerPaths = async () => {
-          try {
-            const careerPaths = await helper.getListOfAllCareers();
-            setAllCareerPaths(careerPaths);            
-          } catch (error) {
-            console.error("Error fetching available students:", error);
-          }
-        };
-
-        
-        //fetchAllCareerPaths;
-        GetAllClassAverages();
-    }, []);
-    
-    const GetAllClassAverages = async () =>{
-        try {
-            const classAverages = await helper.getstudentClassAverages(studentID);
-            setStudentClassAverages(classAverages);
-            console.log("his avaerage: ", classAverages);
-        } catch (error) {
-            console.error("Error fetching all Class Averages:", error);
+        const GetAllClassAverages = async () =>{
+            try {
+                const classAverages = await helper.getstudentClassAverages(studentID);
+                setStudentClassAverages(classAverages);
+                console.log("his averages: ", classAverages);
+            } catch (error) {
+                console.error("Error fetching all Class Averages:", error);
+            }
         }
-    }
+        GetAllClassAverages();
 
-      
-      //look into filtering
-    
-    
-    
-      const AssignCareerPaths = async() => {
+    },[]);
 
-     // Filter career paths based on the student's grades per class and subjects taken
-    const associatedCareers = careerPaths.filter(career => {
-        // Check if the student meets the minimum grade requirement for each class in the career path
-        const meetsAllClassRequirements = career.classRequirements.every(classReq =>
-            careerPaths.some(classInfo =>
-                classInfo.classInfo.subject === classReq.subject && classInfo.avgGrade >= classReq.minGrade
-            )
-        );
+    useEffect(() => {
+        const fetchCareersWithRequirements = async() =>{
+            try {
+                const careerList = await helper.getListOfAllCareers();
+                const sortedCareers = careerList.sort((a, b) => a.name.localeCompare(b.name));
+    
+                const modifiedCareerList = await Promise.all( sortedCareers.map( async careerInfo =>{
+                    const classRequirements = await helper.getListOfCareerRequirementsForCareer(careerInfo.id);
+                    return {careerInfo, classRequirements};
+                }));
+    
+                setAllCareers(modifiedCareerList);
+                console.log("career list", modifiedCareerList);
+            } catch (error) {
+                console.error("Error fetching Careers", error);
+            }  
+       };
+                
+        fetchCareersWithRequirements();
+    }, []);
+
+    
+    useEffect(() => {
+        const AssignCareerPaths = () => {
+            console.log("Assigning career paths...");
         
-        return meetsAllClassRequirements;
-    });
+            const filteredCareers = allCareers.filter(career => {
+                const matchedRequirements = career.classRequirements.filter(requirement => {
+                    const matchedSubject = studentClassAverages.find(studinfo => studinfo.subject.toLowerCase() === requirement.classRequirement.toLowerCase());
+                    if (!matchedSubject) {
+                        console.log(`Subject ${requirement.classRequirement} not found in studentClassAverages for career ${career.careerInfo.name}`);
+                        return false;
+                    }
+        
+                    const meetsMinimumGrade = matchedSubject.avgGrade >= requirement.minimumGradeRequirement;
+                    if (!meetsMinimumGrade) {
+                        console.log(`Student's grade for ${requirement.classRequirement} is below minimum requirement for career ${career.careerInfo.name}`);
+                    }
+        
+                    return meetsMinimumGrade;
+                });
+        
+                if (matchedRequirements.length === career.classRequirements.length) {
+                    console.log(`All requirements met for career ${career.careerInfo.name}`);
+                    return true;
+                } else {
+                    console.log(`Not all requirements met for career ${career.careerInfo.name}`);
+                    return false;
+                }
+            });
+    
+            setPossibleCareerPaths(filteredCareers);
+            console.log("Applicable careers: ", filteredCareers);
+        };
+    
+        AssignCareerPaths();
+    },[allCareers, studentClassAverages]);
 
-    return associatedCareers.map(career => career.name);
-
-    }
-
-
-
-
-
+    return (
+        <>
+            <h2>Possible Career Paths:</h2>
+            <h4>
+                {PossibleCareerPaths.map(career => (
+                    <li key={career.careerInfo.id}>{career.careerInfo.name}</li>
+                ))}
+            </h4>
+        </>
+    );
    
 
 
