@@ -142,7 +142,7 @@ function PopulateMajorDB(){
                         <input
                             type="text"
                             placeholder='New Major Name'
-                            value={newCareer}
+                            value={newMajor}
                             onChange={(e) => setNewMajor(e.target.value)}
                         />
                         <button className='student-button' onClick={handleAddMajor}>Add Major</button>
