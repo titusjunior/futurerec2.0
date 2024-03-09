@@ -73,13 +73,7 @@ function TeacherAcess({selectedPage}) {
                 )}
                 </>
             )}
-            {selectedPage === 'Tutoring' && (
-                <>
-                    {/*For Testing Purposes */}
-                    <Career/>
-                    {/*For Testing Purposes */}
-               </> 
-            
+            {selectedPage === 'Tutoring' && (<h1>Settings</h1>
             )}
             {selectedPage === 'Majors' && (
                 <PopulateMajorDB></PopulateMajorDB>
