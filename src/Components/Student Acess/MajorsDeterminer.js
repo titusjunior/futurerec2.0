@@ -1,45 +1,96 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
 
-function DetermineMajorPath({studentID}){
-    const [allMajorPaths, setAllMajorPaths] = useState([]);
+function DetermineMajor({studentID}){    
+    const [allMajors, setAllMajors] = useState([]);
     const [studentClassAverages, setStudentClassAverages] = useState([]);
-    const StudentMajorPaths = [];
+    const [PossibleMajors, setPossibleMajors] = useState([]);
 
     useEffect(() => {
-        const fetchAllMajorPaths = async () => {
-            try{
-                const majorPaths = await helper.getListOfAllMajors();
-                setAllMajorPaths(majorPaths);
-            } catch(error) {
-                console.error("Error fetching available students:", error);
+        const GetAllClassAverages = async () =>{
+            try {
+                const classAverages = await helper.getstudentClassAverages(studentID);
+                setStudentClassAverages(classAverages);
+                console.log("their averages: ", classAverages);
+            } catch (error) {
+                console.error("Error fetching all Class Averages:", error);
             }
-        };
+        }
         GetAllClassAverages();
+
+    },[]);
+
+    useEffect(() => {
+        const fetchMajorsWithRequirements = async() =>{
+            try {
+                const majorList = await helper.getListOfAllMajors();
+                const sortedMajors = majorList.sort((a, b) => a.name.localeCompare(b.name));
+    
+                const modifiedMajorList = await Promise.all( sortedMajors.map( async majorInfo =>{
+                    const classRequirements = await helper.getListOfMajorRequirementsForMajor(majorInfo.id);
+                    return {majorInfo, classRequirements};
+                }));
+    
+                setAllMajors(modifiedMajorList);
+                console.log("major list", modifiedMajorList);
+            } catch (error) {
+                console.error("Error fetching majors", error);
+            }  
+       };
+                
+        fetchMajorsWithRequirements();
     }, []);
 
-    const GetAllClassAverages = async () =>{
-        try{
-            const classAverages = await helper.getstudentClassAverages(studentID);
-            setStudentClassAverages(classAverages);
-            console.log("his average: ", classAverages);
-        } catch (error) {
-            console.error("Error fetching all Class Averages:", error);
-        }
-    }
+    
+    useEffect(() => {
+        const AssignMajors = () => {
+            console.log("Assigning majors...");
+        
+            const filteredMajors = allMajors.filter(major => {
+                const matchedRequirements = major.classRequirements.filter(requirement => {
+                    const matchedSubject = studentClassAverages.find(studinfo => studinfo.subject.toLowerCase() === requirement.classRequirement.toLowerCase());
+                    if (!matchedSubject) {
+                        console.log(`Subject ${requirement.classRequirement} not found in studentClassAverages for major ${major.majorInfo.name}`);
+                        return false;
+                    }
+        
+                    const meetsMinimumGrade = matchedSubject.avgGrade >= requirement.minimumGradeRequirement;
+                    if (!meetsMinimumGrade) {
+                        console.log(`Student's grade for ${requirement.classRequirement} is below minimum requirement for major ${major.majorInfo.name}`);
+                    }
+        
+                    return meetsMinimumGrade;
+                });
+        
+                if (matchedRequirements.length === major.classRequirements.length) {
+                    console.log(`All requirements met for major ${major.majorInfo.name}`);
+                    return true;
+                } else {
+                    console.log(`Not all requirements met for major ${major.majorInfo.name}`);
+                    return false;
+                }
+            });
+    
+            setPossibleMajors(filteredMajors);
+            console.log("Applicable majors: ", filteredMajors);
+        };
+    
+        AssignMajors();
+    },[allMajors, studentClassAverages]);
 
-    const AssignMajorsPaths = async() => {
-        const associatedMajors = majorPaths.filter(major => {
-            const meetsAllMajorRequirements = major.majorRequirements.every(majorReq =>
-                majorPaths.some(classInfo =>
-                    classInfo.classInfo.subject === classReq.subject && classInfo.avgGrade >= classReq.minGrade
-                    )
-                );
-                return meetsAllMajorRequirements;
-        });
-        return associatedMajors.map(major => major.name);
-    }
+    return (
+        <>
+            <h2>Possible Majors:</h2>
+            <h4>
+                {PossibleMajors.map(major => (
+                    <li key={major.majorInfo.id}>{major.majorInfo.name}</li>
+                ))}
+            </h4>
+        </>
+    );
+   
+
 
 }
 
-export default DetermineMajorPath;
+export default DetermineMajor;

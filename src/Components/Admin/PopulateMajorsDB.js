@@ -154,14 +154,15 @@ function PopulateMajorDB(){
             {displayRequirements && (
                 <>
                     <h2>Set Requirements for {selectedmajor.name}:</h2>
-                    <h3>Current Requirements</h3>
+                    <br />
+                    <h3 style ={{ textDecoration: 'underline' }}>Current Requirements</h3>
                     {majorRequirements.map(requirements => (
-                        <div key={requirements.id}>
-                            <span>Class: {requirements.classRequirement}</span>
-                            <span>Minimum Grade: {requirements.minimumGradeRequirement}</span>
+                        <div key={requirements.id} style={{marginTop: '5px'}}>
+                            <p><strong>Class:</strong> {requirements.classRequirement}</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;- Minimum Grade: {requirements.minimumGradeRequirement}</p>
                         </div>
                     ))}
-
+                    <br />
                     <div>
                         <span>New Class Requirement: </span>
                         <select value={newClassRequirement}
@@ -184,7 +185,8 @@ function PopulateMajorDB(){
                     </div>
 
                     <button className='student-button' onClick={handleAddNewRequirement}>Add New Requirement</button>
-                    <div><button className='student-button' onClick={handleSaveRequirement}>Done</button></div>
+                    <br />
+                    <div><button className='save-button' onClick={handleSaveRequirement}>Done</button></div>
                 </>
             )}
         </>
