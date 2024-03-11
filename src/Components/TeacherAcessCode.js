@@ -87,7 +87,6 @@ function TeacherAcess({selectedPage}) {
             {selectedPage === 'Careers' && (
                 <PopulateCareerDB></PopulateCareerDB>
             )}
-            {selectedPage === 'Settings' && <h1>Settings</h1>} 
     </div>
 </>
   );

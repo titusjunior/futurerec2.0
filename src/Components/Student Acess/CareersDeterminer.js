@@ -85,11 +85,11 @@ function DetermineCareerPath({studentID}){
         <div className="careers">
             <h2>Possible Career Paths:</h2>
             <br></br>
-            <h4>
+            <div class="container">
                 {PossibleCareerPaths.map(career => (
                     <li key={career.careerInfo.id}>{career.careerInfo.name}</li>
                 ))}
-            </h4>
+            </div>
         </div>
         </>
     );

@@ -405,14 +405,29 @@ button img {
   background-image: url("majors.jpg");
   background-size: cover; /* Ensure the background image covers the entire element */
   background-repeat: no-repeat; 
+  justify-content: center;
+  align-content: center;
 }
 
 .majors h2{
   text-align: center;
+  font-size: 3em;
+  -webkit-text-stroke: 1.5px white;
 }
 
-.majors h4{
-  text-align: center;
+.majors .container {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+}
+
+.majors .container li {
+  display: inline-flex;
+  background-color: white;
+  text-align: center; /* Optional if you want to center text */
+  font-size: 1.5em;
+  padding: 1px 5px;
+  border: 2px solid #043927;
 }
 
 .careers{
@@ -428,8 +443,21 @@ button img {
 
 .careers h2{
   text-align: center;
+  font-size: 3em;
+  -webkit-text-stroke: 1.5px white;
 }
 
-.careers h4{
-  text-align: center;
+.careers .container {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+}
+
+.careers .container li {
+  display: inline-flex;
+  background-color: white;
+  text-align: center; /* Optional if you want to center text */
+  font-size: 1.5em;
+  padding: 1px 5px;
+  border: 2px solid #043927;
 }

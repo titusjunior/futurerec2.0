@@ -69,7 +69,6 @@ function StudentAcess({selectedPage}) {
                         studentID = {studentId}
                         />
                     )}
-                    {selectedPage === 'Settings' && <h1>Settings</h1>} 
             </div>
         </>
 

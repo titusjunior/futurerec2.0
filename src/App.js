@@ -119,13 +119,6 @@ function App({signOut, user}) {
         <span className="tooltip">Careers</span>
       </li>
       <li>
-        <a href="#" onClick={() => changeContent('Settings')}>
-          <i className="bx bxs-cog" />
-          <span className="nav-item">Settings</span>
-        </a>
-        <span className="tooltip">Settings</span>
-      </li>
-      <li>
         <button><img src={logoutImg} alt="my image" onClick={signOut} /></button>
       </li>
     </ul>
