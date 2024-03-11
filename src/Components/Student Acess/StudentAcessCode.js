@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import Career from  './CareersDeterminer';
 import ClassComponent from './StudentClassComponent';
 import StudentGrades from './StudentGradesComponent';
+import Major from './MajorsDeterminer';
+import padlockImg from "../../padlock.jpg";
 
 function StudentAcess({selectedPage}) {
-    const studentId = "366eb7e6-079f-49ab-bec8-f008140dc327";
+    const studentId = "e5cfaec8-3aae-4e58-8d0f-b009da82402e";
 
     const [grades, setGrades] = useState([]);
     const [classes, setClasses] = useState([]);
@@ -50,8 +52,18 @@ function StudentAcess({selectedPage}) {
                         )}                   
                     </>
                     )}
-                    {selectedPage === 'Tutoring' && (<h1>Tutoring</h1>)}
-                    {selectedPage === 'Majors' && <h1>Majors</h1>}
+                    {selectedPage === 'Tutoring' && (
+                        <div className="tutoring">
+                            <img src={padlockImg} alt="construction" />
+                            <h1>This page is currently under construction</h1>
+                            <h2>Our team is hard at work to bring you this new and exciting update!</h2>
+                        </div>
+                    )}
+                    {selectedPage === 'Majors' && (
+                        <Major
+                        studentID={studentId}
+                        />
+                    )}
                     {selectedPage === 'Careers' && (
                         <Career
                         studentID = {studentId}

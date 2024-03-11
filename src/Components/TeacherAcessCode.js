@@ -78,7 +78,7 @@ function TeacherAcess({selectedPage}) {
                 <div className="tutoring">
                     <img src={padlockImg} alt="construction" />
                     <h1>This page is currently under construction</h1>
-                    <h2>Our team is hard at work to bring this new and exciting update to you</h2>
+                    <h2>Our team is hard at work to bring you this new and exciting update!</h2>
                 </div>
             )}
             {selectedPage === 'Majors' && (

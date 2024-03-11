@@ -395,3 +395,41 @@ button img {
   -webkit-text-stroke: 1.5px orangered;
   text-align: center;
 }
+
+.majors{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Take up the same width as main-content */
+  height: 100%; /* Take up the same height as main-content */
+  background-image: url("majors.jpg");
+  background-size: cover; /* Ensure the background image covers the entire element */
+  background-repeat: no-repeat; 
+}
+
+.majors h2{
+  text-align: center;
+}
+
+.majors h4{
+  text-align: center;
+}
+
+.careers{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Take up the same width as main-content */
+  height: 100%; /* Take up the same height as main-content */
+  background-image: url("careers.jpg");
+  background-size: cover; /* Ensure the background image covers the entire element */
+  background-repeat: no-repeat; 
+}
+
+.careers h2{
+  text-align: center;
+}
+
+.careers h4{
+  text-align: center;
+}

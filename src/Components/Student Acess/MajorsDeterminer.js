@@ -80,12 +80,15 @@ function DetermineMajor({studentID}){
 
     return (
         <>
+        <div className="majors">
             <h2>Possible Majors:</h2>
+            <br></br>
             <h4>
                 {PossibleMajors.map(major => (
                     <li key={major.majorInfo.id}>{major.majorInfo.name}</li>
                 ))}
             </h4>
+        </div>
         </>
     );
    
