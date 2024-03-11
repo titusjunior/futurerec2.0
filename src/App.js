@@ -3,6 +3,9 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import "./App.css";
 import '@aws-amplify/ui-react/styles.css';
 import React, { useEffect, useState } from 'react';
+import { fetchUserAttributes, getCurrentUser } from 'aws-amplify/auth';
+
+
 
 import profileImg from "./profile.jpg";
 import logoutImg from "./logout.jpg";
@@ -15,7 +18,7 @@ Amplify.configure(config);
 
 function App({signOut, user}) {
   const [userIsTeacher, setUserIsTeacher] = useState(true);
-    const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
+  const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
 
       useEffect(() => {
         // JavaScript code to toggle sidebar and set initial content
@@ -29,6 +32,7 @@ function App({signOut, user}) {
         document.addEventListener('DOMContentLoaded', function () {
             changeContent('Home');
         });
+        detectUser();
       }, []);
 
     async function changeContent(pageName){
@@ -37,6 +41,20 @@ function App({signOut, user}) {
     } catch (error) {
         console.error('Error changing content: ', error);
     }
+    }
+
+    async function detectUser() {
+      const userInfo = await fetchUserAttributes();
+      const user_type = userInfo["custom:user_type"]
+      console.log(userInfo["custom:user_type"]);
+      if(user_type == "Teacher") {
+        setUserIsTeacher(true);
+      } else if(user_type == "Student") {
+        setUserIsTeacher(false);
+      } else{
+        setUserIsTeacher(false);
+      }
+      
     }
 
   return (

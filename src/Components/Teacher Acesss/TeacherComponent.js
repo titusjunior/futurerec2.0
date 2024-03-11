@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
+import { fetchUserAttributes } from 'aws-amplify/auth';
 import "../../App.css";
 
 function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, setDisplayTeachers}) {
@@ -10,10 +11,14 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, s
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const teacherList = await helper.getListOfTeachers();
-        if (teacherList && teacherList.items) {
-          const sortedTeachers = teacherList.items.sort((a, b) => a.name.localeCompare(b.name));
-          setTeachers(sortedTeachers);
+        const teacher = [await helper.getTeacher()];
+        if (teacher[0]) {
+          setTeachers(teacher);
+          console.log(teacher[0].id);
+          handleTeacherClick(teacher[0].id);
+        }else{
+          handleAddTeacher()
+          fetchTeachers();
         }
       } catch (error) {
         console.error("Error fetching teachers:", error);
@@ -25,7 +30,7 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, s
 
   const handleTeacherClick = async (teacherId) => {
     try {
-      const teacher = await helper.getTeacher(teacherId);
+      const teacher = await helper.getTeacher();
       setSelectedTeacher(teacher);
       const classList = await helper.getListOfClassesForTeacher(teacherId);
       setClasses(classList);
@@ -40,14 +45,10 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, s
   const handleAddTeacher = async () => {
     try {
       //Prevent User from entering a blank Teacher Name
-      if (newTeacherName.trim() === '') {
-        setTeacherErrorMessage("Cannot add a blank teacher name");
-        console.log("Cannot add a blank teacher name");
-        return;
-      }
       setTeacherErrorMessage('');
-
-      const newTeacher = await helper.createTeacher(newTeacherName);
+      const userInfo = await fetchUserAttributes();
+      const full_name = userInfo.given_name + " " + userInfo.family_name;
+      const newTeacher = await helper.createTeacher(full_name, userInfo.sub);
       console.log("New teacher created:", newTeacher);
       setTeachers(prevTeachers => [...prevTeachers, newTeacher]);
       setNewTeacherName('');
@@ -59,24 +60,7 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, s
   return (
     <>
       <div>
-        <h2>Current Teachers:</h2>
-        {teachers.map(teacher => (
-          <div key={teacher.id}>
-            <button onClick={() => handleTeacherClick(teacher.id)}>
-              {teacher && teacher.name}
-            </button>
-          </div>
-        ))}
-        <div>
-          <input
-            type="text"
-            placeholder="New teacher's name"
-            value={newTeacherName}
-            onChange={(e) => setNewTeacherName(e.target.value)}
-          />
-          <button className='student-button' onClick={handleAddTeacher}>Add New Teacher</button>
-          {teacherErrorMessage && <p className="error-message">{teacherErrorMessage}</p>}
-        </div>
+        <h2>Loading Classes</h2>
       </div>
     </>
   );

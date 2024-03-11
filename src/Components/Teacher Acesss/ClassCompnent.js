@@ -58,16 +58,8 @@ function ClassComponent({setDisplayTeacher, setDisplayClasses, setDisplayStudent
     }
   };
 
-  const handleBackToTeachersClick = () => {
-    setSelectedTeacher(null);
-    setClasses([]);
-    setDisplayClasses(false);
-    setDisplayTeacher(true);
-  };
-
   return(
     <>
-      <button className='back-button' onClick={handleBackToTeachersClick}>&#8592;Back to Teachers</button>
       <h2 style={{ marginTop: '20px' }}>Current Classes for {selectedTeacher && selectedTeacher.name}:</h2> {/* Added null check for selectedTeacher */}
       <div>
         {classes.map(classItem => (

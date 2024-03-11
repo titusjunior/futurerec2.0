@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
+import { signUp } from 'aws-amplify/auth';
+
 import "../../App.css";
+
 
 function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass, setSelectedClass, students, setStudents, allGradeDescriptionsAndWeights, setAllGradeDescriptionsAndWeights }) {
     
   const [availableStudents, setAvailableStudents] = useState([]);
   const [selectedStudentId, setSelectedStudentId] = useState('');
   const [newStudentName, setNewStudentName] = useState('');
+  const [newStudentEmail, setNewStudentEmail] = useState('');
   const [newStudentClassStanding, setNewStudentClassStanding] = useState('');
   const [isExistingStudentSelected, setIsExistingStudentSelected] = useState(false);
         
@@ -20,6 +24,8 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
   const [SaveWeightErrorMessage, setSaveWeightErrorMessage] = useState('');
   const [addDescriptionErrorMessage, setAddDescriptionErrorMessage] = useState('');
   const [addStudentErrorMessage, setAddStudentErrorMessage] = useState('');
+
+  const [addSignUp, setSignUp] = useState('');
 
   const ClassStandings = ["Freshman", "Sophmore", "Junior", "Senior"];
 
@@ -68,6 +74,10 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
         setAddStudentErrorMessage("Cannot add a blank student name.Ensure either an existing student is selcted or enter a valid student name");
         console.log("Cannot Add a blank student");
         return;
+      }else if (!selectedStudentId && ( newStudentEmail.trim() === '')){
+        setAddStudentErrorMessage("Cannot add a blank student email. Ensure either an existing student is selcted or enter a valid student email");
+        console.log("Cannot Add a blank student email");
+        return;
       }else if (!selectedStudentId && ( newStudentClassStanding.trim() === '')){
         setAddStudentErrorMessage("PLease select a valid class Standing.Ensure either an existing student or a class Standing is selected");
         console.log("Cannot Add a blank classStanding");
@@ -84,27 +94,51 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
         allGradeDescriptionsAndWeights.forEach(async (gradeDescription) => {
           await helper.addGrade(selectedClass.id, selectedStudentId, gradeDescription.description, 0, gradeDescription.weight);
         });
-      } else if (newStudentName.trim() !== '') {
-        const newStudent = await helper.addStudent(newStudentName, newStudentClassStanding);
-        setStudents([...students, newStudent]);
-        await helper.associateStudentWithClass(selectedClass.id, newStudent.id);
+      } else if (newStudentName.trim() !== '' && newStudentEmail.trim() !== '') {
+        console.log(newStudentName)
+        setSignUp({username: newStudentEmail, password: "Password1!", given_name: newStudentName, family_name: '', user_type: "Student"});
+        inviteNewUser(addSignUp);
+        //const newStudent = await helper.addStudent(newStudentName, newStudentClassStanding);
+        //setStudents([...students, newStudent]);
+        //await helper.associateStudentWithClass(selectedClass.id, newStudent.id);
 
-        allGradeDescriptionsAndWeights.forEach(async (gradeDescription) => {
-          await helper.addGrade(selectedClass.id, newStudent.id, gradeDescription.description, 0, gradeDescription.weight);
-        });
+        //allGradeDescriptionsAndWeights.forEach(async (gradeDescription) => {
+        //  await helper.addGrade(selectedClass.id, newStudent.id, gradeDescription.description, 0, gradeDescription.weight);
+        //});
 
       }
       setSelectedStudentId('');
-      setNewStudentName('');
-      setNewStudentClassStanding('');
+      //setNewStudentName('');
+      //setNewStudentClassStanding('');
       setIsExistingStudentSelected(false); // Reset state after adding student
     } catch (error) {
       console.error("Error adding new student:", error);
     }
   };
+
+  async function inviteNewUser({username, password, given_name, family_name, user_type}) {
+    try {
+      const signUpResponse = await signUp({
+        username, 
+        password,
+        options: {
+          userAttributes: {
+            given_name,
+            family_name,
+            user_type
+          },
+          autoSignIn: true
+        }
+      });
+  
+      console.log(signUpResponse);
+    } catch (error) {
+      console.log('error signing up:', error);
+    }
+  }
   
   //#endregion
- 
+  
  
   //#region Weighted scale
 
@@ -357,6 +391,12 @@ const CalculateStudentsAverage = async () => {
                   placeholder="Or enter new student name"
                   value={newStudentName}
                     onChange={(e) => setNewStudentName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder=" student email"
+                  value={newStudentEmail}
+                    onChange={(e) => setNewStudentEmail(e.target.value)}
                 />
                 <select
                   value={newStudentClassStanding}

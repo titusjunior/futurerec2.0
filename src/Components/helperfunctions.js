@@ -1,4 +1,5 @@
 import { generateClient } from 'aws-amplify/api';
+import { fetchUserAttributes } from 'aws-amplify/auth';
 import * as mutations from '../graphql/mutations';
 import * as query from '../graphql/queries'
 
@@ -8,7 +9,8 @@ const client = generateClient();
 
   export async function createTeacher(teacherName) {
     try {
-      const teacherData = { name: teacherName };
+      const userInfo = await fetchUserAttributes();
+      const teacherData = { id: userInfo.sub, name: teacherName };
       const newTeacher = await client.graphql({
         query: mutations.createTeacher,
         variables: { input: teacherData }
@@ -108,11 +110,12 @@ export async function getListOfTeachers() {
   }
 }
 
-export async function getTeacher(teacherId) {
+export async function getTeacher() {
   try {
+    const userInfo = await fetchUserAttributes();
     const response = await client.graphql({ 
       query: query.getTeacher, 
-      variables: { id: teacherId } 
+      variables: { id: userInfo.sub } 
     });
     return response.data.getTeacher;
   } catch (error) {
