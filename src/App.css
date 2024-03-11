@@ -361,3 +361,75 @@ button img {
 .back-button:active {
   background-color: #d0d0d0;
 }
+
+.tutoring{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 0rem;
+}
+
+.tutoring img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tutoring h1 {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  -webkit-text-stroke: 2px orangered;
+  
+}
+
+.tutoring h2 {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  -webkit-text-stroke: 1.5px orangered;
+  text-align: center;
+}
+
+.majors{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Take up the same width as main-content */
+  height: 100%; /* Take up the same height as main-content */
+  background-image: url("majors.jpg");
+  background-size: cover; /* Ensure the background image covers the entire element */
+  background-repeat: no-repeat; 
+}
+
+.majors h2{
+  text-align: center;
+}
+
+.majors h4{
+  text-align: center;
+}
+
+.careers{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Take up the same width as main-content */
+  height: 100%; /* Take up the same height as main-content */
+  background-image: url("careers.jpg");
+  background-size: cover; /* Ensure the background image covers the entire element */
+  background-repeat: no-repeat; 
+}
+
+.careers h2{
+  text-align: center;
+}
+
+.careers h4{
+  text-align: center;
+}

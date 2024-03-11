@@ -7,6 +7,7 @@ import StudentComponent from './Teacher Acesss/Student&GradeComponent';
 
 import PopulateCareerDB from './Admin/PopulateCareersDB';
 import PopulateMajorDB from './Admin/PopulateMajorsDB';
+import padlockImg from "../padlock.jpg";
 
 function TeacherAcess({selectedPage}) {
 
@@ -73,7 +74,12 @@ function TeacherAcess({selectedPage}) {
                 )}
                 </>
             )}
-            {selectedPage === 'Tutoring' && (<h1>Settings</h1>
+            {selectedPage === 'Tutoring' && (
+                <div className="tutoring">
+                    <img src={padlockImg} alt="construction" />
+                    <h1>This page is currently under construction</h1>
+                    <h2>Our team is hard at work to bring you this new and exciting update!</h2>
+                </div>
             )}
             {selectedPage === 'Majors' && (
                 <PopulateMajorDB></PopulateMajorDB>
