@@ -19,6 +19,7 @@ Amplify.configure(config);
 function App({signOut, user}) {
   const [userIsTeacher, setUserIsTeacher] = useState(true);
   const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
+  const [name, setName] = useState('');
 
       useEffect(() => {
         // JavaScript code to toggle sidebar and set initial content
@@ -33,6 +34,8 @@ function App({signOut, user}) {
             changeContent('Home');
         });
         detectUser();
+        setUserName();
+
       }, []);
 
     async function changeContent(pageName){
@@ -41,6 +44,11 @@ function App({signOut, user}) {
     } catch (error) {
         console.error('Error changing content: ', error);
     }
+    }
+
+    async function setUserName() {
+      const username = await fetchUserAttributes();
+      setName(username.given_name + " " + username.family_name);
     }
 
     async function detectUser() {
@@ -79,7 +87,7 @@ function App({signOut, user}) {
     <div className="user">
       <img src={profileImg} alt="me" className="user-img" />
       <div>
-        <p className="bold">{user.username}</p>
+        <p className="bold">{name}</p>
       </div>
     </div>
     <ul>
