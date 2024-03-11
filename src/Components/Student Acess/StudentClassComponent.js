@@ -38,7 +38,7 @@ function ClassComponent({studentId, setGrades, classes, setClasses, setSelectedC
   return(
     <>
       <h2>Currently Enrolled For:</h2> {/* Added null check for selectedTeacher */}
-      <div>
+      <div className="classItems">
         {classes.map(classItem => (
           <div key={classItem.id}>
             <button onClick={() => handleClassClick(classItem.id)}>

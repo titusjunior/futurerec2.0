@@ -127,7 +127,7 @@ function App({signOut, user}) {
         <span className="tooltip">Careers</span>
       </li>
       <li>
-        <button><img src={logoutImg} alt="my image" onClick={signOut} /></button>
+        <button className="logout"><img src={logoutImg} alt="my image" onClick={signOut} /></button>
       </li>
     </ul>
   </div>

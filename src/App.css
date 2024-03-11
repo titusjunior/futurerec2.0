@@ -247,7 +247,7 @@ th:last-child {
   line-height: 50px;
 }
 
-button {
+.logout {
   border: none;
   cursor: pointer;
   border-radius: 100%;
@@ -460,4 +460,14 @@ button img {
   font-size: 1.5em;
   padding: 1px 5px;
   border: 2px solid #043927;
+}
+
+.classItems button{
+  background-color: #658354;
+  color: black;
+  border-radius: 5px;
+  border-color: #043927;
+  border-style: outset;
+  padding: 2px;
+  margin-bottom: 10px;
 }
