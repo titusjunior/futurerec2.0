@@ -6,9 +6,9 @@ const client = generateClient();
 
 //#region Creation
 
-  export async function createTeacher(teacherName) {
+  export async function createTeacher(teacherId,teacherName) {
     try {
-      const teacherData = { name: teacherName };
+      const teacherData = { id: teacherId, name: teacherName };
       const newTeacher = await client.graphql({
         query: mutations.createTeacher,
         variables: { input: teacherData }
@@ -49,9 +49,9 @@ const client = generateClient();
     }
   }
 
-  export async function addStudent(studentName, studentClassStanding) {
+  export async function addStudent(studentId, studentName, studentClassStanding) {
     try {
-      const studentData = { name: studentName, classStanding: studentClassStanding };
+      const studentData = { id: studentId, name: studentName, classStanding: studentClassStanding };
       const newStudent = await client.graphql({
         query: mutations.createStudent,
         variables: { input: studentData }

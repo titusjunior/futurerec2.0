@@ -1,16 +1,16 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "futurerec2959d4f18_identitypool_959d4f18",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "future959d4f18",
-    "userPoolName": "futurerec2959d4f18_userpool_959d4f18",
+    "identityPoolName": "newestidentitypool",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "future5b837c47",
+    "userPoolName": "newestuserpool",
     "autoVerifiedAttributes": [
       "email"
     ],
-    "mfaConfiguration": "OFF",
+    "mfaConfiguration": "OPTIONAL",
     "mfaTypes": [
-      "SMS Text Message"
+      "TOTP"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
@@ -20,7 +20,8 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email"
+      "email",
+      "name"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
@@ -31,13 +32,20 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "future959d4f18_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "future5b837c47_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "959d4f18",
-    "resourceName": "futurerec2959d4f18",
+    "sharedId": "5b837c47",
+    "resourceName": "futurerec205b837c475b837c47",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "useDefault": "manual",
+    "thirdPartyAuth": false,
+    "usernameAttributes": [
+      "email"
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
     "triggers": {},
+    "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,

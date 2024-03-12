@@ -7,6 +7,7 @@ function OrganizeClasses() {
     
   const [teachers, setTeachers] = useState([]);
   const [newTeacherName, setNewTeacherName] = useState('');
+  const [classTeacherName, setClassTeacherName] = useState('');
 
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState(null);
@@ -53,6 +54,9 @@ function OrganizeClasses() {
           setSelectedClass(classInfo);
           console.log("class selected: ", classInfo);
           setDisplayClasses(false);
+
+          const teacherName = await helper.getTeacher(classInfo.teacherClassesId);
+          setClassTeacherName(teacherName.name);
     
         } catch (error) {
           console.error("Error handling class click:", error);
@@ -101,10 +105,14 @@ const handleNewTeacher = async (e) => {
   const selectedTeacherId = e.target.value;
   setNewTeacherName(selectedTeacherId);
   await helper.updateClass(selectedClass.id, selectedTeacherId);
+  const teacherName = await helper.getTeacher(selectedTeacherId);
+  setClassTeacherName(teacherName.name);
   console.log("Updated class:", );
   const classInfo = await helper.getClass(selectedClass.id);
   setSelectedClass(classInfo);
 };
+
+
 
 //#endregion
 
@@ -184,7 +192,7 @@ const handleNewTeacher = async (e) => {
           <button className='back-button' onClick={handleBackClick}>&#8592;Back To Classes</button>
           <h3 style={{ textDecoration: 'underline' }}>{selectedClass.subject}</h3>
           <br/>
-          <p><strong>&nbsp;&nbsp;&nbsp;Teacher:</strong> {selectedClass.teacherID.name}</p>
+          <p><strong>&nbsp;&nbsp;&nbsp;Teacher:</strong> {classTeacherName}</p>
           <br/>
           <p><strong>&nbsp;&nbsp;&nbsp;&nbsp;Students:</strong> </p>
 

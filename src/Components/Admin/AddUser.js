@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
-import "../../App.css";
+import { signUp } from 'aws-amplify/auth';
 
 function AddUserComponent({}) {
 
     const [userType, setUserType] = useState('');
+
     const [teachers, setTeachers] = useState([]);
     const [newTeacherName, setNewTeacherName] = useState('');
+    const [newStudentEmail, setNewStudentEmail] = useState('');
     const [teacherErrorMessage, setTeacherErrorMessage] = useState('');
 
     const [students, setStudents] = useState([]);
     const [newStudentName, setNewStudentName] = useState('');
+    const [newTeacherEmail, setNewTeacherEmail] = useState('');
     const [newStudentClassStanding, setNewStudentClassStanding] = useState('');
     const [addStudentErrorMessage, setAddStudentErrorMessage] = useState('');
 
@@ -23,6 +26,30 @@ function AddUserComponent({}) {
     const handleBackClick = () => {
         setUserType('');
     };
+
+    async function inviteNewUser({username, password, name, user_type}) {
+      try {
+        console.log("We are here");
+
+        const signUpResponse = await signUp({
+          username, 
+          password,
+          options: {
+            userAttributes: {
+              name,
+              'custom:user_type':user_type
+            },
+            autoSignIn: true
+          }
+        });
+        console.log("We are here 2");
+        console.log(signUpResponse);
+        return signUpResponse.userId;
+      } catch (error) {
+        console.log('error signing up:', error);
+      }
+    }
+
 
     //#region Add Teacher  
     useEffect(() => {
@@ -52,11 +79,18 @@ function AddUserComponent({}) {
           return;
         }
         setTeacherErrorMessage('');
-  
-        const newTeacher = await helper.createTeacher(newTeacherName);
+        
+        const signUpData = {username: newTeacherEmail, password: "Password1!", name: newTeacherName, user_type: "Teacher"};
+        const newUserId = await inviteNewUser(signUpData);        
+        
+        console.log("newUserId: ", newUserId);
+        console.log("Teacher Email: ", newTeacherEmail);
+        console.log("newUser name: ", newTeacherName);
+        const newTeacher = await helper.createTeacher(newUserId, newTeacherName);
         console.log("New teacher created:", newTeacher);
         setTeachers(prevTeachers => [...prevTeachers, newTeacher]);
         setNewTeacherName('');
+        setNewTeacherEmail('');
       } catch (error) {
         console.error("Error adding new teacher:", error);
       }
@@ -102,11 +136,23 @@ function AddUserComponent({}) {
                 return;
             }
             setAddStudentErrorMessage('');
-    
-            const newStudent = await helper.addStudent(newStudentName, newStudentClassStanding);
+
+            const signUpData = {username: newStudentEmail, password: "Password1!", name: newStudentName, user_type: "Student"};
+            const newUserId = await inviteNewUser(signUpData);        
+        
+            
+            console.log("newUserId: ", newUserId);
+            console.log("Student Email: ", newStudentEmail);
+            console.log("new Student name: ", newStudentName);
+
+            const newStudent = await helper.addStudent(newUserId,newStudentName, newStudentClassStanding);
+
+            console.log("new student info: ", newStudent);
+
             setStudents([...students, newStudent]);
             setNewStudentName('');
             setNewStudentClassStanding('');
+            setNewStudentEmail('');
         } catch (error) {
           console.error("Error adding new student:", error);
         }
@@ -145,6 +191,12 @@ function AddUserComponent({}) {
                     value={newTeacherName}
                     onChange={(e) => setNewTeacherName(e.target.value)}
                 />
+                <input
+                  type="text"
+                  placeholder="Teacher email"
+                  value={newTeacherEmail}
+                    onChange={(e) => setNewTeacherEmail(e.target.value)}
+                />
                 <button className='student-button' onClick={handleAddTeacher}>Add New Teacher</button>
                 {teacherErrorMessage && <p className="error-message">{teacherErrorMessage}</p>}
                 </div>
@@ -177,6 +229,12 @@ function AddUserComponent({}) {
                         <option key={index} value={standing}>{standing}</option>
                     ))}
                     </select>
+                    <input
+                      type="text"
+                      placeholder="Student email"
+                      value={newStudentEmail}
+                      onChange={(e) => setNewStudentEmail(e.target.value)}
+                    />
                     <button className='student-button' onClick={handleAddStudent}>Add Student</button>
                     {addStudentErrorMessage && <p className="error-message">{addStudentErrorMessage}</p>}
                 </div>

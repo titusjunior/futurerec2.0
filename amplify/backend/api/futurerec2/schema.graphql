@@ -1,13 +1,13 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 
-type Teacher @model @auth(rules: [{ allow: owner }]){ 
+type Teacher @model @auth(rules: [{ allow: private }]){ 
   id: ID!
   name: String!
   classes: [Class] @hasMany
 }
 
-type Class @model @auth(rules: [{ allow: owner }]) {
+type Class @model @auth(rules: [{ allow: private }]) {
   id: ID!
   subject: String!
   teacherID: Teacher @belongsTo
@@ -15,7 +15,7 @@ type Class @model @auth(rules: [{ allow: owner }]) {
   students: [Student] @manyToMany(relationName:"StudentClassLink")
 }
 
-type Student @model @auth(rules: [{ allow: owner }]){
+type Student @model @auth(rules: [{ allow: private }]){
   id: ID!
   name: String!
   classStanding: String!
@@ -25,7 +25,7 @@ type Student @model @auth(rules: [{ allow: owner }]){
   career:[Career] @manyToMany(relationName:"StudentCareerLink")
 }
 
-type Grade @model @auth(rules: [{ allow: owner }]){
+type Grade @model @auth(rules: [{ allow: private }]){
   id: ID!
   description: String!
   score: Int!
@@ -35,31 +35,30 @@ type Grade @model @auth(rules: [{ allow: owner }]){
   student: Student @belongsTo
 }
 
-type Major @model @auth(rules: [{ allow: owner }]){
+type Major @model @auth(rules: [{ allow: private }]){
   id: ID!
   name: String!
   students: [Student] @manyToMany(relationName:"StudentMajorLink")
   majorRequirement: [MajorRequirement]@hasMany
 }
 
-type MajorRequirement @model @auth(rules: [{allow: owner }]){
+type MajorRequirement @model @auth(rules: [{ allow: private }]){
   id: ID!
   classRequirement: String!
   minimumGradeRequirement: Float!
   major: Major @belongsTo
 }
 
-type Career @model @auth(rules: [{ allow: owner }]){
+type Career @model @auth(rules: [{ allow: private }]){
   id: ID!
   name: String!
   students: [Student] @manyToMany(relationName:"StudentCareerLink")
   careerRequirement: [CareerRequirement] @hasMany
 }
 
-type CareerRequirement @model @auth(rules: [{ allow: owner }]){
+type CareerRequirement @model @auth(rules: [{ allow: private }]){
   id: ID!
   classRequirement: String!
   minimumGradeRequirement: Float!
   career: Career @belongsTo
 } 
-

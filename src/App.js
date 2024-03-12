@@ -3,6 +3,7 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import "./App.css";
 import '@aws-amplify/ui-react/styles.css';
 import React, { useEffect, useState } from 'react';
+import { fetchUserAttributes, getCurrentUser } from 'aws-amplify/auth';
 
 import profileImg from "./profile.jpg";
 import logoutImg from "./logout.jpg";
@@ -10,14 +11,15 @@ import TeacherSelected from './Components/TeacherAcessCode'
 import StudentSelected from './Components/Student Acess/StudentAcessCode'
 import AdminSelected from './Components/Admin/AdminAcessCode'
 
-import config from './aws-exports';
+import config from './aws-exports'; 
 
 Amplify.configure(config);
 
 function App({signOut, user}) { 
-  const [userIsAdmin, setUserIsAdmin] = useState(true);
+  const [userIsAdmin, setUserIsAdmin] = useState(false);
   const [userIsTeacher, setUserIsTeacher] = useState(false);
-    const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
+  const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
+  const [name, setName] = useState('');
 
       useEffect(() => {
         // JavaScript code to toggle sidebar and set initial content
@@ -31,6 +33,9 @@ function App({signOut, user}) {
         document.addEventListener('DOMContentLoaded', function () {
             changeContent('Home');
         });
+        detectUser();
+        setUserName();
+
       }, []);
 
     async function changeContent(pageName){
@@ -39,6 +44,30 @@ function App({signOut, user}) {
     } catch (error) {
         console.error('Error changing content: ', error);
     }
+    }
+
+    async function setUserName() {
+      const username = await fetchUserAttributes();
+      setName(username.name);
+    }
+
+    async function detectUser() {
+      const userInfo = await fetchUserAttributes();
+      const user_type = userInfo["custom:user_type"]
+      console.log(userInfo["custom:user_type"]);
+      if(user_type == "Admin") {
+        setUserIsTeacher(false);
+        setUserIsAdmin(true);
+      } else if(user_type == "Student") {
+        setUserIsTeacher(false);
+        setUserIsAdmin(false);
+      } else if(user_type == "Teacher") {
+        setUserIsTeacher(true);
+        setUserIsAdmin(false);
+      }else{
+        setUserIsAdmin(true);
+      }
+      
     }
 
   return (
@@ -63,7 +92,7 @@ function App({signOut, user}) {
     <div className="user">
       <img src={profileImg} alt="me" className="user-img" />
       <div>
-        <p className="bold">{user.username}</p>
+        <p className="bold">{name}</p>
       </div>
     </div>
     <ul>
@@ -121,7 +150,6 @@ function App({signOut, user}) {
         selectedPage = {selectedPage}
         />
       )
-
       }
       {userIsTeacher && !userIsAdmin && (
         <TeacherSelected

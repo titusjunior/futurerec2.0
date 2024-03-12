@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../App.css";
+import { fetchUserAttributes } from 'aws-amplify/auth';
 
-import TeacherComponent from './Teacher Acesss/TeacherComponent';
 import ClassComponent from './Teacher Acesss/ClassCompnent';
 import StudentComponent from './Teacher Acesss/Student&GradeComponent';
 
@@ -9,15 +9,27 @@ import PopulateCareerDB from './Admin/PopulateCareersDB';
 import PopulateMajorDB from './Admin/PopulateMajorsDB';
 
 function TeacherAcess({selectedPage}) {
-
-    const teacherId = "da26e23e-62a1-4829-bcf1-e7a4e0b4570e"
-
-    const [selectedTeacher, setSelectedTeacher] = useState(null);
-    const [classes, setClasses] = useState([]);
+    const [teacherId, setTeacherId] = useState('');
+    
     const [selectedClass, setSelectedClass] = useState(null);
     const [students, setStudents] = useState([]);
     const [allGradeDescriptionsAndWeights,setAllGradeDescriptionsAndWeights] = useState([]);
     const [displayClasses, setDisplayClasses] = useState(true);
+
+
+    useEffect(() => {
+        const fetchTeacherId = async () => {
+          try {
+            const teacherIdValue = await fetchUserAttributes();
+            setTeacherId(teacherIdValue.sub);
+            console.log("initial student value", teacherIdValue);
+          } catch (error) {
+            console.error("Error fetching teachers:", error);
+          }
+        };
+    
+        fetchTeacherId();
+      }, []);
 
   return (
     <>

@@ -1,15 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Career from  './CareersDeterminer';
 import ClassComponent from './StudentClassComponent';
 import StudentGrades from './StudentGradesComponent';
+import Major from './MajorsDeterminer';
+
+import { fetchUserAttributes } from 'aws-amplify/auth';
 
 function StudentAcess({selectedPage}) {
-    const studentId = "366eb7e6-079f-49ab-bec8-f008140dc327";
+    const [studentId, setStudentID] = useState('');
 
     const [grades, setGrades] = useState([]);
     const [classes, setClasses] = useState([]);
     const [selectedClass, setSelectedClass] = useState(null);
     const [displayGrades,setDisplayGrades] = useState(false); 
+
+    useEffect(() => {
+        const fetchstudentId = async () => {
+          try {
+            const studentIdValue = await fetchUserAttributes();
+            setStudentID(studentIdValue.sub);
+            console.log("initial student value", studentIdValue);
+           
+          } catch (error) {
+            console.error("Error fetching teachers:", error);
+          }
+        };
+    
+        fetchstudentId();
+      }, []);
 
     return (
         <>
@@ -51,7 +69,11 @@ function StudentAcess({selectedPage}) {
                     </>
                     )}
                     {selectedPage === 'Tutoring' && (<h1>Tutoring</h1>)}
-                    {selectedPage === 'Majors' && <h1>Majors</h1>}
+                    {selectedPage === 'Majors' && (
+                        <Major
+                            studentID={studentId}
+                        />
+                    )}
                     {selectedPage === 'Careers' && (
                         <Career
                         studentID = {studentId}

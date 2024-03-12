@@ -7,7 +7,7 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "futurerec2959d4f18"
+          "resourceName": "futurerec205b837c475b837c47"
         }
       ],
       "output": {
@@ -15,20 +15,17 @@
           "additionalAuthenticationProviders": [
             {
               "apiKeyConfig": {
-                "apiKeyExpirationDate": "2025-03-06T06:05:11.766Z",
-                "apiKeyExpirationDays": 365,
-                "description": "no"
+                "apiKeyExpirationDate": "2024-04-11T14:51:28.385Z",
+                "apiKeyExpirationDays": 30,
+                "description": ""
               },
               "authenticationType": "API_KEY"
-            },
-            {
-              "authenticationType": "AWS_IAM"
             }
           ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authfuturerec2959d4f18"
+              "userPoolId": "authfuturerec205b837c475b837c47"
             }
           }
         }
@@ -38,29 +35,67 @@
     }
   },
   "auth": {
-    "futurerec2959d4f18": {
+    "futurerec205b837c475b837c47": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "OPTIONAL",
         "mfaTypes": [
-          "SMS"
+          "TOTP"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [],
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "NAME"
         ],
         "socialProviders": [],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "verificationMechanisms": [
           "EMAIL"
         ]
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {},
+  "parameters": {
+    "AMPLIFY_auth_futurerec20_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
+    },
+    "AMPLIFY_auth_futurerec20_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
+    },
+    "AMPLIFY_auth_futurerec20_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
+    },
+    "AMPLIFY_auth_futurerec20_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
     }
   }
 }

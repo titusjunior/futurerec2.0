@@ -5,12 +5,6 @@ import PopulateCareerDB from './PopulateCareersDB';
 import PopulateMajorsDB from './PopulateMajorsDB'
 
 function AdminComponent({selectedPage}) {
-    const studentId = "366eb7e6-079f-49ab-bec8-f008140dc327";
-
-    const [grades, setGrades] = useState([]);
-    const [classes, setClasses] = useState([]);
-    const [selectedClass, setSelectedClass] = useState(null);
-    const [displayGrades,setDisplayGrades] = useState(false); 
 
     return (
         <>
