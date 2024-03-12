@@ -63,5 +63,39 @@
       "service": "Cognito"
     }
   },
-  "function": {}
+  "function": {},
+  "parameters": {
+    "AMPLIFY_auth_futurerec20_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
+    },
+    "AMPLIFY_auth_futurerec20_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
+    },
+    "AMPLIFY_auth_futurerec20_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
+    },
+    "AMPLIFY_auth_futurerec20_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
+    }
+  }
 }

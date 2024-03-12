@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { fetchUserAttributes } from 'aws-amplify/auth';
-import React, { useState, useEffect } from 'react';
-import { fetchUserAttributes } from 'aws-amplify/auth';
 import * as helper from '../helperfunctions';
 
 function DetermineMajor({studentID}){    
