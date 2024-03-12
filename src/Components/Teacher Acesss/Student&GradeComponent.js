@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
 import { signUp } from 'aws-amplify/auth';
+import { post } from 'aws-amplify/api';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 import "../../App.css";
 
@@ -96,8 +98,9 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
         });
       } else if (newStudentName.trim() !== '' && newStudentEmail.trim() !== '') {
         console.log(newStudentName)
-        setSignUp({username: newStudentEmail, password: "Password1!", given_name: newStudentName, family_name: '', user_type: "Student"});
-        inviteNewUser(addSignUp);
+        //setSignUp({username: newStudentEmail, password: "Password1!", given_name: newStudentName, family_name: 'Test', user_type: "Student"});
+        //inviteNewUser(addSignUp);
+        createStudentUser(newStudentName,newStudentEmail);
         //const newStudent = await helper.addStudent(newStudentName, newStudentClassStanding);
         //setStudents([...students, newStudent]);
         //await helper.associateStudentWithClass(selectedClass.id, newStudent.id);
@@ -118,23 +121,40 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
 
   async function inviteNewUser({username, password, given_name, family_name, user_type}) {
     try {
-      const signUpResponse = await signUp({
+      const { isSignUpComplete, userId, nextStep } = await signUp({
         username, 
         password,
         options: {
           userAttributes: {
             given_name,
             family_name,
-            user_type
+            'custom:user_type': user_type
           },
           autoSignIn: true
         }
       });
   
-      console.log(signUpResponse);
+      console.log(userId);
     } catch (error) {
       console.log('error signing up:', error);
     }
+  }
+
+  async function createStudentUser(name, email) {
+    let apiName = 'AdminQueries';
+    let path = '/CreateUser';
+    let options = {
+      body: {
+        "username" : email,
+        "password": "changem3!",
+        "email": name
+      }, 
+      headers: {
+        'Content-Type' : 'application/json',
+        Authorization: `${(await fetchAuthSession()).tokens.accessToken.payload}`
+      } 
+    }
+    return post({apiName, path, options});
   }
   
   //#endregion
