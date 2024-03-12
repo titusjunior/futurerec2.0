@@ -5,8 +5,8 @@ import { fetchUserAttributes } from 'aws-amplify/auth';
 import ClassComponent from './Teacher Acesss/ClassCompnent';
 import StudentComponent from './Teacher Acesss/Student&GradeComponent';
 
-import PopulateCareerDB from './Admin/PopulateCareersDB';
-import PopulateMajorDB from './Admin/PopulateMajorsDB';
+//import PopulateCareerDB from './Admin/PopulateCareersDB';
+//import PopulateMajorDB from './Admin/PopulateMajorsDB';
 import padlockImg from "../padlock.jpg";
 
 function TeacherAcess({selectedPage}) {
