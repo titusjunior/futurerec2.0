@@ -4,9 +4,9 @@ import ClassComponent from './StudentClassComponent';
 import StudentGrades from './StudentGradesComponent';
 import Major from './MajorsDeterminer';
 import padlockImg from "../../padlock.jpg";
-import { fetchUserAttributes } from 'aws-amplify/auth';
 
 function StudentAcess({selectedPage}) {
+    const studentId = "e5cfaec8-3aae-4e58-8d0f-b009da82402e";
 
     const [grades, setGrades] = useState([]);
     const [classes, setClasses] = useState([]);
