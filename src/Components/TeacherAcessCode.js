@@ -10,14 +10,14 @@ import PopulateMajorDB from './Admin/PopulateMajorsDB';
 
 function TeacherAcess({selectedPage}) {
 
+    const teacherId = "da26e23e-62a1-4829-bcf1-e7a4e0b4570e"
+
     const [selectedTeacher, setSelectedTeacher] = useState(null);
     const [classes, setClasses] = useState([]);
     const [selectedClass, setSelectedClass] = useState(null);
     const [students, setStudents] = useState([]);
     const [allGradeDescriptionsAndWeights,setAllGradeDescriptionsAndWeights] = useState([]);
-    const [displayTeachers, setDisplayTeachers] = useState(true);
-    const [displayClasses, setDisplayClasses] = useState(false);
-    const [displayStudents, setDisplayStudents] = useState(false);
+    const [displayClasses, setDisplayClasses] = useState(true);
 
   return (
     <>
@@ -36,40 +36,27 @@ function TeacherAcess({selectedPage}) {
                 </div>  
             )}
             {selectedPage === 'Grades' && (
-                <>{displayTeachers && (
-                <TeacherComponent 
-                    setSelectedTeacher={setSelectedTeacher} 
-                    setClasses={setClasses} 
-                    setDisplayClasses={setDisplayClasses}
-                    setDisplayTeachers={setDisplayTeachers}
-                />)}
+                <>
                 {displayClasses && (
                     <ClassComponent 
-                    setDisplayTeacher={setDisplayTeachers}
                     setDisplayClasses={setDisplayClasses}
-                    setDisplayStudents={setDisplayStudents}
-                    setSelectedTeacher={setSelectedTeacher}
-                    selectedTeacher = {selectedTeacher}
+                    teacherId = {teacherId} 
                     setSelectedClass = {setSelectedClass}
-                    selectedClass={selectedClass}
                     setStudents = {setStudents}
                     allGradeDescriptionsAndWeights = {allGradeDescriptionsAndWeights}
                     setAllGradeDescriptionsAndWeights = {setAllGradeDescriptionsAndWeights}
-                    classes={classes}
-                    setClasses={setClasses}
                     />
                 )}
-                {displayStudents && (
-                <StudentComponent
-                setDisplayClasses={setDisplayClasses}
-                setDisplayStudents={setDisplayStudents}
-                selectedClass = {selectedClass}
-                setSelectedClass = {setSelectedClass}
-                students = {students}
-                setStudents = {setStudents}
-                allGradeDescriptionsAndWeights = {allGradeDescriptionsAndWeights}
-                setAllGradeDescriptionsAndWeights = {setAllGradeDescriptionsAndWeights}
-                />
+                {!displayClasses && (
+                    <StudentComponent
+                        setDisplayClasses={setDisplayClasses}
+                        selectedClass = {selectedClass}
+                        setSelectedClass = {setSelectedClass}
+                        students = {students}
+                        setStudents = {setStudents}
+                        allGradeDescriptionsAndWeights = {allGradeDescriptionsAndWeights}
+                        setAllGradeDescriptionsAndWeights = {setAllGradeDescriptionsAndWeights}
+                    />
                 )}
                 </>
             )}

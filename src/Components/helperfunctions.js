@@ -21,9 +21,10 @@ const client = generateClient();
     }
   }
 
-  export async function addClass(classSubject, classTeacher) {
+  export async function addClass(classSubject) {
     try {
-      const classData = { subject: classSubject, teacherClassesId: classTeacher};
+      //const classData = { subject: classSubject, teacherClassesId: classTeacher};
+      const classData = { subject: classSubject};
       const newClass = await client.graphql({
         query: mutations.createClass,
         variables: { input: classData }
@@ -33,6 +34,18 @@ const client = generateClient();
     } catch (error) {
       console.error("Error adding class:", error);
       throw error;
+    }
+  }
+
+  export async function updateClass(classId, teacherId) {
+    try {
+      const classData = { id: classId, teacherClassesId: teacherId};
+      await client.graphql({
+        query: mutations.updateClass,
+        variables: { input: classData }
+      });
+    } catch (error) {
+      console.eror("Error Updating class")
     }
   }
 
@@ -117,6 +130,18 @@ export async function getTeacher(teacherId) {
     return response.data.getTeacher;
   } catch (error) {
     console.error("Error fetching teacher:", error);
+    throw error;
+  }
+}
+
+export async function getListOfClasses() {
+  try {
+    const result = await client.graphql({
+      query: query.listClasses
+    });
+    return result.data.listClasses.items;
+  } catch (error) {
+    console.error("Error fetching list of teachers:", error);
     throw error;
   }
 }
@@ -468,9 +493,8 @@ export async function associateStudentWithCareer(CareerInfo, studentInfo) {
     throw error;
   }
 }
-
-
 //#endregion
+
 
 //#region MajorDB stuff
 export async function createMajor(majorName) {
@@ -509,7 +533,6 @@ export async function getListOfAllMajors() {
     return result.data.listMajors.items;
   } catch (error) {
     console.error("Error fetching list of Students:", error);
-    throw error;
   }
 }
 

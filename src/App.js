@@ -8,13 +8,15 @@ import profileImg from "./profile.jpg";
 import logoutImg from "./logout.jpg";
 import TeacherSelected from './Components/TeacherAcessCode'
 import StudentSelected from './Components/Student Acess/StudentAcessCode'
+import AdminSelected from './Components/Admin/AdminAcessCode'
 
 import config from './aws-exports';
 
 Amplify.configure(config);
 
-function App({signOut, user}) {
-  const [userIsTeacher, setUserIsTeacher] = useState(true);
+function App({signOut, user}) { 
+  const [userIsAdmin, setUserIsAdmin] = useState(true);
+  const [userIsTeacher, setUserIsTeacher] = useState(false);
     const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
 
       useEffect(() => {
@@ -114,11 +116,18 @@ function App({signOut, user}) {
   </div>
   <div className="main-content">
     <div className="container" id="contentContainer">
-      {userIsTeacher && (
+      {userIsAdmin && (
+        <AdminSelected
+        selectedPage = {selectedPage}
+        />
+      )
+
+      }
+      {userIsTeacher && !userIsAdmin && (
         <TeacherSelected
         selectedPage = {selectedPage}
         />
-      )}{!userIsTeacher && (
+      )}{!userIsTeacher && !userIsAdmin && (
        <StudentSelected
        selectedPage = {selectedPage}
        />)}

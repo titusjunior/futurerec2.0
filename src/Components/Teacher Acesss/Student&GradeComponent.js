@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
 import "../../App.css";
 
-function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass, setSelectedClass, students, setStudents, allGradeDescriptionsAndWeights, setAllGradeDescriptionsAndWeights }) {
+function StudentComponent({setDisplayClasses, selectedClass, setSelectedClass, students, setStudents, allGradeDescriptionsAndWeights, setAllGradeDescriptionsAndWeights }) {
     
   const [availableStudents, setAvailableStudents] = useState([]);
   const [selectedStudentId, setSelectedStudentId] = useState('');
-  const [newStudentName, setNewStudentName] = useState('');
-  const [newStudentClassStanding, setNewStudentClassStanding] = useState('');
-  const [isExistingStudentSelected, setIsExistingStudentSelected] = useState(false);
         
   const [displayGradeWeightScreen, setDisplayGradeWeightScreen] = useState(false);
   const [newGradeDescription, setNewGradeDescription] = useState('');
@@ -19,9 +16,6 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
 
   const [SaveWeightErrorMessage, setSaveWeightErrorMessage] = useState('');
   const [addDescriptionErrorMessage, setAddDescriptionErrorMessage] = useState('');
-  const [addStudentErrorMessage, setAddStudentErrorMessage] = useState('');
-
-  const ClassStandings = ["Freshman", "Sophmore", "Junior", "Senior"];
 
   //#region Student functions
   useEffect(() => {
@@ -42,67 +36,13 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
     fetchAvailableStudents();
   }, [selectedClass]);
         
-  const handleSelectChange = (event) => {
-    const value = event.target.value;
-    setSelectedStudentId(value);
-    setNewStudentName('');
-    setIsExistingStudentSelected(!!value); // Convert value to boolean and set state
-  };
-    
+   
   const handleBackToClassesClick = () => {
     setSelectedClass(null);
     setStudents([]); // Clear the list of students when going back to the list of classes
     setAllGradeDescriptionsAndWeights([]);
     setDisplayClasses(true);
-    setDisplayStudents(false);
-  };
-  
-  const handleAddStudent = async () => {
-    try { 
-      //Prevent User from entering a blank Student
-      if(!selectedStudentId && newStudentName.trim() === '' && newStudentClassStanding.trim() === ''){
-        setAddStudentErrorMessage("Cannot add a blank Entry.Ensure either an existing student is selcted or enter a valid student name and class standing");
-        console.log("Cannot Add a blank entries");
-        return;
-      }else if (!selectedStudentId && (newStudentName.trim() === '')) {
-        setAddStudentErrorMessage("Cannot add a blank student name.Ensure either an existing student is selcted or enter a valid student name");
-        console.log("Cannot Add a blank student");
-        return;
-      }else if (!selectedStudentId && ( newStudentClassStanding.trim() === '')){
-        setAddStudentErrorMessage("PLease select a valid class Standing.Ensure either an existing student or a class Standing is selected");
-        console.log("Cannot Add a blank classStanding");
-        return;
-      }
-      setAddStudentErrorMessage('');
-
-      if (selectedStudentId) {
-        await helper.associateStudentWithClass(selectedClass.id, selectedStudentId);
-        const addedStudent = availableStudents.find(student => student.id === selectedStudentId);
-        setStudents([...students, addedStudent]);
-        setAvailableStudents(availableStudents.filter(student => student.id !== selectedStudentId));
-        //set initial score for all test already in class
-        allGradeDescriptionsAndWeights.forEach(async (gradeDescription) => {
-          await helper.addGrade(selectedClass.id, selectedStudentId, gradeDescription.description, 0, gradeDescription.weight);
-        });
-      } else if (newStudentName.trim() !== '') {
-        const newStudent = await helper.addStudent(newStudentName, newStudentClassStanding);
-        setStudents([...students, newStudent]);
-        await helper.associateStudentWithClass(selectedClass.id, newStudent.id);
-
-        allGradeDescriptionsAndWeights.forEach(async (gradeDescription) => {
-          await helper.addGrade(selectedClass.id, newStudent.id, gradeDescription.description, 0, gradeDescription.weight);
-        });
-
-      }
-      setSelectedStudentId('');
-      setNewStudentName('');
-      setNewStudentClassStanding('');
-      setIsExistingStudentSelected(false); // Reset state after adding student
-    } catch (error) {
-      console.error("Error adding new student:", error);
-    }
-  };
-  
+  };  
   //#endregion
  
  
@@ -341,37 +281,6 @@ const CalculateStudentsAverage = async () => {
               </>
             </tbody>
           </table>
-              
-          <h2>Add Student:</h2>
-          <div>
-            <select value={selectedStudentId} onChange={handleSelectChange}>
-              <option value="">Select existing student</option>
-              {availableStudents.map(student => (
-                <option key={student.id} value={student.id}>{student.name}</option>
-              ))}
-            </select>
-            {!isExistingStudentSelected && (
-              <>
-                <input
-                  type="text"
-                  placeholder="Or enter new student name"
-                  value={newStudentName}
-                    onChange={(e) => setNewStudentName(e.target.value)}
-                />
-                <select
-                  value={newStudentClassStanding}
-                  onChange={(e) => setNewStudentClassStanding(e.target.value)}
-                >
-                  <option value="">Select classStanding</option>
-                  {ClassStandings.map((standing, index) => (
-                    <option key={index} value={standing}>{standing}</option>
-                  ))}
-                </select>
-              </>
-            )}
-            <button className='student-button' onClick={handleAddStudent}>Add Student</button>
-            {addStudentErrorMessage && <p className="error-message">{addStudentErrorMessage}</p>}
-          </div>
         </>
         )}
         {displayGradeWeightScreen && (
