@@ -59,7 +59,7 @@ function App({signOut, user}) {
         setUserIsTeacher(true);
       } else if(user_type == "Student") {
         setUserIsTeacher(false);
-      } else{
+      } else {
         setUserIsTeacher(true);
       }
       

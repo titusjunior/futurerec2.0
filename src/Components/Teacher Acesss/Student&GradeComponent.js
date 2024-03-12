@@ -113,6 +113,7 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
       setSelectedStudentId('');
       setNewStudentName('');
       setNewStudentClassStanding('');
+      setNewStudentEmail('');
       setIsExistingStudentSelected(false); // Reset state after adding student
     } catch (error) {
       console.error("Error adding new student:", error);
@@ -135,7 +136,7 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
   
       console.log(signUpResponse);
       setNewStudentID(signUpResponse.userId);
-    } catch (error) {
+    }catch (error) {
       console.log('error signing up:', error);
     }
   }
