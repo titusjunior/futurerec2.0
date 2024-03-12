@@ -48,7 +48,7 @@ function App({signOut, user}) {
 
     async function setUserName() {
       const username = await fetchUserAttributes();
-      setName(username.given_name + " " + username.family_name);
+      setName(username.name);
     }
 
     async function detectUser() {

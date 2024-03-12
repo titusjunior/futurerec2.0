@@ -382,7 +382,6 @@ export const onCreateMajorRequirement = /* GraphQL */ `
       createdAt
       updatedAt
       majorMajorRequirementId
-      owner
       __typename
     }
   }
@@ -405,7 +404,6 @@ export const onUpdateMajorRequirement = /* GraphQL */ `
       createdAt
       updatedAt
       majorMajorRequirementId
-      owner
       __typename
     }
   }
@@ -428,7 +426,6 @@ export const onDeleteMajorRequirement = /* GraphQL */ `
       createdAt
       updatedAt
       majorMajorRequirementId
-      owner
       __typename
     }
   }

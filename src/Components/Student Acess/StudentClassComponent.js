@@ -3,13 +3,12 @@ import { fetchUserAttributes } from 'aws-amplify/auth';
 import * as helper from '../helperfunctions';
 import "../../App.css";
 
-function ClassComponent({studentId, setGrades, classes, setClasses, setSelectedClass, setDisplayGrades}){
+function ClassComponent({setGrades, classes, setClasses, setSelectedClass, setDisplayGrades}){
 
   useEffect(() => {
     const fetchClassesForStudent = async () => {
       try {
         const studentId = await fetchUserAttributes();
-        console.log(studentId.sub);
         const classesList = await helper.getClassesForStudent(studentId.sub);
             console.log("Classes of student", classesList);
             const sortedClasses = classesList.sort((a, b) => a.subject.localeCompare(b.subject));

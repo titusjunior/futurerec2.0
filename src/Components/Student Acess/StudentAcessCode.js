@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Career from  './CareersDeterminer';
 import ClassComponent from './StudentClassComponent';
 import StudentGrades from './StudentGradesComponent';
 import Major from './MajorsDeterminer';
 import padlockImg from "../../padlock.jpg";
+import { fetchUserAttributes } from 'aws-amplify/auth';
 
 function StudentAcess({selectedPage}) {
-    const studentId = "e5cfaec8-3aae-4e58-8d0f-b009da82402e";
 
     const [grades, setGrades] = useState([]);
     const [classes, setClasses] = useState([]);
     const [selectedClass, setSelectedClass] = useState(null);
     const [displayGrades,setDisplayGrades] = useState(false); 
+    const [studentId, setStudentID] = useState(''); 
+
+    useEffect(() => {
+        const fetchstudentId = async () => {
+          try {
+            const studentIdValue = await fetchUserAttributes();
+            setStudentID(studentIdValue.sub);
+            console.log("initial student value", studentIdValue);
+           
+          } catch (error) {
+            console.error("Error fetching teachers:", error);
+          }
+        };
+    
+        fetchstudentId();
+      }, []);
+
+
+
 
     return (
         <>
@@ -34,7 +53,6 @@ function StudentAcess({selectedPage}) {
                     <>
                        {!displayGrades && (
                             <ClassComponent 
-                            studentId={studentId}
                             setGrades = {setGrades}
                             classes = {classes}
                             setClasses={setClasses}
@@ -43,6 +61,7 @@ function StudentAcess({selectedPage}) {
                             />
                         )}{displayGrades && (
                             <StudentGrades
+                                studentID = {studentId}
                                 grades = {grades}
                                 setGrades = {setGrades}
                                 setSelectedClass = {setSelectedClass}

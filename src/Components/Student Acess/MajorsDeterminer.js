@@ -10,8 +10,7 @@ function DetermineMajor({studentID}){
     useEffect(() => {
         const GetAllClassAverages = async () =>{
             try {
-                const studentId = await fetchUserAttributes();
-                const classAverages = await helper.getstudentClassAverages(studentID.sub);
+                const classAverages = await helper.getstudentClassAverages(studentID);
                 setStudentClassAverages(classAverages);
                 console.log("their averages: ", classAverages);
             } catch (error) {
@@ -87,7 +86,9 @@ function DetermineMajor({studentID}){
             <br></br>
             <div class="container">
                 {PossibleMajors.map(major => (
-                    <li key={major.majorInfo.id}>{major.majorInfo.name}</li>
+                    <div>
+                        <li key={major.majorInfo.id}>{major.majorInfo.name}</li>
+                    </div>
                 ))}
             </div>
         </div>

@@ -42,7 +42,7 @@ type Major @model @auth(rules: [{ allow: private }]){
   majorRequirement: [MajorRequirement]@hasMany
 }
 
-type MajorRequirement @model @auth(rules: [{allow: owner, operations: [create, delete] }]){
+type MajorRequirement @model @auth(rules: [{ allow: private }]){
   id: ID!
   classRequirement: String!
   minimumGradeRequirement: Float!

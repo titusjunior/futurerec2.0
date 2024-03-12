@@ -240,7 +240,6 @@ export const getMajorRequirement = /* GraphQL */ `
       createdAt
       updatedAt
       majorMajorRequirementId
-      owner
       __typename
     }
   }
@@ -263,7 +262,6 @@ export const listMajorRequirements = /* GraphQL */ `
         createdAt
         updatedAt
         majorMajorRequirementId
-        owner
         __typename
       }
       nextToken

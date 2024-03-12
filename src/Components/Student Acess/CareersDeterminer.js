@@ -12,8 +12,10 @@ function DetermineCareerPath({studentID}){
     useEffect(() => {
         const GetAllClassAverages = async () =>{
             try {
-                const studentId = await fetchUserAttributes();
-                const classAverages = await helper.getstudentClassAverages(studentID.sub);
+                console.log("titus student", studentID);
+                const studentIdValue = fetchUserAttributes();
+                console.log("student id", studentIdValue.sub);
+                const classAverages = await helper.getstudentClassAverages(studentID);
                 setStudentClassAverages(classAverages);
                 console.log("his averages: ", classAverages);
             } catch (error) {
