@@ -143,7 +143,7 @@ function PopulateCareerDB (){
                 <div>
                     <h2>Current Careers:</h2>
                     {careers.map(career => (
-                    <div key={career.id}>
+                    <div className = "classItems" key={career.id}>
                         <button onClick={() => handleCareerClick(career.id)}>{career.name}</button>
                     </div>
                     ))}

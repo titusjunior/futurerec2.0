@@ -134,7 +134,7 @@ function PopulateMajorDB(){
                 <div>
                     <h2>Current Majors:</h2>
                     {majors.map(major => (
-                    <div key={major.id}>
+                    <div className="classItems" key={major.id}>
                         <button onClick={() => handleMajorClick(major.id)}>{major.name}</button>
                     </div>
                     ))}
