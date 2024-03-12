@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
 import { signUp } from 'aws-amplify/auth';
-import { CognitoIdentityProvider } from '@aws-sdk/client-cognito-identity-provider';
-import { COgnitoIdentityCredentials } from '@aws-sdk/client-cognito-identity';
-
 
 import "../../App.css";
 
