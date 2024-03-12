@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchUserAttributes } from 'aws-amplify/auth';
+import React, { useState, useEffect } from 'react';
+import { fetchUserAttributes } from 'aws-amplify/auth';
 import * as helper from '../helperfunctions';
 
 function DetermineMajor({studentID}){    
@@ -80,7 +82,7 @@ function DetermineMajor({studentID}){
     },[allMajors, studentClassAverages]);
 
     return (
-        <>
+        <> 
         <div className="majors">
             <h2>Possible Majors:</h2>
             <br></br>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../App.css";
+import { fetchUserAttributes } from 'aws-amplify/auth';
 
-import TeacherComponent from './Teacher Acesss/TeacherComponent';
 import ClassComponent from './Teacher Acesss/ClassCompnent';
 import StudentComponent from './Teacher Acesss/Student&GradeComponent';
 
@@ -10,15 +10,27 @@ import PopulateMajorDB from './Admin/PopulateMajorsDB';
 import padlockImg from "../padlock.jpg";
 
 function TeacherAcess({selectedPage}) {
-
-    const [selectedTeacher, setSelectedTeacher] = useState(null);
-    const [classes, setClasses] = useState([]);
+    const [teacherId, setTeacherId] = useState('');
+    
     const [selectedClass, setSelectedClass] = useState(null);
     const [students, setStudents] = useState([]);
     const [allGradeDescriptionsAndWeights,setAllGradeDescriptionsAndWeights] = useState([]);
-    const [displayTeachers, setDisplayTeachers] = useState(true);
-    const [displayClasses, setDisplayClasses] = useState(false);
-    const [displayStudents, setDisplayStudents] = useState(false);
+    const [displayClasses, setDisplayClasses] = useState(true);
+
+
+    useEffect(() => {
+        const fetchTeacherId = async () => {
+          try {
+            const teacherIdValue = await fetchUserAttributes();
+            setTeacherId(teacherIdValue.sub);
+            console.log("initial student value", teacherIdValue);
+          } catch (error) {
+            console.error("Error fetching teachers:", error);
+          }
+        };
+    
+        fetchTeacherId();
+      }, []);
 
   return (
     <>
@@ -37,40 +49,27 @@ function TeacherAcess({selectedPage}) {
                 </div>  
             )}
             {selectedPage === 'Grades' && (
-                <>{displayTeachers && (
-                <TeacherComponent 
-                    setSelectedTeacher={setSelectedTeacher} 
-                    setClasses={setClasses} 
-                    setDisplayClasses={setDisplayClasses}
-                    setDisplayTeachers={setDisplayTeachers}
-                />)}
+                <>
                 {displayClasses && (
                     <ClassComponent 
-                    setDisplayTeacher={setDisplayTeachers}
                     setDisplayClasses={setDisplayClasses}
-                    setDisplayStudents={setDisplayStudents}
-                    setSelectedTeacher={setSelectedTeacher}
-                    selectedTeacher = {selectedTeacher}
+                    teacherId = {teacherId} 
                     setSelectedClass = {setSelectedClass}
-                    selectedClass={selectedClass}
                     setStudents = {setStudents}
                     allGradeDescriptionsAndWeights = {allGradeDescriptionsAndWeights}
                     setAllGradeDescriptionsAndWeights = {setAllGradeDescriptionsAndWeights}
-                    classes={classes}
-                    setClasses={setClasses}
                     />
                 )}
-                {displayStudents && (
-                <StudentComponent
-                setDisplayClasses={setDisplayClasses}
-                setDisplayStudents={setDisplayStudents}
-                selectedClass = {selectedClass}
-                setSelectedClass = {setSelectedClass}
-                students = {students}
-                setStudents = {setStudents}
-                allGradeDescriptionsAndWeights = {allGradeDescriptionsAndWeights}
-                setAllGradeDescriptionsAndWeights = {setAllGradeDescriptionsAndWeights}
-                />
+                {!displayClasses && (
+                    <StudentComponent
+                        setDisplayClasses={setDisplayClasses}
+                        selectedClass = {selectedClass}
+                        setSelectedClass = {setSelectedClass}
+                        students = {students}
+                        setStudents = {setStudents}
+                        allGradeDescriptionsAndWeights = {allGradeDescriptionsAndWeights}
+                        setAllGradeDescriptionsAndWeights = {setAllGradeDescriptionsAndWeights}
+                    />
                 )}
                 </>
             )}

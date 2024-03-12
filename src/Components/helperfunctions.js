@@ -7,10 +7,9 @@ const client = generateClient();
 
 //#region Creation
 
-  export async function createTeacher(teacherName) {
+  export async function createTeacher(teacherId,teacherName) {
     try {
-      const userInfo = await fetchUserAttributes();
-      const teacherData = { id: userInfo.sub, name: teacherName };
+      const teacherData = { id: teacherId, name: teacherName };
       const newTeacher = await client.graphql({
         query: mutations.createTeacher,
         variables: { input: teacherData }
@@ -23,9 +22,10 @@ const client = generateClient();
     }
   }
 
-  export async function addClass(classSubject, classTeacher) {
+  export async function addClass(classSubject) {
     try {
-      const classData = { subject: classSubject, teacherClassesId: classTeacher};
+      //const classData = { subject: classSubject, teacherClassesId: classTeacher};
+      const classData = { subject: classSubject};
       const newClass = await client.graphql({
         query: mutations.createClass,
         variables: { input: classData }
@@ -38,10 +38,21 @@ const client = generateClient();
     }
   }
 
-  export async function addStudent(studentName, studentClassStanding, studentID) {
+  export async function updateClass(classId, teacherId) {
     try {
-      const userInfo = await fetchUserAttributes();
-      const studentData = { id: studentID, name: studentName, classStanding: studentClassStanding };
+      const classData = { id: classId, teacherClassesId: teacherId};
+      await client.graphql({
+        query: mutations.updateClass,
+        variables: { input: classData }
+      });
+    } catch (error) {
+      console.eror("Error Updating class")
+    }
+  }
+
+  export async function addStudent(studentId, studentName, studentClassStanding) {
+    try {
+      const studentData = { id: studentId, name: studentName, classStanding: studentClassStanding };
       const newStudent = await client.graphql({
         query: mutations.createStudent,
         variables: { input: studentData }
@@ -121,6 +132,18 @@ export async function getTeacher() {
     return response.data.getTeacher;
   } catch (error) {
     console.error("Error fetching teacher:", error);
+    throw error;
+  }
+}
+
+export async function getListOfClasses() {
+  try {
+    const result = await client.graphql({
+      query: query.listClasses
+    });
+    return result.data.listClasses.items;
+  } catch (error) {
+    console.error("Error fetching list of teachers:", error);
     throw error;
   }
 }
@@ -473,9 +496,8 @@ export async function associateStudentWithCareer(CareerInfo, studentInfo) {
     throw error;
   }
 }
-
-
 //#endregion
+
 
 //#region MajorDB stuff
 export async function createMajor(majorName) {
@@ -514,7 +536,6 @@ export async function getListOfAllMajors() {
     return result.data.listMajors.items;
   } catch (error) {
     console.error("Error fetching list of Students:", error);
-    throw error;
   }
 }
 

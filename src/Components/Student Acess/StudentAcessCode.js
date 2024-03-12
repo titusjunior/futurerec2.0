@@ -3,16 +3,16 @@ import Career from  './CareersDeterminer';
 import ClassComponent from './StudentClassComponent';
 import StudentGrades from './StudentGradesComponent';
 import Major from './MajorsDeterminer';
-import padlockImg from "../../padlock.jpg";
+
 import { fetchUserAttributes } from 'aws-amplify/auth';
 
 function StudentAcess({selectedPage}) {
+    const [studentId, setStudentID] = useState('');
 
     const [grades, setGrades] = useState([]);
     const [classes, setClasses] = useState([]);
     const [selectedClass, setSelectedClass] = useState(null);
     const [displayGrades,setDisplayGrades] = useState(false); 
-    const [studentId, setStudentID] = useState(''); 
 
     useEffect(() => {
         const fetchstudentId = async () => {
@@ -28,9 +28,6 @@ function StudentAcess({selectedPage}) {
     
         fetchstudentId();
       }, []);
-
-
-
 
     return (
         <>
@@ -71,16 +68,10 @@ function StudentAcess({selectedPage}) {
                         )}                   
                     </>
                     )}
-                    {selectedPage === 'Tutoring' && (
-                        <div className="tutoring">
-                            <img src={padlockImg} alt="construction" />
-                            <h1>This page is currently under construction</h1>
-                            <h2>Our team is hard at work to bring you this new and exciting update!</h2>
-                        </div>
-                    )}
+                    {selectedPage === 'Tutoring' && (<h1>Tutoring</h1>)}
                     {selectedPage === 'Majors' && (
                         <Major
-                        studentID={studentId}
+                            studentID={studentId}
                         />
                     )}
                     {selectedPage === 'Careers' && (

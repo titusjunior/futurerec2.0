@@ -4,15 +4,11 @@ import { signUp } from 'aws-amplify/auth';
 
 import "../../App.css";
 
-function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass, setSelectedClass, students, setStudents, allGradeDescriptionsAndWeights, setAllGradeDescriptionsAndWeights }) {
+function StudentComponent({setDisplayClasses, selectedClass, setSelectedClass, students, setStudents, allGradeDescriptionsAndWeights, setAllGradeDescriptionsAndWeights }) {
     
   const [availableStudents, setAvailableStudents] = useState([]);
   const [newStudentsID, setNewStudentID] = useState(null);
   const [selectedStudentId, setSelectedStudentId] = useState('');
-  const [newStudentName, setNewStudentName] = useState('');
-  const [newStudentEmail, setNewStudentEmail] = useState('');
-  const [newStudentClassStanding, setNewStudentClassStanding] = useState('');
-  const [isExistingStudentSelected, setIsExistingStudentSelected] = useState(false);
         
   const [displayGradeWeightScreen, setDisplayGradeWeightScreen] = useState(false);
   const [newGradeDescription, setNewGradeDescription] = useState('');
@@ -23,11 +19,6 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
 
   const [SaveWeightErrorMessage, setSaveWeightErrorMessage] = useState('');
   const [addDescriptionErrorMessage, setAddDescriptionErrorMessage] = useState('');
-  const [addStudentErrorMessage, setAddStudentErrorMessage] = useState('');
-
-  const [addSignUp, setSignUp] = useState('');
-
-  const ClassStandings = ["Freshman", "Sophomore", "Junior", "Senior"];
 
   //#region Student functions
   useEffect(() => {
@@ -48,98 +39,13 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
     fetchAvailableStudents();
   }, [selectedClass]);
         
-  const handleSelectChange = (event) => {
-    const value = event.target.value;
-    setSelectedStudentId(value);
-    setNewStudentName('');
-    setIsExistingStudentSelected(!!value); // Convert value to boolean and set state
-  };
-    
+   
   const handleBackToClassesClick = () => {
     setSelectedClass(null);
     setStudents([]); // Clear the list of students when going back to the list of classes
     setAllGradeDescriptionsAndWeights([]);
     setDisplayClasses(true);
-    setDisplayStudents(false);
-  };
-  
-  const handleAddStudent = async () => {
-    try { 
-      //Prevent User from entering a blank Student
-      if(!selectedStudentId && newStudentName.trim() === '' && newStudentClassStanding.trim() === ''){
-        setAddStudentErrorMessage("Cannot add a blank Entry.Ensure either an existing student is selcted or enter a valid student name and class standing");
-        console.log("Cannot Add a blank entries");
-        return;
-      }else if (!selectedStudentId && (newStudentName.trim() === '')) {
-        setAddStudentErrorMessage("Cannot add a blank student name.Ensure either an existing student is selcted or enter a valid student name");
-        console.log("Cannot Add a blank student");
-        return;
-      }else if (!selectedStudentId && ( newStudentEmail.trim() === '')){
-        setAddStudentErrorMessage("Cannot add a blank student email. Ensure either an existing student is selcted or enter a valid student email");
-        console.log("Cannot Add a blank student email");
-        return;
-      }else if (!selectedStudentId && ( newStudentClassStanding.trim() === '')){
-        setAddStudentErrorMessage("PLease select a valid class Standing.Ensure either an existing student or a class Standing is selected");
-        console.log("Cannot Add a blank classStanding");
-        return;
-      }
-      setAddStudentErrorMessage('');
-
-      if (selectedStudentId) {
-        await helper.associateStudentWithClass(selectedClass.id, selectedStudentId);
-        const addedStudent = availableStudents.find(student => student.id === selectedStudentId);
-        setStudents([...students, addedStudent]);
-        setAvailableStudents(availableStudents.filter(student => student.id !== selectedStudentId));
-        //set initial score for all test already in class
-        allGradeDescriptionsAndWeights.forEach(async (gradeDescription) => {
-          await helper.addGrade(selectedClass.id, selectedStudentId, gradeDescription.description, 0, gradeDescription.weight);
-        });
-      } else if (newStudentName.trim() !== '' && newStudentEmail.trim() !== '') {
-        console.log(newStudentName);
-        setSignUp({username: newStudentEmail, password: "Password1!", name: newStudentName, user_type: "Student"});
-        inviteNewUser(addSignUp);
-        const newStudent = await helper.addStudent(newStudentName, newStudentClassStanding, newStudentsID);
-        setStudents([...students, newStudent]);
-        await helper.associateStudentWithClass(selectedClass.id, newStudent.id);
-
-        allGradeDescriptionsAndWeights.forEach(async (gradeDescription) => {
-          await helper.addGrade(selectedClass.id, newStudent.id, gradeDescription.description, 0, gradeDescription.weight);
-        });
-
-      }
-      setSelectedStudentId('');
-      setNewStudentName('');
-      setNewStudentClassStanding('');
-      setNewStudentEmail('');
-      setIsExistingStudentSelected(false); // Reset state after adding student
-    } catch (error) {
-      console.error("Error adding new student:", error);
-    }
-  };
-
-  async function inviteNewUser({username, password, name, user_type}) {
-    try {
-      const signUpResponse = await signUp({
-        username, 
-        password,
-        options: {
-          userAttributes: {
-            name,
-            'custom:user_type':user_type
-          },
-          autoSignIn: true
-        }
-      });
-  
-      console.log(signUpResponse);
-      setNewStudentID(signUpResponse.userId);
-    }catch (error) {
-      console.log('error signing up:', error);
-    }
-  }
-
-  
-  
+  };  
   //#endregion
   
  
@@ -378,43 +284,6 @@ const CalculateStudentsAverage = async () => {
               </>
             </tbody>
           </table>
-              
-          <h2>Add Student:</h2>
-          <div>
-            <select value={selectedStudentId} onChange={handleSelectChange}>
-              <option value="">Select existing student</option>
-              {availableStudents.map(student => (
-                <option key={student.id} value={student.id}>{student.name}</option>
-              ))}
-            </select>
-            {!isExistingStudentSelected && (
-              <>
-                <input
-                  type="text"
-                  placeholder="Or enter new student name"
-                  value={newStudentName}
-                    onChange={(e) => setNewStudentName(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder=" student email"
-                  value={newStudentEmail}
-                    onChange={(e) => setNewStudentEmail(e.target.value)}
-                />
-                <select
-                  value={newStudentClassStanding}
-                  onChange={(e) => setNewStudentClassStanding(e.target.value)}
-                >
-                  <option value="">Select classStanding</option>
-                  {ClassStandings.map((standing, index) => (
-                    <option key={index} value={standing}>{standing}</option>
-                  ))}
-                </select>
-              </>
-            )}
-            <button className='student-button' onClick={handleAddStudent}>Add Student</button>
-            {addStudentErrorMessage && <p className="error-message">{addStudentErrorMessage}</p>}
-          </div>
         </>
         )}
         {displayGradeWeightScreen && (

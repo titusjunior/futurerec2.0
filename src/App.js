@@ -5,19 +5,19 @@ import '@aws-amplify/ui-react/styles.css';
 import React, { useEffect, useState } from 'react';
 import { fetchUserAttributes, getCurrentUser } from 'aws-amplify/auth';
 
-
-
 import profileImg from "./profile.jpg";
 import logoutImg from "./logout.jpg";
 import TeacherSelected from './Components/TeacherAcessCode'
 import StudentSelected from './Components/Student Acess/StudentAcessCode'
+import AdminSelected from './Components/Admin/AdminAcessCode'
 
-import config from './aws-exports';
+import config from './aws-exports'; 
 
 Amplify.configure(config);
 
-function App({signOut, user}) {
-  const [userIsTeacher, setUserIsTeacher] = useState(true);
+function App({signOut, user}) { 
+  const [userIsAdmin, setUserIsAdmin] = useState(false);
+  const [userIsTeacher, setUserIsTeacher] = useState(false);
   const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
   const [name, setName] = useState('');
 
@@ -33,6 +33,9 @@ function App({signOut, user}) {
         document.addEventListener('DOMContentLoaded', function () {
             changeContent('Home');
         });
+        detectUser();
+        setUserName();
+
         detectUser();
         setUserName();
 
@@ -55,12 +58,17 @@ function App({signOut, user}) {
       const userInfo = await fetchUserAttributes();
       const user_type = userInfo["custom:user_type"]
       console.log(userInfo["custom:user_type"]);
-      if(user_type == "Teacher") {
-        setUserIsTeacher(true);
+      if(user_type == "Admin") {
+        setUserIsTeacher(false);
+        setUserIsAdmin(true);
       } else if(user_type == "Student") {
         setUserIsTeacher(false);
-      } else {
+        setUserIsAdmin(false);
+      } else if(user_type == "Teacher") {
         setUserIsTeacher(true);
+        setUserIsAdmin(false);
+      }else{
+        setUserIsAdmin(true);
       }
       
     }
@@ -87,6 +95,7 @@ function App({signOut, user}) {
     <div className="user">
       <img src={profileImg} alt="me" className="user-img" />
       <div>
+        <p className="bold">{name}</p>
         <p className="bold">{name}</p>
       </div>
     </div>
@@ -133,11 +142,17 @@ function App({signOut, user}) {
   </div>
   <div className="main-content">
     <div className="container" id="contentContainer">
-      {userIsTeacher && (
+      {userIsAdmin && (
+        <AdminSelected
+        selectedPage = {selectedPage}
+        />
+      )
+      }
+      {userIsTeacher && !userIsAdmin && (
         <TeacherSelected
         selectedPage = {selectedPage}
         />
-      )}{!userIsTeacher && (
+      )}{!userIsTeacher && !userIsAdmin && (
        <StudentSelected
        selectedPage = {selectedPage}
        />)}
