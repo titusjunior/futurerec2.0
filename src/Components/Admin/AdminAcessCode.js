@@ -23,19 +23,18 @@ function AdminComponent({selectedPage}) {
                     </div>  
                 )}
 
-                {selectedPage === 'Grades' && (
+                {selectedPage === 'Add User' && (
                     <AddUserComponent/>    
                 )}
-                {selectedPage === 'Tutoring' && (<h1>Tutoring</h1>)}
+                {selectedPage === 'Set Classes' && (
+                    <OrganizeClasses/>
+                )}
                 {selectedPage === 'Majors' && (
                     <PopulateMajorsDB/>
                 )}
                 {selectedPage === 'Careers' && (
                     <PopulateCareerDB/>
                 )}
-                {selectedPage === 'Settings' && (
-                    <OrganizeClasses/>
-                ) } 
             </div>
         </>
 

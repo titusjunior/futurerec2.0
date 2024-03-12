@@ -80,12 +80,6 @@ function TeacherAcess({selectedPage}) {
                     <h2>Our team is hard at work to bring you this new and exciting update!</h2>
                 </div>
             )}
-            {selectedPage === 'Majors' && (
-                <PopulateMajorDB></PopulateMajorDB>
-            )}
-            {selectedPage === 'Careers' && (
-                <PopulateCareerDB></PopulateCareerDB>
-            )}
     </div>
 </>
   );
