@@ -14,16 +14,14 @@
     "categories": {
       "auth": {
         "futurerec2097a4e51b": {},
-        "futurerec203224335532243355": {}
-      },
-      "function": {
-        "AdminQueries2d87ebe2": {
-          "deploymentBucketName": "amplify-futurerec2-master-175405-deployment",
-          "s3Key": "amplify-builds/AdminQueries2d87ebe2-704f5a55516b50516633-build.zip"
+        "futurerec20": {
+          "userPoolId": "us-east-2_sv8aspBQG",
+          "userPoolName": "pool",
+          "webClientId": "3mv146n8ibhbo129i6g6vepfnv",
+          "nativeClientId": "3mv146n8ibhbo129i6g6vepfnv"
         }
       },
       "api": {
-        "AdminQueries": {},
         "futurerec2": {}
       }
     }

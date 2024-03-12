@@ -1,27 +1,5 @@
 {
   "api": {
-    "AdminQueries": {
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "futurerec203224335532243355"
-        },
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "AdminQueries2d87ebe2"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
     "futurerec2": {
       "dependsOn": [
         {
@@ -29,16 +7,28 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "futurerec203224335532243355"
+          "resourceName": "futurerec20"
         }
       ],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2024-04-05T20:18:36.934Z",
+                "apiKeyExpirationDays": 30,
+                "description": "api key"
+              },
+              "authenticationType": "API_KEY"
+            },
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authfuturerec203224335532243355"
+              "userPoolId": "authfuturerec20"
             }
           }
         }
@@ -48,64 +38,45 @@
     }
   },
   "auth": {
-    "futurerec203224335532243355": {
+    "futurerec20": {
       "customAuth": false,
       "dependsOn": [],
-      "frontendAuthConfig": {
-        "mfaConfiguration": "OPTIONAL",
-        "mfaTypes": [
-          "TOTP"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 8
-        },
-        "signupAttributes": [
-          "EMAIL",
-          "NAME"
-        ],
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      },
       "providerPlugin": "awscloudformation",
-      "service": "Cognito"
+      "service": "Cognito",
+      "serviceType": "imported"
     }
   },
-  "function": {
-    "AdminQueries2d87ebe2": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "futurerec203224335532243355"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
+  "function": {},
   "parameters": {
-    "AMPLIFY_function_AdminQueries2d87ebe2_deploymentBucketName": {
+    "AMPLIFY_auth_futurerec20_nativeClientId": {
       "usedBy": [
         {
-          "category": "function",
-          "resourceName": "AdminQueries2d87ebe2"
+          "category": "auth",
+          "resourceName": "futurerec20"
         }
       ]
     },
-    "AMPLIFY_function_AdminQueries2d87ebe2_s3Key": {
+    "AMPLIFY_auth_futurerec20_userPoolId": {
       "usedBy": [
         {
-          "category": "function",
-          "resourceName": "AdminQueries2d87ebe2"
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
+    },
+    "AMPLIFY_auth_futurerec20_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
+        }
+      ]
+    },
+    "AMPLIFY_auth_futurerec20_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "futurerec20"
         }
       ]
     }
