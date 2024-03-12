@@ -419,6 +419,8 @@ button img {
   display: flex;
   justify-content: center; /* Horizontally center */
   align-items: center; /* Vertically center */
+  flex-direction: column;
+  gap: 20px;
 }
 
 .majors .container li {
@@ -451,6 +453,8 @@ button img {
   display: flex;
   justify-content: center; /* Horizontally center */
   align-items: center; /* Vertically center */
+  flex-direction: column;
+  gap: 20px;
 }
 
 .careers .container li {
