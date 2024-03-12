@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { fetchUserAttributes } from 'aws-amplify/auth';
 import * as helper from '../helperfunctions';
 import "../../App.css";
 
@@ -7,7 +8,9 @@ function ClassComponent({studentId, setGrades, classes, setClasses, setSelectedC
   useEffect(() => {
     const fetchClassesForStudent = async () => {
       try {
-        const classesList = await helper.getClassesForStudent(studentId);
+        const studentId = await fetchUserAttributes();
+        console.log(studentId.sub);
+        const classesList = await helper.getClassesForStudent(studentId.sub);
             console.log("Classes of student", classesList);
             const sortedClasses = classesList.sort((a, b) => a.subject.localeCompare(b.subject));
             setClasses(sortedClasses);
@@ -24,9 +27,10 @@ function ClassComponent({studentId, setGrades, classes, setClasses, setSelectedC
   const handleClassClick = async (classId) => {
 
     try {
+      const studentId = await fetchUserAttributes();
       const classInfo = await helper.getClass(classId);
       setSelectedClass(classInfo);      
-      const StudentGrades = await helper.getListOfGradesForStudent(classId, studentId);
+      const StudentGrades = await helper.getListOfGradesForStudent(classId, studentId.sub);
       setGrades(StudentGrades);
       setDisplayGrades(true);
     } catch (error) {

@@ -38,9 +38,10 @@ const client = generateClient();
     }
   }
 
-  export async function addStudent(studentName, studentClassStanding) {
+  export async function addStudent(studentName, studentClassStanding, studentID) {
     try {
-      const studentData = { name: studentName, classStanding: studentClassStanding };
+      const userInfo = await fetchUserAttributes();
+      const studentData = { id: studentID, name: studentName, classStanding: studentClassStanding };
       const newStudent = await client.graphql({
         query: mutations.createStudent,
         variables: { input: studentData }
@@ -241,13 +242,14 @@ export async function getListOfGradesForStudent(classId, studentId) {
 
 export async function getClassesForStudent(studentId) {
   try {
+    console.log("student id ",studentId);
     const result = await client.graphql({
       query: query.studentClassLinksByStudentId,
       variables: {
         studentId: studentId
       }
     });
-
+    console.log("classes ",result);
     // Extract the class IDs from the result
     const studentClassLinks = result.data.studentClassLinksByStudentId.items;
     const classIds = studentClassLinks.map(link => link.classId);

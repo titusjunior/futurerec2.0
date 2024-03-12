@@ -2,11 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateTeacher = /* GraphQL */ `
-  subscription OnCreateTeacher(
-    $filter: ModelSubscriptionTeacherFilterInput
-    $owner: String
-  ) {
-    onCreateTeacher(filter: $filter, owner: $owner) {
+  subscription OnCreateTeacher($filter: ModelSubscriptionTeacherFilterInput) {
+    onCreateTeacher(filter: $filter) {
       id
       name
       classes {
@@ -15,17 +12,13 @@ export const onCreateTeacher = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onUpdateTeacher = /* GraphQL */ `
-  subscription OnUpdateTeacher(
-    $filter: ModelSubscriptionTeacherFilterInput
-    $owner: String
-  ) {
-    onUpdateTeacher(filter: $filter, owner: $owner) {
+  subscription OnUpdateTeacher($filter: ModelSubscriptionTeacherFilterInput) {
+    onUpdateTeacher(filter: $filter) {
       id
       name
       classes {
@@ -34,17 +27,13 @@ export const onUpdateTeacher = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onDeleteTeacher = /* GraphQL */ `
-  subscription OnDeleteTeacher(
-    $filter: ModelSubscriptionTeacherFilterInput
-    $owner: String
-  ) {
-    onDeleteTeacher(filter: $filter, owner: $owner) {
+  subscription OnDeleteTeacher($filter: ModelSubscriptionTeacherFilterInput) {
+    onDeleteTeacher(filter: $filter) {
       id
       name
       classes {
@@ -53,17 +42,13 @@ export const onDeleteTeacher = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onCreateClass = /* GraphQL */ `
-  subscription OnCreateClass(
-    $filter: ModelSubscriptionClassFilterInput
-    $owner: String
-  ) {
-    onCreateClass(filter: $filter, owner: $owner) {
+  subscription OnCreateClass($filter: ModelSubscriptionClassFilterInput) {
+    onCreateClass(filter: $filter) {
       id
       subject
       teacherID {
@@ -71,7 +56,6 @@ export const onCreateClass = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       grades {
@@ -85,17 +69,13 @@ export const onCreateClass = /* GraphQL */ `
       createdAt
       updatedAt
       teacherClassesId
-      owner
       __typename
     }
   }
 `;
 export const onUpdateClass = /* GraphQL */ `
-  subscription OnUpdateClass(
-    $filter: ModelSubscriptionClassFilterInput
-    $owner: String
-  ) {
-    onUpdateClass(filter: $filter, owner: $owner) {
+  subscription OnUpdateClass($filter: ModelSubscriptionClassFilterInput) {
+    onUpdateClass(filter: $filter) {
       id
       subject
       teacherID {
@@ -103,7 +83,6 @@ export const onUpdateClass = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       grades {
@@ -117,17 +96,13 @@ export const onUpdateClass = /* GraphQL */ `
       createdAt
       updatedAt
       teacherClassesId
-      owner
       __typename
     }
   }
 `;
 export const onDeleteClass = /* GraphQL */ `
-  subscription OnDeleteClass(
-    $filter: ModelSubscriptionClassFilterInput
-    $owner: String
-  ) {
-    onDeleteClass(filter: $filter, owner: $owner) {
+  subscription OnDeleteClass($filter: ModelSubscriptionClassFilterInput) {
+    onDeleteClass(filter: $filter) {
       id
       subject
       teacherID {
@@ -135,7 +110,6 @@ export const onDeleteClass = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       grades {
@@ -149,17 +123,13 @@ export const onDeleteClass = /* GraphQL */ `
       createdAt
       updatedAt
       teacherClassesId
-      owner
       __typename
     }
   }
 `;
 export const onCreateStudent = /* GraphQL */ `
-  subscription OnCreateStudent(
-    $filter: ModelSubscriptionStudentFilterInput
-    $owner: String
-  ) {
-    onCreateStudent(filter: $filter, owner: $owner) {
+  subscription OnCreateStudent($filter: ModelSubscriptionStudentFilterInput) {
+    onCreateStudent(filter: $filter) {
       id
       name
       classStanding
@@ -181,17 +151,13 @@ export const onCreateStudent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onUpdateStudent = /* GraphQL */ `
-  subscription OnUpdateStudent(
-    $filter: ModelSubscriptionStudentFilterInput
-    $owner: String
-  ) {
-    onUpdateStudent(filter: $filter, owner: $owner) {
+  subscription OnUpdateStudent($filter: ModelSubscriptionStudentFilterInput) {
+    onUpdateStudent(filter: $filter) {
       id
       name
       classStanding
@@ -213,17 +179,13 @@ export const onUpdateStudent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onDeleteStudent = /* GraphQL */ `
-  subscription OnDeleteStudent(
-    $filter: ModelSubscriptionStudentFilterInput
-    $owner: String
-  ) {
-    onDeleteStudent(filter: $filter, owner: $owner) {
+  subscription OnDeleteStudent($filter: ModelSubscriptionStudentFilterInput) {
+    onDeleteStudent(filter: $filter) {
       id
       name
       classStanding
@@ -245,17 +207,13 @@ export const onDeleteStudent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onCreateGrade = /* GraphQL */ `
-  subscription OnCreateGrade(
-    $filter: ModelSubscriptionGradeFilterInput
-    $owner: String
-  ) {
-    onCreateGrade(filter: $filter, owner: $owner) {
+  subscription OnCreateGrade($filter: ModelSubscriptionGradeFilterInput) {
+    onCreateGrade(filter: $filter) {
       id
       description
       score
@@ -267,7 +225,6 @@ export const onCreateGrade = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -276,24 +233,19 @@ export const onCreateGrade = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       classGradesId
       studentGradesId
-      owner
       __typename
     }
   }
 `;
 export const onUpdateGrade = /* GraphQL */ `
-  subscription OnUpdateGrade(
-    $filter: ModelSubscriptionGradeFilterInput
-    $owner: String
-  ) {
-    onUpdateGrade(filter: $filter, owner: $owner) {
+  subscription OnUpdateGrade($filter: ModelSubscriptionGradeFilterInput) {
+    onUpdateGrade(filter: $filter) {
       id
       description
       score
@@ -305,7 +257,6 @@ export const onUpdateGrade = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -314,24 +265,19 @@ export const onUpdateGrade = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       classGradesId
       studentGradesId
-      owner
       __typename
     }
   }
 `;
 export const onDeleteGrade = /* GraphQL */ `
-  subscription OnDeleteGrade(
-    $filter: ModelSubscriptionGradeFilterInput
-    $owner: String
-  ) {
-    onDeleteGrade(filter: $filter, owner: $owner) {
+  subscription OnDeleteGrade($filter: ModelSubscriptionGradeFilterInput) {
+    onDeleteGrade(filter: $filter) {
       id
       description
       score
@@ -343,7 +289,6 @@ export const onDeleteGrade = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -352,24 +297,19 @@ export const onDeleteGrade = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       classGradesId
       studentGradesId
-      owner
       __typename
     }
   }
 `;
 export const onCreateMajor = /* GraphQL */ `
-  subscription OnCreateMajor(
-    $filter: ModelSubscriptionMajorFilterInput
-    $owner: String
-  ) {
-    onCreateMajor(filter: $filter, owner: $owner) {
+  subscription OnCreateMajor($filter: ModelSubscriptionMajorFilterInput) {
+    onCreateMajor(filter: $filter) {
       id
       name
       students {
@@ -382,17 +322,13 @@ export const onCreateMajor = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onUpdateMajor = /* GraphQL */ `
-  subscription OnUpdateMajor(
-    $filter: ModelSubscriptionMajorFilterInput
-    $owner: String
-  ) {
-    onUpdateMajor(filter: $filter, owner: $owner) {
+  subscription OnUpdateMajor($filter: ModelSubscriptionMajorFilterInput) {
+    onUpdateMajor(filter: $filter) {
       id
       name
       students {
@@ -405,17 +341,13 @@ export const onUpdateMajor = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onDeleteMajor = /* GraphQL */ `
-  subscription OnDeleteMajor(
-    $filter: ModelSubscriptionMajorFilterInput
-    $owner: String
-  ) {
-    onDeleteMajor(filter: $filter, owner: $owner) {
+  subscription OnDeleteMajor($filter: ModelSubscriptionMajorFilterInput) {
+    onDeleteMajor(filter: $filter) {
       id
       name
       students {
@@ -428,7 +360,6 @@ export const onDeleteMajor = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -436,9 +367,8 @@ export const onDeleteMajor = /* GraphQL */ `
 export const onCreateMajorRequirement = /* GraphQL */ `
   subscription OnCreateMajorRequirement(
     $filter: ModelSubscriptionMajorRequirementFilterInput
-    $owner: String
   ) {
-    onCreateMajorRequirement(filter: $filter, owner: $owner) {
+    onCreateMajorRequirement(filter: $filter) {
       id
       classRequirement
       minimumGradeRequirement
@@ -447,7 +377,6 @@ export const onCreateMajorRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
@@ -461,9 +390,8 @@ export const onCreateMajorRequirement = /* GraphQL */ `
 export const onUpdateMajorRequirement = /* GraphQL */ `
   subscription OnUpdateMajorRequirement(
     $filter: ModelSubscriptionMajorRequirementFilterInput
-    $owner: String
   ) {
-    onUpdateMajorRequirement(filter: $filter, owner: $owner) {
+    onUpdateMajorRequirement(filter: $filter) {
       id
       classRequirement
       minimumGradeRequirement
@@ -472,7 +400,6 @@ export const onUpdateMajorRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
@@ -486,9 +413,8 @@ export const onUpdateMajorRequirement = /* GraphQL */ `
 export const onDeleteMajorRequirement = /* GraphQL */ `
   subscription OnDeleteMajorRequirement(
     $filter: ModelSubscriptionMajorRequirementFilterInput
-    $owner: String
   ) {
-    onDeleteMajorRequirement(filter: $filter, owner: $owner) {
+    onDeleteMajorRequirement(filter: $filter) {
       id
       classRequirement
       minimumGradeRequirement
@@ -497,7 +423,6 @@ export const onDeleteMajorRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
@@ -509,11 +434,8 @@ export const onDeleteMajorRequirement = /* GraphQL */ `
   }
 `;
 export const onCreateCareer = /* GraphQL */ `
-  subscription OnCreateCareer(
-    $filter: ModelSubscriptionCareerFilterInput
-    $owner: String
-  ) {
-    onCreateCareer(filter: $filter, owner: $owner) {
+  subscription OnCreateCareer($filter: ModelSubscriptionCareerFilterInput) {
+    onCreateCareer(filter: $filter) {
       id
       name
       students {
@@ -526,17 +448,13 @@ export const onCreateCareer = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onUpdateCareer = /* GraphQL */ `
-  subscription OnUpdateCareer(
-    $filter: ModelSubscriptionCareerFilterInput
-    $owner: String
-  ) {
-    onUpdateCareer(filter: $filter, owner: $owner) {
+  subscription OnUpdateCareer($filter: ModelSubscriptionCareerFilterInput) {
+    onUpdateCareer(filter: $filter) {
       id
       name
       students {
@@ -549,17 +467,13 @@ export const onUpdateCareer = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onDeleteCareer = /* GraphQL */ `
-  subscription OnDeleteCareer(
-    $filter: ModelSubscriptionCareerFilterInput
-    $owner: String
-  ) {
-    onDeleteCareer(filter: $filter, owner: $owner) {
+  subscription OnDeleteCareer($filter: ModelSubscriptionCareerFilterInput) {
+    onDeleteCareer(filter: $filter) {
       id
       name
       students {
@@ -572,7 +486,6 @@ export const onDeleteCareer = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -580,9 +493,8 @@ export const onDeleteCareer = /* GraphQL */ `
 export const onCreateCareerRequirement = /* GraphQL */ `
   subscription OnCreateCareerRequirement(
     $filter: ModelSubscriptionCareerRequirementFilterInput
-    $owner: String
   ) {
-    onCreateCareerRequirement(filter: $filter, owner: $owner) {
+    onCreateCareerRequirement(filter: $filter) {
       id
       classRequirement
       minimumGradeRequirement
@@ -591,13 +503,11 @@ export const onCreateCareerRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       careerCareerRequirementId
-      owner
       __typename
     }
   }
@@ -605,9 +515,8 @@ export const onCreateCareerRequirement = /* GraphQL */ `
 export const onUpdateCareerRequirement = /* GraphQL */ `
   subscription OnUpdateCareerRequirement(
     $filter: ModelSubscriptionCareerRequirementFilterInput
-    $owner: String
   ) {
-    onUpdateCareerRequirement(filter: $filter, owner: $owner) {
+    onUpdateCareerRequirement(filter: $filter) {
       id
       classRequirement
       minimumGradeRequirement
@@ -616,13 +525,11 @@ export const onUpdateCareerRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       careerCareerRequirementId
-      owner
       __typename
     }
   }
@@ -630,9 +537,8 @@ export const onUpdateCareerRequirement = /* GraphQL */ `
 export const onDeleteCareerRequirement = /* GraphQL */ `
   subscription OnDeleteCareerRequirement(
     $filter: ModelSubscriptionCareerRequirementFilterInput
-    $owner: String
   ) {
-    onDeleteCareerRequirement(filter: $filter, owner: $owner) {
+    onDeleteCareerRequirement(filter: $filter) {
       id
       classRequirement
       minimumGradeRequirement
@@ -641,13 +547,11 @@ export const onDeleteCareerRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       careerCareerRequirementId
-      owner
       __typename
     }
   }
@@ -655,9 +559,8 @@ export const onDeleteCareerRequirement = /* GraphQL */ `
 export const onCreateStudentClassLink = /* GraphQL */ `
   subscription OnCreateStudentClassLink(
     $filter: ModelSubscriptionStudentClassLinkFilterInput
-    $owner: String
   ) {
-    onCreateStudentClassLink(filter: $filter, owner: $owner) {
+    onCreateStudentClassLink(filter: $filter) {
       id
       classId
       studentId
@@ -667,7 +570,6 @@ export const onCreateStudentClassLink = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -676,12 +578,10 @@ export const onCreateStudentClassLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -689,9 +589,8 @@ export const onCreateStudentClassLink = /* GraphQL */ `
 export const onUpdateStudentClassLink = /* GraphQL */ `
   subscription OnUpdateStudentClassLink(
     $filter: ModelSubscriptionStudentClassLinkFilterInput
-    $owner: String
   ) {
-    onUpdateStudentClassLink(filter: $filter, owner: $owner) {
+    onUpdateStudentClassLink(filter: $filter) {
       id
       classId
       studentId
@@ -701,7 +600,6 @@ export const onUpdateStudentClassLink = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -710,12 +608,10 @@ export const onUpdateStudentClassLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -723,9 +619,8 @@ export const onUpdateStudentClassLink = /* GraphQL */ `
 export const onDeleteStudentClassLink = /* GraphQL */ `
   subscription OnDeleteStudentClassLink(
     $filter: ModelSubscriptionStudentClassLinkFilterInput
-    $owner: String
   ) {
-    onDeleteStudentClassLink(filter: $filter, owner: $owner) {
+    onDeleteStudentClassLink(filter: $filter) {
       id
       classId
       studentId
@@ -735,7 +630,6 @@ export const onDeleteStudentClassLink = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -744,12 +638,10 @@ export const onDeleteStudentClassLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -757,9 +649,8 @@ export const onDeleteStudentClassLink = /* GraphQL */ `
 export const onCreateStudentMajorLink = /* GraphQL */ `
   subscription OnCreateStudentMajorLink(
     $filter: ModelSubscriptionStudentMajorLinkFilterInput
-    $owner: String
   ) {
-    onCreateStudentMajorLink(filter: $filter, owner: $owner) {
+    onCreateStudentMajorLink(filter: $filter) {
       id
       studentId
       majorId
@@ -769,7 +660,6 @@ export const onCreateStudentMajorLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       major {
@@ -777,12 +667,10 @@ export const onCreateStudentMajorLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -790,9 +678,8 @@ export const onCreateStudentMajorLink = /* GraphQL */ `
 export const onUpdateStudentMajorLink = /* GraphQL */ `
   subscription OnUpdateStudentMajorLink(
     $filter: ModelSubscriptionStudentMajorLinkFilterInput
-    $owner: String
   ) {
-    onUpdateStudentMajorLink(filter: $filter, owner: $owner) {
+    onUpdateStudentMajorLink(filter: $filter) {
       id
       studentId
       majorId
@@ -802,7 +689,6 @@ export const onUpdateStudentMajorLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       major {
@@ -810,12 +696,10 @@ export const onUpdateStudentMajorLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -823,9 +707,8 @@ export const onUpdateStudentMajorLink = /* GraphQL */ `
 export const onDeleteStudentMajorLink = /* GraphQL */ `
   subscription OnDeleteStudentMajorLink(
     $filter: ModelSubscriptionStudentMajorLinkFilterInput
-    $owner: String
   ) {
-    onDeleteStudentMajorLink(filter: $filter, owner: $owner) {
+    onDeleteStudentMajorLink(filter: $filter) {
       id
       studentId
       majorId
@@ -835,7 +718,6 @@ export const onDeleteStudentMajorLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       major {
@@ -843,12 +725,10 @@ export const onDeleteStudentMajorLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -856,9 +736,8 @@ export const onDeleteStudentMajorLink = /* GraphQL */ `
 export const onCreateStudentCareerLink = /* GraphQL */ `
   subscription OnCreateStudentCareerLink(
     $filter: ModelSubscriptionStudentCareerLinkFilterInput
-    $owner: String
   ) {
-    onCreateStudentCareerLink(filter: $filter, owner: $owner) {
+    onCreateStudentCareerLink(filter: $filter) {
       id
       studentId
       careerId
@@ -868,7 +747,6 @@ export const onCreateStudentCareerLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       career {
@@ -876,12 +754,10 @@ export const onCreateStudentCareerLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -889,9 +765,8 @@ export const onCreateStudentCareerLink = /* GraphQL */ `
 export const onUpdateStudentCareerLink = /* GraphQL */ `
   subscription OnUpdateStudentCareerLink(
     $filter: ModelSubscriptionStudentCareerLinkFilterInput
-    $owner: String
   ) {
-    onUpdateStudentCareerLink(filter: $filter, owner: $owner) {
+    onUpdateStudentCareerLink(filter: $filter) {
       id
       studentId
       careerId
@@ -901,7 +776,6 @@ export const onUpdateStudentCareerLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       career {
@@ -909,12 +783,10 @@ export const onUpdateStudentCareerLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -922,9 +794,8 @@ export const onUpdateStudentCareerLink = /* GraphQL */ `
 export const onDeleteStudentCareerLink = /* GraphQL */ `
   subscription OnDeleteStudentCareerLink(
     $filter: ModelSubscriptionStudentCareerLinkFilterInput
-    $owner: String
   ) {
-    onDeleteStudentCareerLink(filter: $filter, owner: $owner) {
+    onDeleteStudentCareerLink(filter: $filter) {
       id
       studentId
       careerId
@@ -934,7 +805,6 @@ export const onDeleteStudentCareerLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       career {
@@ -942,12 +812,10 @@ export const onDeleteStudentCareerLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }

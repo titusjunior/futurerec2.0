@@ -47,7 +47,7 @@ function TeacherComponent({ setSelectedTeacher, setClasses, setDisplayClasses, s
       //Prevent User from entering a blank Teacher Name
       setTeacherErrorMessage('');
       const userInfo = await fetchUserAttributes();
-      const full_name = userInfo.given_name + " " + userInfo.family_name;
+      const full_name = userInfo.name;
       const newTeacher = await helper.createTeacher(full_name, userInfo.sub);
       console.log("New teacher created:", newTeacher);
       setTeachers(prevTeachers => [...prevTeachers, newTeacher]);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { fetchUserAttributes } from 'aws-amplify/auth';
 import * as helper from '../helperfunctions';
 
 function DetermineMajor({studentID}){    
@@ -9,7 +10,8 @@ function DetermineMajor({studentID}){
     useEffect(() => {
         const GetAllClassAverages = async () =>{
             try {
-                const classAverages = await helper.getstudentClassAverages(studentID);
+                const studentId = await fetchUserAttributes();
+                const classAverages = await helper.getstudentClassAverages(studentID.sub);
                 setStudentClassAverages(classAverages);
                 console.log("their averages: ", classAverages);
             } catch (error) {

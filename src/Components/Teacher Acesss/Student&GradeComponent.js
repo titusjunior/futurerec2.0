@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import * as helper from '../helperfunctions';
 import { signUp } from 'aws-amplify/auth';
+import { CognitoIdentityProvider } from '@aws-sdk/client-cognito-identity-provider';
+import { COgnitoIdentityCredentials } from '@aws-sdk/client-cognito-identity';
+
 
 import "../../App.css";
-
 
 function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass, setSelectedClass, students, setStudents, allGradeDescriptionsAndWeights, setAllGradeDescriptionsAndWeights }) {
     
   const [availableStudents, setAvailableStudents] = useState([]);
+  const [newStudentsID, setNewStudentID] = useState(null);
   const [selectedStudentId, setSelectedStudentId] = useState('');
   const [newStudentName, setNewStudentName] = useState('');
   const [newStudentEmail, setNewStudentEmail] = useState('');
@@ -27,7 +30,7 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
 
   const [addSignUp, setSignUp] = useState('');
 
-  const ClassStandings = ["Freshman", "Sophmore", "Junior", "Senior"];
+  const ClassStandings = ["Freshman", "Sophomore", "Junior", "Senior"];
 
   //#region Student functions
   useEffect(() => {
@@ -95,47 +98,49 @@ function StudentComponent({setDisplayStudents, setDisplayClasses, selectedClass,
           await helper.addGrade(selectedClass.id, selectedStudentId, gradeDescription.description, 0, gradeDescription.weight);
         });
       } else if (newStudentName.trim() !== '' && newStudentEmail.trim() !== '') {
-        console.log(newStudentName)
-        setSignUp({username: newStudentEmail, password: "Password1!", given_name: newStudentName, family_name: '', user_type: "Student"});
+        console.log(newStudentName);
+        setSignUp({username: newStudentEmail, password: "Password1!", name: newStudentName, user_type: "Student"});
         inviteNewUser(addSignUp);
-        //const newStudent = await helper.addStudent(newStudentName, newStudentClassStanding);
-        //setStudents([...students, newStudent]);
-        //await helper.associateStudentWithClass(selectedClass.id, newStudent.id);
+        const newStudent = await helper.addStudent(newStudentName, newStudentClassStanding, newStudentsID);
+        setStudents([...students, newStudent]);
+        await helper.associateStudentWithClass(selectedClass.id, newStudent.id);
 
-        //allGradeDescriptionsAndWeights.forEach(async (gradeDescription) => {
-        //  await helper.addGrade(selectedClass.id, newStudent.id, gradeDescription.description, 0, gradeDescription.weight);
-        //});
+        allGradeDescriptionsAndWeights.forEach(async (gradeDescription) => {
+          await helper.addGrade(selectedClass.id, newStudent.id, gradeDescription.description, 0, gradeDescription.weight);
+        });
 
       }
       setSelectedStudentId('');
-      //setNewStudentName('');
-      //setNewStudentClassStanding('');
+      setNewStudentName('');
+      setNewStudentClassStanding('');
       setIsExistingStudentSelected(false); // Reset state after adding student
     } catch (error) {
       console.error("Error adding new student:", error);
     }
   };
 
-  async function inviteNewUser({username, password, given_name, family_name, user_type}) {
+  async function inviteNewUser({username, password, name, user_type}) {
     try {
       const signUpResponse = await signUp({
         username, 
         password,
         options: {
           userAttributes: {
-            given_name,
-            family_name,
-            user_type
+            name,
+            'custom:user_type':user_type
           },
           autoSignIn: true
         }
       });
   
       console.log(signUpResponse);
+      setNewStudentID(signUpResponse.userId);
     } catch (error) {
       console.log('error signing up:', error);
     }
   }
+
+  
   
   //#endregion
   

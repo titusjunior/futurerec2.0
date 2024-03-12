@@ -12,7 +12,6 @@ export const getTeacher = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -29,7 +28,6 @@ export const listTeachers = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -47,7 +45,6 @@ export const getClass = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       grades {
@@ -61,7 +58,6 @@ export const getClass = /* GraphQL */ `
       createdAt
       updatedAt
       teacherClassesId
-      owner
       __typename
     }
   }
@@ -79,7 +75,6 @@ export const listClasses = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       nextToken
@@ -111,7 +106,6 @@ export const getStudent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -129,7 +123,6 @@ export const listStudents = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -151,7 +144,6 @@ export const getGrade = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -160,14 +152,12 @@ export const getGrade = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       classGradesId
       studentGradesId
-      owner
       __typename
     }
   }
@@ -189,7 +179,6 @@ export const listGrades = /* GraphQL */ `
         updatedAt
         classGradesId
         studentGradesId
-        owner
         __typename
       }
       nextToken
@@ -212,7 +201,6 @@ export const getMajor = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -229,7 +217,6 @@ export const listMajors = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -248,7 +235,6 @@ export const getMajorRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
@@ -300,7 +286,6 @@ export const getCareer = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -317,7 +302,6 @@ export const listCareers = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -336,13 +320,11 @@ export const getCareerRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       careerCareerRequirementId
-      owner
       __typename
     }
   }
@@ -365,7 +347,6 @@ export const listCareerRequirements = /* GraphQL */ `
         createdAt
         updatedAt
         careerCareerRequirementId
-        owner
         __typename
       }
       nextToken
@@ -385,7 +366,6 @@ export const getStudentClassLink = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -394,12 +374,10 @@ export const getStudentClassLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -421,7 +399,6 @@ export const listStudentClassLinks = /* GraphQL */ `
         studentId
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -441,7 +418,6 @@ export const getStudentMajorLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       major {
@@ -449,12 +425,10 @@ export const getStudentMajorLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -476,7 +450,6 @@ export const listStudentMajorLinks = /* GraphQL */ `
         majorId
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -496,7 +469,6 @@ export const getStudentCareerLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       career {
@@ -504,12 +476,10 @@ export const getStudentCareerLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -531,7 +501,6 @@ export const listStudentCareerLinks = /* GraphQL */ `
         careerId
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -560,7 +529,6 @@ export const studentClassLinksByClassId = /* GraphQL */ `
         studentId
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -589,7 +557,6 @@ export const studentClassLinksByStudentId = /* GraphQL */ `
         studentId
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -618,7 +585,6 @@ export const studentMajorLinksByStudentId = /* GraphQL */ `
         majorId
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -647,7 +613,6 @@ export const studentMajorLinksByMajorId = /* GraphQL */ `
         majorId
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -676,7 +641,6 @@ export const studentCareerLinksByStudentId = /* GraphQL */ `
         careerId
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -705,7 +669,6 @@ export const studentCareerLinksByCareerId = /* GraphQL */ `
         careerId
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken

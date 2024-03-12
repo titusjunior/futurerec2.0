@@ -1172,17 +1172,6 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -1425,17 +1414,6 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -1625,17 +1603,6 @@
           "type" : {
             "kind" : "SCALAR",
             "name" : "ID",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1936,17 +1903,6 @@
               "name" : "AWSDateTime",
               "ofType" : null
             }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -2821,17 +2777,6 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -3056,17 +3001,6 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -3227,17 +3161,6 @@
               "name" : "AWSDateTime",
               "ofType" : null
             }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -3701,17 +3624,6 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -3872,17 +3784,6 @@
               "name" : "AWSDateTime",
               "ofType" : null
             }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -4098,17 +3999,6 @@
           "type" : {
             "kind" : "SCALAR",
             "name" : "ID",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -7713,15 +7603,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -7739,15 +7620,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionTeacherFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -7771,15 +7643,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -7797,15 +7660,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionClassFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -7829,15 +7683,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -7855,15 +7700,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionClassFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -7887,15 +7723,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -7913,15 +7740,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionStudentFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -7945,15 +7763,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -7971,15 +7780,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionGradeFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8003,15 +7803,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8029,15 +7820,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionGradeFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8061,15 +7843,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8087,15 +7860,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionMajorFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8119,15 +7883,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8145,15 +7900,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionMajorRequirementFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8177,15 +7923,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8203,15 +7940,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionMajorRequirementFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8235,15 +7963,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8261,15 +7980,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionCareerFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8293,15 +8003,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8319,15 +8020,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionCareerRequirementFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8351,15 +8043,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8377,15 +8060,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionCareerRequirementFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8409,15 +8083,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8435,15 +8100,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionStudentClassLinkFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8467,15 +8123,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8493,15 +8140,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionStudentMajorLinkFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8525,15 +8163,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8551,15 +8180,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionStudentMajorLinkFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -8583,15 +8203,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8612,15 +8223,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -8638,15 +8240,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionStudentCareerLinkFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "owner",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -10645,27 +10238,6 @@
         "onFragment" : false,
         "onField" : true
       }, {
-        "name" : "aws_cognito_user_pools",
-        "description" : "Tells the service this field/object has access authorized by a Cognito User Pools token.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ {
-          "name" : "cognito_groups",
-          "description" : "List of cognito user pool groups which have access on this field",
-          "type" : {
-            "kind" : "LIST",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        } ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
         "name" : "aws_lambda",
         "description" : "Tells the service this field/object has access authorized by a Lambda Authorizer.",
         "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
@@ -10674,23 +10246,35 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "aws_subscribe",
-        "description" : "Tells the service which mutation triggers this subscription.",
-        "locations" : [ "FIELD_DEFINITION" ],
+        "name" : "deprecated",
+        "description" : null,
+        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
         "args" : [ {
-          "name" : "mutations",
-          "description" : "List of mutations which will trigger this subscription when they are called.",
+          "name" : "reason",
+          "description" : null,
           "type" : {
-            "kind" : "LIST",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
           },
-          "defaultValue" : null
+          "defaultValue" : "\"No longer supported\""
         } ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "aws_iam",
+        "description" : "Tells the service this field/object has access authorized by sigv4 signing.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "aws_api_key",
+        "description" : "Tells the service this field/object has access authorized by an API key.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false
@@ -10737,27 +10321,23 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "deprecated",
-        "description" : null,
-        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
+        "name" : "aws_subscribe",
+        "description" : "Tells the service which mutation triggers this subscription.",
+        "locations" : [ "FIELD_DEFINITION" ],
         "args" : [ {
-          "name" : "reason",
-          "description" : null,
+          "name" : "mutations",
+          "description" : "List of mutations which will trigger this subscription when they are called.",
           "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
+            "kind" : "LIST",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
           },
-          "defaultValue" : "\"No longer supported\""
+          "defaultValue" : null
         } ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
-        "name" : "aws_api_key",
-        "description" : "Tells the service this field/object has access authorized by an API key.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false
@@ -10770,10 +10350,23 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "aws_iam",
-        "description" : "Tells the service this field/object has access authorized by sigv4 signing.",
+        "name" : "aws_cognito_user_pools",
+        "description" : "Tells the service this field/object has access authorized by a Cognito User Pools token.",
         "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
+        "args" : [ {
+          "name" : "cognito_groups",
+          "description" : "List of cognito user pool groups which have access on this field",
+          "type" : {
+            "kind" : "LIST",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        } ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false

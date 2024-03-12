@@ -15,7 +15,6 @@ export const createTeacher = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -34,7 +33,6 @@ export const updateTeacher = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -53,7 +51,6 @@ export const deleteTeacher = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -71,7 +68,6 @@ export const createClass = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       grades {
@@ -85,7 +81,6 @@ export const createClass = /* GraphQL */ `
       createdAt
       updatedAt
       teacherClassesId
-      owner
       __typename
     }
   }
@@ -103,7 +98,6 @@ export const updateClass = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       grades {
@@ -117,7 +111,6 @@ export const updateClass = /* GraphQL */ `
       createdAt
       updatedAt
       teacherClassesId
-      owner
       __typename
     }
   }
@@ -135,7 +128,6 @@ export const deleteClass = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       grades {
@@ -149,7 +141,6 @@ export const deleteClass = /* GraphQL */ `
       createdAt
       updatedAt
       teacherClassesId
-      owner
       __typename
     }
   }
@@ -181,7 +172,6 @@ export const createStudent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -213,7 +203,6 @@ export const updateStudent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -245,7 +234,6 @@ export const deleteStudent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -267,7 +255,6 @@ export const createGrade = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -276,14 +263,12 @@ export const createGrade = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       classGradesId
       studentGradesId
-      owner
       __typename
     }
   }
@@ -305,7 +290,6 @@ export const updateGrade = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -314,14 +298,12 @@ export const updateGrade = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       classGradesId
       studentGradesId
-      owner
       __typename
     }
   }
@@ -343,7 +325,6 @@ export const deleteGrade = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -352,14 +333,12 @@ export const deleteGrade = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       classGradesId
       studentGradesId
-      owner
       __typename
     }
   }
@@ -382,7 +361,6 @@ export const createMajor = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -405,7 +383,6 @@ export const updateMajor = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -428,7 +405,6 @@ export const deleteMajor = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -447,7 +423,6 @@ export const createMajorRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
@@ -472,7 +447,6 @@ export const updateMajorRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
@@ -497,7 +471,6 @@ export const deleteMajorRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
@@ -526,7 +499,6 @@ export const createCareer = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -549,7 +521,6 @@ export const updateCareer = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -572,7 +543,6 @@ export const deleteCareer = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -591,13 +561,11 @@ export const createCareerRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       careerCareerRequirementId
-      owner
       __typename
     }
   }
@@ -616,13 +584,11 @@ export const updateCareerRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       careerCareerRequirementId
-      owner
       __typename
     }
   }
@@ -641,13 +607,11 @@ export const deleteCareerRequirement = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
       careerCareerRequirementId
-      owner
       __typename
     }
   }
@@ -667,7 +631,6 @@ export const createStudentClassLink = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -676,12 +639,10 @@ export const createStudentClassLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -701,7 +662,6 @@ export const updateStudentClassLink = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -710,12 +670,10 @@ export const updateStudentClassLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -735,7 +693,6 @@ export const deleteStudentClassLink = /* GraphQL */ `
         createdAt
         updatedAt
         teacherClassesId
-        owner
         __typename
       }
       student {
@@ -744,12 +701,10 @@ export const deleteStudentClassLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -769,7 +724,6 @@ export const createStudentMajorLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       major {
@@ -777,12 +731,10 @@ export const createStudentMajorLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -802,7 +754,6 @@ export const updateStudentMajorLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       major {
@@ -810,12 +761,10 @@ export const updateStudentMajorLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -835,7 +784,6 @@ export const deleteStudentMajorLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       major {
@@ -843,12 +791,10 @@ export const deleteStudentMajorLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -868,7 +814,6 @@ export const createStudentCareerLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       career {
@@ -876,12 +821,10 @@ export const createStudentCareerLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -901,7 +844,6 @@ export const updateStudentCareerLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       career {
@@ -909,12 +851,10 @@ export const updateStudentCareerLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -934,7 +874,6 @@ export const deleteStudentCareerLink = /* GraphQL */ `
         classStanding
         createdAt
         updatedAt
-        owner
         __typename
       }
       career {
@@ -942,12 +881,10 @@ export const deleteStudentCareerLink = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        owner
         __typename
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
