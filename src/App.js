@@ -35,10 +35,6 @@ function App({signOut, user}) {
         });
         detectUser();
         setUserName();
-
-        detectUser();
-        setUserName();
-
       }, []);
 
     async function changeContent(pageName){
