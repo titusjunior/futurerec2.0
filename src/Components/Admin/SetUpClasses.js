@@ -158,7 +158,7 @@ const handleNewTeacher = async (e) => {
       { displayClasses &&(
         <>
           <h2 style={{ marginTop: '20px' }}>Current Classes: </h2> {/* Added null check for selectedTeacher */}
-          <div>
+          <div className = "classItems">
             {classes.map(classItem => (
               <div key={classItem.id}>
                 <button onClick={() => handleClassClick(classItem.id)}>
