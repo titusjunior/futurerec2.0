@@ -54,10 +54,11 @@ function OrganizeClasses() {
           setSelectedClass(classInfo);
           console.log("class selected: ", classInfo);
           setDisplayClasses(false);
-
-          const teacherName = await helper.getTeacher(classInfo.teacherClassesId);
-          setClassTeacherName(teacherName.name);
-    
+          console.log("teacher ", classInfo.teacherClassesId !== null )
+          if (classInfo.teacherClassesId !== null){
+            const teacherName = await helper.getTeacher(classInfo.teacherClassesId);
+            setClassTeacherName(teacherName.name);
+          }   
         } catch (error) {
           console.error("Error handling class click:", error);
         }
@@ -102,10 +103,14 @@ useEffect(() => {
 }, [selectedClass]);
 
 const handleNewTeacher = async (e) => {
+  console.log("we are her");
   const selectedTeacherId = e.target.value;
+  console.log("teacher id", selectedTeacherId);
   setNewTeacherName(selectedTeacherId);
   await helper.updateClass(selectedClass.id, selectedTeacherId);
+  console.log("teacher id", selectedTeacherId);
   const teacherName = await helper.getTeacher(selectedTeacherId);
+  console.log("teacher id", teacherName);
   setClassTeacherName(teacherName.name);
   console.log("Updated class:", );
   const classInfo = await helper.getClass(selectedClass.id);

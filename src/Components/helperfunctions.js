@@ -122,12 +122,11 @@ export async function getListOfTeachers() {
   }
 }
 
-export async function getTeacher() {
+export async function getTeacher(teacherId) {
   try {
-    const userInfo = await fetchUserAttributes();
     const response = await client.graphql({ 
       query: query.getTeacher, 
-      variables: { id: userInfo.sub } 
+      variables: { id: teacherId } 
     });
     return response.data.getTeacher;
   } catch (error) {
