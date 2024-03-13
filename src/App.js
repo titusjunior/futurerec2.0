@@ -18,6 +18,7 @@ Amplify.configure(config);
 function App({signOut, user}) { 
   const [userIsAdmin, setUserIsAdmin] = useState(false);
   const [userIsTeacher, setUserIsTeacher] = useState(false);
+  const [userIsStudent, setUserIsStudent] = useState(false);
   const [selectedPage, setSelectedPage] = useState('Home'); // State variable to track selected page
   const [name, setName] = useState('');
 
@@ -56,15 +57,20 @@ function App({signOut, user}) {
       console.log(userInfo["custom:user_type"]);
       if(user_type == "Admin") {
         setUserIsTeacher(false);
+        setUserIsStudent(false)
         setUserIsAdmin(true);
       } else if(user_type == "Student") {
         setUserIsTeacher(false);
         setUserIsAdmin(false);
+        setUserIsStudent(true)
       } else if(user_type == "Teacher") {
         setUserIsTeacher(true);
         setUserIsAdmin(false);
+        setUserIsStudent(false)
       }else{
-        setUserIsAdmin(true);
+        setUserIsAdmin(false);
+        setUserIsTeacher(false);
+        setUserIsStudent(false);
       }
       
     }
@@ -167,12 +173,12 @@ function App({signOut, user}) {
             selectedPage = {selectedPage}
             />
           )}
-          {!userIsTeacher && !userIsAdmin && (
+          {userIsStudent && (
             <StudentSelected
             selectedPage = {selectedPage}
             />
           )}
-          {userIsTeacher && !userIsAdmin && (
+          {userIsTeacher && (
             <TeacherSelected
             selectedPage = {selectedPage}
            />
