@@ -67,8 +67,6 @@ function App({signOut, user}) {
       } else if(user_type == "Teacher") {
         setUserIsTeacher(true);
         setUserIsAdmin(false);
-      }else{
-        setUserIsAdmin(true);
       }
       
     }
