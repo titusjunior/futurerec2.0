@@ -3,6 +3,7 @@ import Career from  './CareersDeterminer';
 import ClassComponent from './StudentClassComponent';
 import StudentGrades from './StudentGradesComponent';
 import Major from './MajorsDeterminer';
+import padlockImg from "../../padlock.jpg";
 
 import { fetchUserAttributes } from 'aws-amplify/auth';
 
@@ -68,7 +69,13 @@ function StudentAcess({selectedPage}) {
                         )}                   
                     </>
                     )}
-                    {selectedPage === 'Tutoring' && (<h1>Tutoring</h1>)}
+                    {selectedPage === 'Tutoring' && (
+                        <div className="tutoring">
+                            <img src={padlockImg} alt="construction" />
+                            <h1>This page is currently under construction</h1>
+                            <h2>Our team is hard at work to bring you this new and exciting update!</h2>
+                        </div>
+                    )}
                     {selectedPage === 'Majors' && (
                         <Major
                             studentID={studentId}

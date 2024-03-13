@@ -53,7 +53,7 @@ function ClassComponent({setDisplayClasses, teacherId, setSelectedClass, setStud
   return(
     <>
       <h2>Classes:</h2> {/* Added null check for selectedTeacher */}
-      <div>
+      <div className = "classItems">
         {classes.map(classItem => (
           <div key={classItem.id}>
             <button style = {{marginLeft: '50px' }} onClick={() => handleClassClick(classItem.id)}>

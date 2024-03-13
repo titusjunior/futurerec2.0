@@ -141,7 +141,7 @@ function App({signOut, user}) {
   </div>
   <div className="main-content">
     <div className="container" id="contentContainer">
-      {userIsAdmin && (
+      {userIsAdmin && !userIsTeacher &&(
         <AdminSelected
         selectedPage = {selectedPage}
         />
